@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1024, initial-scale=1">
+  <title>Pokazatelji – Partner Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue-500: #1a82ae; --blue-400: #2196c9; --blue-100: #b3def0; --blue-50: #e8f6fb;
+      --grey-700: #1a1a2e; --grey-600: #3d3d56; --grey-500: #6b6b80; --grey-400: #9898a8;
+      --grey-200: #c8c8d4; --grey-100: #e0e0e8; --grey-50: #f4f4f4;
+      --bg-dropdown: #ddf3fa; --bg-table: #f4f4f4;
+      --green-badge-bg: #d4f5db; --green-badge-text: #085317;
+      --red-badge-bg: #fde0de; --red-badge-text: #730b04;
+      --sidebar-w: 240px;
+    }
+    body { font-family: 'Inter', sans-serif; background: #fafafa; color: var(--grey-700); display: flex; min-height: 100vh; }
+
+    /* ── SIDEBAR ── */
+    .sidebar { width: var(--sidebar-w); background: #fff; border-right: 1px solid var(--grey-100); display: flex; flex-direction: column; flex-shrink: 0; position: fixed; top: 0; left: 0; height: 100vh; z-index: 10; }
+    .sidebar-logo { padding: 24px 20px 20px; border-bottom: 1px solid var(--grey-100); }
+    .sidebar-logo img { height: 32px; }
+    .sidebar-logo-text { font-size: 18px; font-weight: 800; color: var(--blue-500); letter-spacing: -.5px; }
+    .nav-section { padding: 16px 12px 8px; }
+    .nav-label { font-size: 10px; font-weight: 600; color: var(--grey-400); text-transform: uppercase; letter-spacing: .08em; padding: 0 8px; margin-bottom: 4px; }
+    .nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--grey-600); cursor: pointer; text-decoration: none; transition: background .15s, color .15s; }
+    .nav-item:hover { background: var(--bg-dropdown); color: var(--blue-500); }
+    .nav-item.active { background: var(--blue-50); color: var(--blue-500); font-weight: 600; }
+    .nav-item svg { flex-shrink: 0; }
+    .sidebar-bottom { margin-top: auto; padding: 16px 12px; border-top: 1px solid var(--grey-100); }
+    .user-row { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 8px; cursor: pointer; position: relative; }
+    .user-row:hover { background: var(--bg-dropdown); }
+    .avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--blue-500); color: #fff; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .user-name { font-size: 13px; font-weight: 600; color: var(--grey-700); }
+    .user-role { font-size: 11px; color: var(--grey-400); }
+    .user-chevron { margin-left: auto; color: var(--grey-400); }
+    .user-dropdown { position: absolute; bottom: 48px; left: 0; right: 0; background: #fff; border: 1px solid var(--grey-100); border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,.1); display: none; z-index: 20; }
+    .user-dropdown.open { display: block; }
+    .user-dropdown a { display: flex; align-items: center; gap: 8px; padding: 10px 16px; font-size: 13px; color: var(--grey-600); text-decoration: none; }
+    .user-dropdown a:hover { background: var(--bg-dropdown); color: var(--blue-500); }
+
+    /* ── MAIN ── */
+    .main { margin-left: var(--sidebar-w); flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+    .topbar { height: 64px; background: #fff; border-bottom: 1px solid var(--grey-100); display: flex; align-items: center; padding: 0 32px; gap: 16px; }
+    .topbar-title { font-size: 20px; font-weight: 700; color: var(--grey-700); }
+    .content { padding: 32px; flex: 1; }
+
+    /* ── FILTER BAR ── */
+    .filter-bar { display: flex; align-items: flex-end; gap: 12px; margin-bottom: 24px; }
+    .cat-field { position: relative; min-width: 240px; }
+    .cat-field label { position: absolute; top: -9px; left: 12px; font-size: 11px; font-weight: 600; color: var(--grey-400); background: #fff; padding: 0 4px; z-index: 1; }
+    .cat-field select { width: 100%; height: 44px; border: 1px solid var(--grey-200); border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--grey-700); padding: 0 36px 0 14px; appearance: none; background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239898a8' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 12px center; cursor: pointer; }
+    .cat-field select:focus { outline: none; border-color: var(--blue-500); }
+    .btn { height: 44px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; border: none; display: inline-flex; align-items: center; gap: 8px; padding: 0 20px; transition: opacity .15s; }
+    .btn:hover { opacity: .88; }
+    .btn-primary { background: var(--blue-500); color: #fff; }
+    .btn-secondary { background: #fff; color: var(--grey-600); border: 1px solid var(--grey-200) !important; border: none; }
+    .btn-export { margin-left: auto; }
+
+    /* ── VIEWS ── */
+    .view { display: none; }
+    .view.active { display: block; }
+
+    /* Empty state */
+    .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 380px; gap: 20px; }
+    .empty-icon { width: 96px; height: 96px; background: var(--bg-dropdown); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .empty-icon svg { color: var(--blue-400); }
+    .empty-title { font-size: 16px; font-weight: 600; color: var(--grey-600); }
+    .empty-sub { font-size: 14px; color: var(--grey-400); }
+
+    /* Table card */
+    .table-card { background: #fff; border: 1px solid var(--grey-100); border-radius: 12px; overflow: hidden; }
+    .table-card-header { padding: 16px 20px; border-bottom: 1px solid var(--grey-100); }
+    .table-card-title { font-size: 15px; font-weight: 700; color: var(--grey-700); }
+    .two-tables { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+    .full-table { margin-bottom: 24px; }
+    table { width: 100%; border-collapse: collapse; }
+    thead th { background: var(--bg-table); font-size: 11px; font-weight: 700; color: var(--grey-500); text-transform: uppercase; letter-spacing: .06em; padding: 10px 16px; text-align: left; }
+    tbody tr { border-bottom: 1px solid var(--grey-100); }
+    tbody tr:last-child { border-bottom: none; }
+    tbody td { padding: 0 16px; height: 56px; font-size: 14px; color: var(--grey-700); }
+    tbody tr:hover td { background: var(--blue-50); }
+
+    /* Badges */
+    .badge { display: inline-flex; align-items: center; justify-content: center; height: 24px; padding: 0 10px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+    .b-green { background: var(--green-badge-bg); color: var(--green-badge-text); }
+    .b-red { background: var(--red-badge-bg); color: var(--red-badge-text); }
+
+    /* Pagination */
+    .pagination { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; border-top: 1px solid var(--grey-100); }
+    .page-info { font-size: 13px; color: var(--grey-500); }
+    .page-btns { display: flex; gap: 4px; }
+    .page-btn { width: 32px; height: 32px; border-radius: 6px; border: 1px solid var(--grey-100); background: #fff; font-size: 13px; font-weight: 600; color: var(--grey-600); cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .page-btn:hover, .page-btn.active { background: var(--blue-500); color: #fff; border-color: var(--blue-500); }
+
+    /* ── FILTER OVERLAY & PANEL ── */
+    .filter-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.3); z-index: 100; display: none; }
+    .filter-overlay.open { display: block; }
+    .filter-panel { position: fixed; top: 0; right: 0; width: 360px; height: 100vh; background: #fff; z-index: 101; display: flex; flex-direction: column; transform: translateX(100%); transition: transform .25s ease; box-shadow: -4px 0 24px rgba(0,0,0,.12); }
+    .filter-overlay.open .filter-panel { transform: translateX(0); }
+    .fp-header { display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; border-bottom: 1px solid var(--grey-100); }
+    .fp-title { font-size: 16px; font-weight: 700; color: var(--grey-700); }
+    .fp-close { width: 32px; height: 32px; border: none; background: none; cursor: pointer; color: var(--grey-500); display: flex; align-items: center; justify-content: center; border-radius: 6px; }
+    .fp-close:hover { background: var(--bg-dropdown); }
+    .fp-body { flex: 1; overflow-y: auto; padding: 24px; display: flex; flex-direction: column; gap: 24px; }
+    .fp-field { display: flex; flex-direction: column; gap: 6px; }
+    .fp-label { font-size: 12px; font-weight: 600; color: var(--grey-500); }
+    .fp-select { height: 44px; border: 1px solid var(--grey-200); border-radius: 8px; font-size: 14px; color: var(--grey-700); padding: 0 36px 0 14px; appearance: none; background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239898a8' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 12px center; }
+    .fp-select:focus { outline: none; border-color: var(--blue-500); }
+
+    /* Mini calendar */
+    .mini-cal { border: 1px solid var(--grey-100); border-radius: 10px; overflow: hidden; }
+    .cal-nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: var(--bg-table); }
+    .cal-nav-btn { width: 28px; height: 28px; border: none; background: none; cursor: pointer; color: var(--grey-500); display: flex; align-items: center; justify-content: center; border-radius: 4px; }
+    .cal-nav-btn:hover { background: var(--grey-100); }
+    .cal-month { font-size: 13px; font-weight: 700; color: var(--grey-700); }
+    .cal-days-header { display: grid; grid-template-columns: repeat(7,1fr); }
+    .cal-days-header span { font-size: 11px; font-weight: 600; color: var(--grey-400); text-align: center; padding: 6px 0; }
+    .cal-grid { display: grid; grid-template-columns: repeat(7,1fr); }
+    .cal-cell { font-size: 13px; text-align: center; padding: 6px 0; cursor: pointer; color: var(--grey-700); border-radius: 4px; }
+    .cal-cell:hover { background: var(--bg-dropdown); color: var(--blue-500); }
+    .cal-cell.other-month { color: var(--grey-200); cursor: default; }
+    .cal-cell.other-month:hover { background: none; }
+    .cal-cell.selected { background: var(--blue-500); color: #fff; border-radius: 50%; }
+    .cal-cell.today { font-weight: 700; color: var(--blue-500); }
+    .cal-footer { display: flex; gap: 8px; padding: 10px 14px; border-top: 1px solid var(--grey-100); }
+    .cal-footer .btn { flex: 1; height: 36px; font-size: 13px; }
+
+    .fp-footer { padding: 20px 24px; border-top: 1px solid var(--grey-100); }
+    .fp-footer .btn { width: 100%; justify-content: center; }
+  </style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <span class="sidebar-logo-text">Partner Portal</span>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Upravljanje</div>
+    <a href="intervencije.html" class="nav-item">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/></svg>
+      Intervencije
+    </a>
+    <a href="pokazatelji.html" class="nav-item active">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      Pokazatelji
+    </a>
+    <a href="financije.html" class="nav-item">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+      Financije
+    </a>
+  </div>
+  <div class="sidebar-bottom">
+    <div class="user-row" id="userRow">
+      <div class="avatar">SP</div>
+      <div>
+        <div class="user-name">Servisni Partner</div>
+        <div class="user-role">Administrator</div>
+      </div>
+      <svg class="user-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      <div class="user-dropdown" id="userDropdown">
+        <a href="#">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Moj profil
+        </a>
+        <a href="#">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          Postavke
+        </a>
+        <a href="#">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Odjava
+        </a>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <span class="topbar-title">Pokazatelji</span>
+  </div>
+  <div class="content">
+
+    <!-- FILTER BAR -->
+    <div class="filter-bar">
+      <div class="cat-field">
+        <label for="catSelect">Pokazatelji</label>
+        <select id="catSelect">
+          <option value="">Odaberite kategoriju</option>
+          <option value="pozivi">Vrijeme poziva</option>
+          <option value="organizacija">Podaci o organizaciji</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" id="btnDohvati">Dohvati</button>
+      <button class="btn btn-secondary" id="btnFilter">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+        Filter
+      </button>
+      <button class="btn btn-secondary btn-export">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Export tablice
+      </button>
+    </div>
+
+    <!-- VIEW: EMPTY -->
+    <div class="view active" id="view-empty">
+      <div class="empty-state">
+        <div class="empty-icon">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </div>
+        <div>
+          <div class="empty-title">Odaberite kategoriju kako biste vidjeli tablicu</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW: VRIJEME POZIVA -->
+    <div class="view" id="view-pozivi">
+      <div class="two-tables">
+        <!-- Tablica 1: Pozivi po danu -->
+        <div class="table-card">
+          <div class="table-card-header">
+            <div class="table-card-title">Vrijeme poziva po danu</div>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Dan</th>
+                <th>Broj poziva</th>
+                <th>%</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Ponedjeljak</td><td>142</td><td>18,4%</td></tr>
+              <tr><td>Utorak</td><td>128</td><td>16,6%</td></tr>
+              <tr><td>Srijeda</td><td>135</td><td>17,5%</td></tr>
+              <tr><td>Četvrtak</td><td>121</td><td>15,7%</td></tr>
+              <tr><td>Petak</td><td>118</td><td>15,3%</td></tr>
+              <tr><td>Subota</td><td>84</td><td>10,9%</td></tr>
+              <tr><td>Nedjelja</td><td>43</td><td>5,6%</td></tr>
+              <tr><td>–</td><td>–</td><td>–</td></tr>
+              <tr><td>–</td><td>–</td><td>–</td></tr>
+              <tr><td>–</td><td>–</td><td>–</td></tr>
+            </tbody>
+          </table>
+          <div class="pagination">
+            <span class="page-info">1–7 od 7</span>
+            <div class="page-btns">
+              <button class="page-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              <button class="page-btn active">1</button>
+              <button class="page-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tablica 2: Pozivi po satu -->
+        <div class="table-card">
+          <div class="table-card-header">
+            <div class="table-card-title">Vrijeme poziva po satu</div>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Sat</th>
+                <th>Broj poziva</th>
+                <th>%</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>06:00 – 07:00</td><td>12</td><td>1,6%</td></tr>
+              <tr><td>07:00 – 08:00</td><td>34</td><td>4,4%</td></tr>
+              <tr><td>08:00 – 09:00</td><td>67</td><td>8,7%</td></tr>
+              <tr><td>09:00 – 10:00</td><td>89</td><td>11,5%</td></tr>
+              <tr><td>10:00 – 11:00</td><td>95</td><td>12,3%</td></tr>
+              <tr><td>11:00 – 12:00</td><td>78</td><td>10,1%</td></tr>
+              <tr><td>12:00 – 13:00</td><td>62</td><td>8,0%</td></tr>
+              <tr><td>13:00 – 14:00</td><td>71</td><td>9,2%</td></tr>
+              <tr><td>14:00 – 15:00</td><td>83</td><td>10,8%</td></tr>
+              <tr><td>15:00 – 16:00</td><td>74</td><td>9,6%</td></tr>
+            </tbody>
+          </table>
+          <div class="pagination">
+            <span class="page-info">1–10 od 66</span>
+            <div class="page-btns">
+              <button class="page-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              <button class="page-btn active">1</button>
+              <button class="page-btn">2</button>
+              <button class="page-btn">3</button>
+              <button class="page-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW: PODACI O ORGANIZACIJI -->
+    <div class="view" id="view-organizacija">
+      <div class="full-table table-card">
+        <div class="table-card-header">
+          <div class="table-card-title">Podaci o organizaciji</div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>R.br</th>
+              <th>Servisni partner</th>
+              <th>Portir</th>
+              <th>Tko organizira</th>
+              <th>Marka kamiona</th>
+              <th>Model kamiona</th>
+              <th>Nosivost</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Auto servis Zagreb d.o.o.</td>
+              <td><span class="badge b-green">Da</span></td>
+              <td>Dispečer</td>
+              <td>Mercedes-Benz</td>
+              <td>Actros 1845</td>
+              <td>18 t</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Servis Kovačević</td>
+              <td><span class="badge b-red">Ne</span></td>
+              <td>Vozač</td>
+              <td>MAN</td>
+              <td>TGX 18.480</td>
+              <td>18 t</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>TruckFix d.o.o.</td>
+              <td><span class="badge b-green">Da</span></td>
+              <td>Dispečer</td>
+              <td>Volvo</td>
+              <td>FH 500</td>
+              <td>24 t</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Kamionski servis Petrović</td>
+              <td><span class="badge b-red">Ne</span></td>
+              <td>Vozač</td>
+              <td>Scania</td>
+              <td>R 450</td>
+              <td>20 t</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Autocesta servis Split</td>
+              <td><span class="badge b-green">Da</span></td>
+              <td>Dispečer</td>
+              <td>DAF</td>
+              <td>XF 530</td>
+              <td>22 t</td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>Servis Horvat Rijeka</td>
+              <td><span class="badge b-green">Da</span></td>
+              <td>Dispečer</td>
+              <td>Iveco</td>
+              <td>S-Way 480</td>
+              <td>18 t</td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td>Vulkanizer & Servis Brod</td>
+              <td><span class="badge b-red">Ne</span></td>
+              <td>Vozač</td>
+              <td>Renault Trucks</td>
+              <td>T High 480</td>
+              <td>16 t</td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td>ProTruck servis</td>
+              <td><span class="badge b-green">Da</span></td>
+              <td>Dispečer</td>
+              <td>Mercedes-Benz</td>
+              <td>Arocs 3240</td>
+              <td>32 t</td>
+            </tr>
+            <tr>
+              <td>9</td>
+              <td>M&M auto servis</td>
+              <td><span class="badge b-red">Ne</span></td>
+              <td>Vozač</td>
+              <td>MAN</td>
+              <td>TGS 26.400</td>
+              <td>26 t</td>
+            </tr>
+            <tr>
+              <td>10</td>
+              <td>Servis Agram d.o.o.</td>
+              <td><span class="badge b-green">Da</span></td>
+              <td>Dispečer</td>
+              <td>Volvo</td>
+              <td>FM 420</td>
+              <td>18 t</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="pagination">
+          <span class="page-info">1–10 od 48</span>
+          <div class="page-btns">
+            <button class="page-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn">4</button>
+            <button class="page-btn">5</button>
+            <button class="page-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<!-- FILTER OVERLAY & PANEL -->
+<div class="filter-overlay" id="filterOverlay">
+  <div class="filter-panel" id="filterPanel">
+    <div class="fp-header">
+      <span class="fp-title">Filter</span>
+      <button class="fp-close" id="fpClose">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="fp-body">
+      <div class="fp-field">
+        <label class="fp-label">Telefon</label>
+        <select class="fp-select">
+          <option value="">Svi</option>
+          <option>+385 1 2345 678</option>
+          <option>+385 91 234 5678</option>
+          <option>+385 98 765 4321</option>
+        </select>
+      </div>
+      <div class="fp-field">
+        <label class="fp-label">Datum</label>
+        <div class="mini-cal" id="miniCal">
+          <div class="cal-nav">
+            <button class="cal-nav-btn" id="calPrev">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <span class="cal-month" id="calMonth">Travanj 2026</span>
+            <button class="cal-nav-btn" id="calNext">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+          <div class="cal-days-header">
+            <span>Po</span><span>Ut</span><span>Sr</span><span>Če</span><span>Pe</span><span>Su</span><span>Ne</span>
+          </div>
+          <div class="cal-grid" id="calGrid"></div>
+          <div class="cal-footer">
+            <button class="btn btn-secondary" id="calCancel">Odustani</button>
+            <button class="btn btn-primary" id="calOk">U redu</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fp-footer">
+      <button class="btn btn-primary" id="fpDohvati">Dohvati</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  /* ── User dropdown ── */
+  const userRow = document.getElementById('userRow');
+  const userDropdown = document.getElementById('userDropdown');
+  userRow.addEventListener('click', function(e) {
+    e.stopPropagation();
+    userDropdown.classList.toggle('open');
+  });
+  document.addEventListener('click', function() {
+    userDropdown.classList.remove('open');
+  });
+
+  /* ── Category / view switching ── */
+  const catSelect = document.getElementById('catSelect');
+  const btnDohvati = document.getElementById('btnDohvati');
+  const views = document.querySelectorAll('.view');
+
+  function showView(id) {
+    views.forEach(function(v) { v.classList.remove('active'); });
+    var el = document.getElementById(id);
+    if (el) el.classList.add('active');
+  }
+
+  btnDohvati.addEventListener('click', function() {
+    var val = catSelect.value;
+    if (val === 'pozivi') showView('view-pozivi');
+    else if (val === 'organizacija') showView('view-organizacija');
+    else showView('view-empty');
+  });
+
+  /* ── Filter panel ── */
+  const filterOverlay = document.getElementById('filterOverlay');
+  const btnFilter = document.getElementById('btnFilter');
+  const fpClose = document.getElementById('fpClose');
+  const fpDohvati = document.getElementById('fpDohvati');
+
+  btnFilter.addEventListener('click', function() {
+    filterOverlay.classList.add('open');
+  });
+  fpClose.addEventListener('click', function() {
+    filterOverlay.classList.remove('open');
+  });
+  filterOverlay.addEventListener('click', function(e) {
+    if (e.target === filterOverlay) filterOverlay.classList.remove('open');
+  });
+  fpDohvati.addEventListener('click', function() {
+    filterOverlay.classList.remove('open');
+  });
+
+  /* ── Mini Calendar ── */
+  (function() {
+    var today = new Date(2026, 3, 26); // April 26 2026
+    var cur = new Date(today.getFullYear(), today.getMonth(), 1);
+    var selected = null;
+
+    var monthNames = ['Siječanj','Veljača','Ožujak','Travanj','Svibanj','Lipanj','Srpanj','Kolovoz','Rujan','Listopad','Studeni','Prosinac'];
+
+    function render() {
+      var calMonth = document.getElementById('calMonth');
+      var calGrid = document.getElementById('calGrid');
+      calMonth.textContent = monthNames[cur.getMonth()] + ' ' + cur.getFullYear();
+
+      var firstDay = new Date(cur.getFullYear(), cur.getMonth(), 1).getDay();
+      // Monday-first: shift Sunday from 0 to 7
+      firstDay = (firstDay === 0) ? 6 : firstDay - 1;
+      var daysInMonth = new Date(cur.getFullYear(), cur.getMonth() + 1, 0).getDate();
+      var daysInPrev = new Date(cur.getFullYear(), cur.getMonth(), 0).getDate();
+
+      var cells = '';
+      // Previous month overflow
+      for (var i = firstDay - 1; i >= 0; i--) {
+        cells += '<div class="cal-cell other-month">' + (daysInPrev - i) + '</div>';
+      }
+      // Current month
+      for (var d = 1; d <= daysInMonth; d++) {
+        var cls = 'cal-cell';
+        if (cur.getFullYear() === today.getFullYear() && cur.getMonth() === today.getMonth() && d === today.getDate()) cls += ' today';
+        if (selected && cur.getFullYear() === selected.getFullYear() && cur.getMonth() === selected.getMonth() && d === selected.getDate()) cls += ' selected';
+        cells += '<div class="' + cls + '" data-d="' + d + '">' + d + '</div>';
+      }
+      // Next month overflow to fill grid
+      var total = firstDay + daysInMonth;
+      var remainder = (7 - (total % 7)) % 7;
+      for (var n = 1; n <= remainder; n++) {
+        cells += '<div class="cal-cell other-month">' + n + '</div>';
+      }
+      calGrid.innerHTML = cells;
+
+      calGrid.querySelectorAll('.cal-cell:not(.other-month)').forEach(function(cell) {
+        cell.addEventListener('click', function() {
+          selected = new Date(cur.getFullYear(), cur.getMonth(), parseInt(this.dataset.d));
+          render();
+        });
+      });
+    }
+
+    document.getElementById('calPrev').addEventListener('click', function() {
+      cur = new Date(cur.getFullYear(), cur.getMonth() - 1, 1);
+      render();
+    });
+    document.getElementById('calNext').addEventListener('click', function() {
+      cur = new Date(cur.getFullYear(), cur.getMonth() + 1, 1);
+      render();
+    });
+    document.getElementById('calCancel').addEventListener('click', function() {
+      selected = null;
+      render();
+    });
+    document.getElementById('calOk').addEventListener('click', function() {
+      // date confirmed — could display in a label; for prototype just close panel
+      filterOverlay.classList.remove('open');
+    });
+
+    render();
+  })();
+
+  /* ── Pagination (visual only) ── */
+  document.querySelectorAll('.page-btns').forEach(function(group) {
+    group.addEventListener('click', function(e) {
+      var btn = e.target.closest('.page-btn');
+      if (!btn) return;
+      var numBtns = group.querySelectorAll('.page-btn');
+      numBtns.forEach(function(b) {
+        if (!b.querySelector('svg')) b.classList.remove('active');
+      });
+      if (!btn.querySelector('svg')) btn.classList.add('active');
+    });
+  });
+
+})();
+</script>
+</body>
+</html>

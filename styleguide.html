@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Partner Portal – MUI Developer Style Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── FIGMA DESIGN TOKENS ─── */
+    :root {
+      --blue-700:  #0d5475;
+      --blue-600:  #136c93;
+      --blue-500:  #1a82ae;
+      --blue-400:  #2299c8;
+      --blue-300:  #37aada;
+      --blue-200:  #56bce3;
+      --blue-100:  #7ecfec;
+      --blue-50:   #aae0f2;
+      --blue-800:  #083c55;
+      --grey-800:  #1e1d1d;
+      --grey-700:  #2e2d2d;
+      --grey-600:  #403f3f;
+      --grey-500:  #545252;
+      --grey-400:  #696767;
+      --grey-300:  #888686;
+      --grey-200:  #a8a6a6;
+      --grey-100:  #bfbdbd;
+      --grey-50:   #d6d4d4;
+      --green-50:  #a8f0b5;
+      --green-800: #085317;
+      --red-50:    #f9c0bb;
+      --red-800:   #730b04;
+      --red-300:   #e84031;
+      --red-200:   #e66358;
+      --yellow-50: #fbe9a8;
+      --yellow-800:#6e4e08;
+      --bg-table:    #f4f4f4;
+      --bg-dropdown: #ddf3fa;
+      --white:       #ffffff;
+      --font: 'Inter', system-ui, sans-serif;
+      --radius: 4px;
+      --radius-lg: 24px;
+    }
+
+    /* ─── FIGMA ICON URLS ─── */
+    :root {
+      --ico-search:          url('https://www.figma.com/api/mcp/asset/5341166f-7fed-44b7-b03f-9bd9dd5b6322');
+      --ico-visibility:      url('https://www.figma.com/api/mcp/asset/dddc8fab-ef2b-4e66-8905-747b0a4b88ce');
+      --ico-visibility-off:  url('https://www.figma.com/api/mcp/asset/b6affdab-dcce-4d50-9cbc-74692192db0c');
+      --ico-ios-share:       url('https://www.figma.com/api/mcp/asset/d2bbb0da-8d4e-4961-9cb6-bb7f43063190');
+      --ico-filter-alt:      url('https://www.figma.com/api/mcp/asset/510479d6-2244-456c-9069-c08c43ec5777');
+      --ico-backspace:       url('https://www.figma.com/api/mcp/asset/ba154892-d82e-4289-8cea-5b1c38a54b89');
+      --ico-send:            url('https://www.figma.com/api/mcp/asset/3ce04a3b-9131-44f0-8c03-48c9f7f41117');
+      --ico-edit:            url('https://www.figma.com/api/mcp/asset/cfe1b067-a664-4668-bd76-31cc7d026a81');
+      --ico-arrow-drop-down: url('https://www.figma.com/api/mcp/asset/f894e6d7-fac1-453c-97e1-ad90db24eaaa');
+      --ico-arrow-fwd-ios:   url('https://www.figma.com/api/mcp/asset/318da326-bccb-4d50-b65e-f7fdf6ae8eb6');
+      --ico-arrow-back-ios:  url('https://www.figma.com/api/mcp/asset/0e4d7ee0-ffbd-4629-944c-cf38c7e75aab');
+      --ico-sync:            url('https://www.figma.com/api/mcp/asset/a1f1f5b5-6564-4295-901b-5db1c8ce5efe');
+      --ico-adf-scanner:     url('https://www.figma.com/api/mcp/asset/48dbdf1f-4240-4c38-aa4d-62b5793b9c02');
+      --ico-info:            url('https://www.figma.com/api/mcp/asset/ee095120-6812-4978-b466-956b78907c58');
+      --ico-car-tag:         url('https://www.figma.com/api/mcp/asset/2307c92a-a316-41d4-9719-4b01896bb6c6');
+      --ico-directions-car:  url('https://www.figma.com/api/mcp/asset/b0f0f9fe-580c-4cb4-b3be-85096b78109c');
+      --ico-call:            url('https://www.figma.com/api/mcp/asset/1f153f05-f635-4ff2-9a37-755dd6ceaadd');
+      --ico-assignment:      url('https://www.figma.com/api/mcp/asset/986d8401-b1cc-4b73-b830-a4dc2e25ca4a');
+      --ico-chat-bubble:     url('https://www.figma.com/api/mcp/asset/fb47ec19-fe0d-474e-8159-a4871cbfce1f');
+      --ico-doc-scanner:     url('https://www.figma.com/api/mcp/asset/88c7cab8-107c-43bd-bdf1-a7d6b64f79f7');
+      --ico-arrow-left-alt:  url('https://www.figma.com/api/mcp/asset/60e62fb1-cf38-45e5-9124-0958b8ff2511');
+      --ico-checkbox-blank:  url('https://www.figma.com/api/mcp/asset/07e0a6ee-93f0-4258-a570-2911c412a0b0');
+      --ico-arrow-down:      url('https://www.figma.com/api/mcp/asset/85338e3c-f7f1-48a3-99ec-91343e33cda8');
+      --ico-arrow-up:        url('https://www.figma.com/api/mcp/asset/8dc4ad95-7e93-41c9-acc6-82f95152ec9b');
+      --ico-drag-indicator:  url('https://www.figma.com/api/mcp/asset/79ff751a-2834-4f36-9f9f-29589222292e');
+      --ico-download:        url('https://www.figma.com/api/mcp/asset/0f7410da-657d-4e27-adf9-b4745303550d');
+      --ico-kbd-arrow-down:  url('https://www.figma.com/api/mcp/asset/9786ac7b-1724-40df-bfb0-abfd177a7539');
+      --ico-kbd-arrow-up:    url('https://www.figma.com/api/mcp/asset/5396c634-03fc-4b12-915b-20ee779fbe49');
+      --ico-calendar:        url('https://www.figma.com/api/mcp/asset/9cd06a52-44e9-4f86-adf0-adbec5afd712');
+      --ico-person:          url('https://www.figma.com/api/mcp/asset/8d275900-8122-4a2d-bda5-c2937e7ae657');
+      --ico-key:             url('https://www.figma.com/api/mcp/asset/ed96ab8c-2e75-4410-869b-5245c28ee5ca');
+      --ico-login:           url('https://www.figma.com/api/mcp/asset/f5221e7a-5799-4fe8-8894-e41f938dda39');
+      --ico-close:           url('https://www.figma.com/api/mcp/asset/fc43c610-e0a8-4260-8409-8b61f3f26a26');
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); background: #f0f4f8; color: var(--grey-800); line-height: 1.5; }
+
+    /* ─── ICON HELPER ─── */
+    .ico {
+      display: inline-block;
+      width: 20px; height: 20px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      flex-shrink: 0;
+      vertical-align: middle;
+    }
+    .ico-sm { width: 16px; height: 16px; }
+    .ico-lg { width: 24px; height: 24px; }
+
+    .ico-search         { background-image: var(--ico-search); }
+    .ico-visibility     { background-image: var(--ico-visibility); }
+    .ico-visibility-off { background-image: var(--ico-visibility-off); }
+    .ico-ios-share      { background-image: var(--ico-ios-share); }
+    .ico-filter-alt     { background-image: var(--ico-filter-alt); }
+    .ico-backspace      { background-image: var(--ico-backspace); }
+    .ico-send           { background-image: var(--ico-send); }
+    .ico-edit           { background-image: var(--ico-edit); }
+    .ico-arrow-drop-down{ background-image: var(--ico-arrow-drop-down); }
+    .ico-arrow-fwd-ios  { background-image: var(--ico-arrow-fwd-ios); }
+    .ico-arrow-back-ios { background-image: var(--ico-arrow-back-ios); }
+    .ico-sync           { background-image: var(--ico-sync); }
+    .ico-adf-scanner    { background-image: var(--ico-adf-scanner); }
+    .ico-info           { background-image: var(--ico-info); }
+    .ico-car-tag        { background-image: var(--ico-car-tag); }
+    .ico-directions-car { background-image: var(--ico-directions-car); }
+    .ico-call           { background-image: var(--ico-call); }
+    .ico-assignment     { background-image: var(--ico-assignment); }
+    .ico-chat-bubble    { background-image: var(--ico-chat-bubble); }
+    .ico-doc-scanner    { background-image: var(--ico-doc-scanner); }
+    .ico-arrow-left-alt { background-image: var(--ico-arrow-left-alt); }
+    .ico-checkbox-blank { background-image: var(--ico-checkbox-blank); }
+    .ico-arrow-down     { background-image: var(--ico-arrow-down); }
+    .ico-arrow-up       { background-image: var(--ico-arrow-up); }
+    .ico-drag-indicator { background-image: var(--ico-drag-indicator); }
+    .ico-download       { background-image: var(--ico-download); }
+    .ico-kbd-arrow-down { background-image: var(--ico-kbd-arrow-down); }
+    .ico-kbd-arrow-up   { background-image: var(--ico-kbd-arrow-up); }
+    .ico-calendar       { background-image: var(--ico-calendar); }
+    .ico-person         { background-image: var(--ico-person); }
+    .ico-key            { background-image: var(--ico-key); }
+    .ico-login          { background-image: var(--ico-login); }
+    .ico-close          { background-image: var(--ico-close); }
+
+    /* ─── LAYOUT ─── */
+    .sg-header { background: var(--blue-700); color: #fff; padding: 36px 48px; }
+    .sg-header h1 { font-size: 26px; font-weight: 700; }
+    .sg-header p  { margin-top: 6px; opacity: .7; font-size: 13px; }
+
+    .sg-nav { background: var(--blue-800); padding: 0 48px; display: flex; gap: 2px; overflow-x: auto; }
+    .sg-nav a { color: rgba(255,255,255,.65); text-decoration: none; padding: 13px 15px; font-size: 12px; font-weight: 600; white-space: nowrap; border-bottom: 2px solid transparent; transition: all .15s; }
+    .sg-nav a:hover { color: #fff; border-color: var(--blue-200); }
+
+    .sg-content { max-width: 1160px; margin: 0 auto; padding: 48px 20px; display: flex; flex-direction: column; gap: 56px; }
+
+    .sg-title { font-size: 20px; font-weight: 700; color: var(--blue-700); border-bottom: 2px solid var(--blue-100); padding-bottom: 10px; margin-bottom: 28px; }
+    .sg-sub { font-size: 11px; font-weight: 700; color: var(--grey-400); text-transform: uppercase; letter-spacing: .6px; margin-bottom: 14px; margin-top: 28px; }
+    .sg-sub:first-child { margin-top: 0; }
+    .section-desc { font-size: 13px; color: var(--grey-500); margin-bottom: 20px; line-height: 1.7; }
+
+    .card { background: var(--white); border: 1px solid var(--grey-50); border-radius: 12px; padding: 24px 28px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+    .card + .card { margin-top: 16px; }
+
+    /* ─── SPEC TABLE ─── */
+    .spec { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+    .spec th { text-align: left; padding: 9px 12px; background: var(--bg-table); color: var(--grey-400); font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; border-bottom: 1px solid var(--grey-50); }
+    .spec td { padding: 9px 12px; border-bottom: 1px solid var(--grey-50); vertical-align: middle; }
+    .spec tr:last-child td { border-bottom: none; }
+    .spec tr:hover td { background: #fafafa; }
+    code { font-family: 'Courier New', monospace; font-size: 11px; background: var(--bg-table); padding: 2px 6px; border-radius: 3px; color: var(--blue-700); }
+
+    /* ─── STATUS TAGS ─── */
+    .tag { display: inline-flex; align-items: center; padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: 600; }
+    .tag-green  { background: var(--green-50);  color: var(--green-800); }
+    .tag-blue   { background: var(--blue-50);   color: var(--blue-800);  }
+    .tag-red    { background: var(--red-50);    color: var(--red-800);   }
+    .tag-yellow { background: var(--yellow-50); color: var(--yellow-800);}
+    .tag-grey   { background: var(--grey-50);   color: var(--grey-800);  }
+    .tags-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+
+    /* ─── BUTTONS ─── */
+    .btn-grid { display: flex; flex-wrap: wrap; gap: 24px; }
+    .state-col { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+    .state-lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--grey-400); }
+
+    .btn-p { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: var(--radius); font: 600 14px/20px var(--font); border: none; cursor: pointer; }
+    .btn-p.s-default  { background: var(--blue-500); color: #fff; }
+    .btn-p.s-hover    { background: var(--blue-600); color: #fff; }
+    .btn-p.s-focused  { background: var(--blue-700); color: #fff; outline: 2px solid var(--blue-300); outline-offset: 2px; }
+    .btn-p.s-pressed  { background: var(--blue-700); color: #fff; }
+    .btn-p.s-disabled { background: var(--grey-100); color: var(--grey-300); cursor: not-allowed; }
+
+    .btn-s { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: var(--radius); font: 600 14px/20px var(--font); cursor: pointer; }
+    .btn-s.s-default  { background: var(--white); border: 1px solid var(--blue-100); color: var(--blue-500); }
+    .btn-s.s-hover    { background: var(--blue-600); border: 1px solid var(--blue-100); color: #fff; }
+    .btn-s.s-focused  { background: var(--blue-700); border: 1px solid var(--blue-100); color: #fff; outline: 2px solid var(--blue-300); outline-offset: 2px; }
+    .btn-s.s-pressed  { background: var(--blue-700); border: 1px solid var(--blue-100); color: #fff; }
+    .btn-s.s-disabled { background: var(--white); border: 1px solid var(--grey-50); color: var(--grey-200); cursor: not-allowed; }
+
+    .btn-t { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: var(--radius); font: 600 14px/20px var(--font); border: none; cursor: pointer; }
+    .btn-t.s-default  { background: var(--white); color: var(--blue-500); }
+    .btn-t.s-hover    { background: var(--bg-dropdown); color: var(--blue-700); }
+    .btn-t.s-focused  { background: var(--white); color: var(--blue-700); outline: 2px solid var(--blue-300); outline-offset: 2px; }
+    .btn-t.s-pressed  { background: var(--white); color: var(--blue-700); }
+    .btn-t.s-disabled { background: var(--white); color: var(--grey-200); cursor: not-allowed; }
+
+    /* icon tint inside buttons */
+    .btn-p .ico, .btn-p.s-hover .ico, .btn-p.s-focused .ico, .btn-p.s-pressed .ico { filter: brightness(0) invert(1); }
+    .btn-p.s-disabled .ico { filter: brightness(0) invert(0) opacity(.4); }
+    .btn-s.s-default .ico  { filter: invert(45%) sepia(60%) saturate(500%) hue-rotate(170deg); }
+    .btn-s.s-hover .ico, .btn-s.s-focused .ico, .btn-s.s-pressed .ico { filter: brightness(0) invert(1); }
+    .btn-s.s-disabled .ico { opacity: .4; }
+    .btn-t.s-default .ico  { filter: invert(45%) sepia(60%) saturate(500%) hue-rotate(170deg); }
+    .btn-t.s-hover .ico, .btn-t.s-focused .ico, .btn-t.s-pressed .ico { filter: invert(22%) sepia(80%) saturate(400%) hue-rotate(170deg); }
+    .btn-t.s-disabled .ico { opacity: .35; }
+
+    /* nav btn */
+    .btn-nav { width: 40px; height: 40px; border-radius: var(--radius); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; border: none; }
+    .btn-nav.s-default { background: transparent; }
+    .btn-nav.s-hover   { background: var(--bg-dropdown); }
+    .btn-nav.s-active  { background: var(--blue-500); }
+    .btn-nav.s-default .ico { filter: invert(45%) sepia(60%) saturate(500%) hue-rotate(170deg); }
+    .btn-nav.s-hover .ico   { filter: invert(22%) sepia(80%) saturate(400%) hue-rotate(170deg); }
+    .btn-nav.s-active .ico  { filter: brightness(0) invert(1); }
+
+    /* link */
+    .btn-link { display: inline-flex; align-items: center; gap: 6px; font: 500 14px/20px var(--font); border: none; background: none; cursor: pointer; padding: 4px 0; text-decoration: underline; }
+    .btn-link.s-default { color: var(--blue-500); }
+    .btn-link.s-hover   { color: var(--blue-600); }
+    .btn-link.s-active  { color: var(--blue-700); font-weight: 600; }
+    .btn-link .ico { filter: invert(45%) sepia(60%) saturate(500%) hue-rotate(170deg); }
+
+    /* ─── TEXT FIELDS ─── */
+    .fields-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+    .field-group { display: flex; flex-direction: column; gap: 4px; }
+    .field-lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--grey-400); margin-bottom: 4px; }
+    .field-wrap { position: relative; display: flex; align-items: center; }
+    .field-input { flex: 1; width: 100%; padding: 8px 36px 8px 34px; border-radius: var(--radius); font: 400 14px/24px var(--font); outline: none; transition: border .12s; }
+    .field-ico-l, .field-ico-r { position: absolute; top: 50%; transform: translateY(-50%); pointer-events: none; }
+    .field-ico-l { left: 8px; }
+    .field-ico-r { right: 8px; }
+    .field-hint { font-size: 12px; color: var(--grey-300); }
+    .field-hint.err { color: var(--red-300); }
+
+    .field-input.s-default  { border: 1px solid var(--grey-100); background: #fff; color: var(--grey-600); }
+    .field-input.s-hover    { border: 1px solid var(--grey-300); background: #fff; color: var(--grey-600); }
+    .field-input.s-focused  { border: 1px solid var(--blue-300); background: #fff; color: var(--grey-600); }
+    .field-input.s-error    { border: 1px solid var(--red-300);  background: #fff; color: var(--grey-600); }
+    .field-input.s-disabled { border: 1px solid var(--grey-100); background: #fff; color: var(--grey-200); cursor: not-allowed; }
+    .field-input.s-filled   { border: 1px solid var(--grey-400); background: #fff; color: var(--grey-800); }
+
+    .field-float-label { position: absolute; top: -9px; left: 4px; background: #fff; padding: 0 4px; font-size: 12px; line-height: 16px; }
+    .field-float-label.active { color: var(--blue-500); }
+    .field-float-label.filled { color: var(--grey-600); }
+
+    /* icon tint inside fields */
+    .tint-grey   { filter: invert(42%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(90%); }
+    .tint-blue   { filter: invert(45%) sepia(60%) saturate(500%) hue-rotate(170deg); }
+    .tint-red    { filter: invert(30%) sepia(80%) saturate(600%) hue-rotate(330deg); }
+    .tint-faded  { filter: invert(75%) sepia(0%) saturate(0%) brightness(95%); }
+
+    /* ─── TABLE ─── */
+    .trow { display: flex; align-items: center; padding: 8px 12px; gap: 10px; border-bottom: 1px solid var(--grey-50); font-size: 12.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--grey-400); }
+    .trow.s-default { background: transparent; }
+    .trow.s-hover   { background: var(--bg-table); }
+    .trow.s-active  { background: var(--bg-dropdown); color: var(--blue-500); }
+    .trow.s-active .ico { filter: invert(45%) sepia(60%) saturate(500%) hue-rotate(170deg); }
+
+    .list-row { display: flex; align-items: center; padding: 10px 12px; gap: 10px; border-bottom: 1px solid var(--grey-50); font-size: 13px; color: var(--grey-700); }
+    .list-row.s-default { background: transparent; }
+    .list-row.s-hover   { background: var(--bg-table); }
+    .list-row.s-active  { background: var(--bg-dropdown); }
+
+    /* ─── CHECKBOXES ─── */
+    .chk { width: 20px; height: 20px; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+    .chk.s-checked       { background: var(--blue-500); border: 2px solid var(--blue-500); color: #fff; }
+    .chk.s-hover         { background: var(--blue-100); border: 2px solid var(--blue-500); color: #fff; }
+    .chk.s-indeterminate { background: var(--blue-500); border: 2px solid var(--blue-500); color: #fff; }
+    .chk.s-unchecked     { background: #fff; border: 2px solid var(--grey-300); }
+
+    /* ─── RADIO ─── */
+    .radio { width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .radio.s-selected   { border: 2px solid var(--blue-500); }
+    .radio.s-selected::after { content: ''; width: 10px; height: 10px; border-radius: 50%; background: var(--blue-500); }
+    .radio.s-unselected { border: 2px solid var(--grey-300); }
+
+    /* ─── TABS ─── */
+    .tabs-bar { display: flex; border-bottom: 1px solid var(--grey-50); }
+    .tab-item { display: flex; align-items: center; gap: 6px; padding: 14px 16px; font: 600 14px/20px var(--font); cursor: pointer; position: relative; }
+    .tab-item::after { content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 2px; }
+    .tab-item.s-active        { background: var(--white);        color: var(--blue-500); }
+    .tab-item.s-active::after  { background: var(--blue-200); }
+    .tab-item.s-default       { background: var(--white);        color: var(--grey-500); }
+    .tab-item.s-default::after { background: var(--grey-200); }
+    .tab-item.s-active-hover  { background: var(--bg-dropdown);  color: var(--blue-500); }
+    .tab-item.s-active-hover::after { background: var(--blue-200); }
+    .tab-item.s-default-hover { background: var(--bg-table);     color: var(--grey-500); }
+    .tab-item.s-default-hover::after { background: var(--grey-200); }
+
+    .tab-item.s-active .ico, .tab-item.s-active-hover .ico { filter: invert(45%) sepia(60%) saturate(500%) hue-rotate(170deg); }
+    .tab-item.s-default .ico, .tab-item.s-default-hover .ico { filter: invert(35%) sepia(0%) saturate(0%) brightness(80%); }
+
+    /* ─── MENU ─── */
+    .menu-wrap { background: #fff; border: 1px solid var(--grey-50); border-radius: 8px; overflow: hidden; width: 220px; box-shadow: 0 2px 8px rgba(0,0,0,.1); }
+    .menu-item { display: flex; align-items: center; gap: 10px; padding: 12px 14px; font-size: 14px; cursor: pointer; border-bottom: 1px solid var(--grey-50); }
+    .menu-item:last-child { border-bottom: none; }
+    .menu-item.s-default  { background: #fff; color: var(--grey-700); }
+    .menu-item.s-hover    { background: var(--bg-dropdown); color: var(--grey-700); }
+    .menu-item.s-active   { background: var(--bg-dropdown); color: var(--blue-500); font-weight: 600; }
+    .menu-item.s-checkbox { background: #fff; color: var(--grey-700); }
+    .menu-item.s-default .ico, .menu-item.s-hover .ico, .menu-item.s-checkbox .ico { filter: invert(42%) sepia(0%) saturate(0%) brightness(80%); }
+    .menu-item.s-active .ico { filter: invert(45%) sepia(60%) saturate(500%) hue-rotate(170deg); }
+
+    /* ─── UPLOAD ─── */
+    .upload-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 14px; }
+    .upload-box { border-radius: var(--radius-lg); padding: 24px 16px; display: flex; flex-direction: column; align-items: center; gap: 16px; font-size: 13px; text-align: center; }
+    .ub-title { font: 600 16px/24px var(--font); color: var(--grey-700); }
+    .ub-sub   { font: 400 12px/16px var(--font); color: var(--grey-400); }
+    .upload-box.s-default  { border: 1px dashed var(--grey-100); background: transparent; }
+    .upload-box.s-hover    { border: 1px dashed var(--blue-100);  background: var(--bg-dropdown); }
+    .upload-box.s-error    { border: 1px dashed var(--red-200);   background: transparent; }
+    .upload-box.s-disabled { border: 1px dashed var(--grey-100);  background: var(--bg-table); }
+    .upload-box.s-process  { border: 1px dashed var(--grey-100);  background: transparent; }
+
+    .btn-upload { display: inline-flex; align-items: center; gap: 4px; padding: 6px 12px; border-radius: var(--radius); font: 600 12px/16px var(--font); border: none; cursor: pointer; }
+    .btn-upload.primary  { background: var(--blue-500); color: #fff; }
+    .btn-upload.disabled { background: var(--grey-100); color: var(--grey-300); cursor: not-allowed; }
+    .btn-upload.outline  { background: #fff; border: 1px solid var(--blue-100); color: var(--blue-500); }
+    .btn-upload.primary .ico { filter: brightness(0) invert(1); }
+    .btn-upload.disabled .ico { opacity: .4; }
+    .btn-upload.outline .ico { filter: invert(45%) sepia(60%) saturate(500%) hue-rotate(170deg); }
+
+    .progress-track { width: 100%; height: 8px; background: var(--grey-50); border-radius: 24px; overflow: hidden; }
+    .progress-fill  { height: 100%; background: var(--blue-400); border-radius: 24px; }
+
+    /* ─── ICONS SECTION ─── */
+    .icons-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 0; }
+    .icon-cell { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px 8px; border-right: 1px solid var(--grey-50); border-bottom: 1px solid var(--grey-50); }
+    .icon-cell:hover { background: var(--bg-dropdown); }
+    .icon-cell .ico { filter: invert(22%) sepia(80%) saturate(400%) hue-rotate(170deg); }
+    .icon-name { font-size: 10px; color: var(--grey-400); text-align: center; line-height: 1.3; word-break: break-all; }
+
+    /* ─── COLORS ─── */
+    .palette-grid { display: flex; flex-wrap: wrap; gap: 32px; }
+    .pal-group { display: flex; flex-direction: column; gap: 8px; }
+    .pal-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--grey-400); }
+    .pal-swatches { display: flex; gap: 4px; }
+    .swatch { width: 40px; height: 36px; border-radius: 4px; border: 1px solid rgba(0,0,0,.07); position: relative; }
+    .swatch span { position: absolute; bottom: -18px; left: 50%; transform: translateX(-50%); font-size: 9px; color: var(--grey-400); white-space: nowrap; }
+
+    /* ─── TYPOGRAPHY ─── */
+    .typo-list { display: flex; flex-direction: column; }
+    .typo-row { display: flex; align-items: baseline; gap: 20px; padding: 14px 0; border-bottom: 1px solid var(--grey-50); }
+    .typo-row:last-child { border-bottom: none; }
+    .typo-meta { min-width: 200px; font-family: 'Courier New', monospace; font-size: 11px; color: var(--grey-400); }
+
+    /* ─── MISC ─── */
+    .row  { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start; }
+    .col  { display: flex; flex-direction: column; gap: 8px; }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  </style>
+</head>
+<body>
+
+<header class="sg-header">
+  <h1>Partner Portal – MUI Developer Style Guide</h1>
+  <p>Točne Figma vrijednosti · node-id 2:102 · ivana@navai.io</p>
+</header>
+
+<nav class="sg-nav">
+  <a href="#tags">Status Tags</a>
+  <a href="#icons">Ikone</a>
+  <a href="#btn-primary">Primary BTN</a>
+  <a href="#btn-secondary">Secondary BTN</a>
+  <a href="#btn-tertiary">Tertiary BTN</a>
+  <a href="#fields">Text Fields</a>
+  <a href="#table">Table</a>
+  <a href="#checkboxes">Checkboxes</a>
+  <a href="#radios">Radio</a>
+  <a href="#tabs">Tabs</a>
+  <a href="#menu">Menu</a>
+  <a href="#upload">Upload</a>
+  <a href="#colors">Boje</a>
+  <a href="#typo">Tipografija</a>
+</nav>
+
+<main class="sg-content">
+
+  <!-- ══ STATUS TAGS ══ -->
+  <section id="tags">
+    <h2 class="sg-title">Status Tags</h2>
+    <p class="section-desc">Koriste se za semantički prikaz statusa. Boja i pozadina su direktno iz Figma tokena.</p>
+    <div class="card">
+      <div class="sg-sub">Preview</div>
+      <div class="tags-row">
+        <span class="tag tag-green">Tag Name</span>
+        <span class="tag tag-blue">Tag Name</span>
+        <span class="tag tag-red">Tag Name</span>
+        <span class="tag tag-yellow">Tag Name</span>
+        <span class="tag tag-grey">Tag Name</span>
+      </div>
+      <div class="sg-sub">Specifikacija</div>
+      <table class="spec">
+        <thead><tr><th>Variant</th><th>Preview</th><th>Background</th><th>Text</th><th>Token bg</th><th>Token text</th><th>MUI color</th></tr></thead>
+        <tbody>
+          <tr><td>Green</td><td><span class="tag tag-green">Tag Name</span></td><td><code>#a8f0b5</code></td><td><code>#085317</code></td><td><code>green/50</code></td><td><code>green/800</code></td><td><code>success</code></td></tr>
+          <tr><td>Blue</td><td><span class="tag tag-blue">Tag Name</span></td><td><code>#aae0f2</code></td><td><code>#083c55</code></td><td><code>blue/50</code></td><td><code>blue/800</code></td><td><code>info</code></td></tr>
+          <tr><td>Red</td><td><span class="tag tag-red">Tag Name</span></td><td><code>#f9c0bb</code></td><td><code>#730b04</code></td><td><code>red/50</code></td><td><code>red/800</code></td><td><code>error</code></td></tr>
+          <tr><td>Yellow</td><td><span class="tag tag-yellow">Tag Name</span></td><td><code>#fbe9a8</code></td><td><code>#6e4e08</code></td><td><code>yellow/50</code></td><td><code>yellow/800</code></td><td><code>warning</code></td></tr>
+          <tr><td>Grey</td><td><span class="tag tag-grey">Tag Name</span></td><td><code>#d6d4d4</code></td><td><code>#1e1d1d</code></td><td><code>grey/50</code></td><td><code>grey/800</code></td><td><code>default</code></td></tr>
+        </tbody>
+      </table>
+      <div class="sg-sub">MUI Chip kod</div>
+      <pre style="background:#0d3349;color:#cce8f4;padding:16px;border-radius:8px;font-size:12px;line-height:1.7;overflow-x:auto;"><code style="background:none;color:inherit;padding:0;">&lt;Chip label="Aktivno"     color="success" size="small" /&gt;
+&lt;Chip label="U obradi"   color="info"    size="small" /&gt;
+&lt;Chip label="Odbijeno"   color="error"   size="small" /&gt;
+&lt;Chip label="Na čekanju" color="warning" size="small" /&gt;
+&lt;Chip label="Arhivirano" color="default" size="small" /&gt;</code></pre>
+    </div>
+  </section>
+
+
+  <!-- ══ ICONS ══ -->
+  <section id="icons">
+    <h2 class="sg-title">Used Icons</h2>
+    <p class="section-desc">Sve ikone korištene u Partner Portalu. CSS klase: <code>.ico</code> (20px), <code>.ico-sm</code> (16px), <code>.ico-lg</code> (24px).</p>
+    <div class="card" style="padding: 0; overflow: hidden;">
+      <div class="icons-grid">
+        <div class="icon-cell"><div class="ico ico-lg ico-ios-share"></div><span class="icon-name">ios_share</span></div>
+        <div class="icon-cell"><div class="ico ico-lg ico-filter-alt"></div><span class="icon-name">filter_alt</span></div>
+        <div class="icon-cell"><div class="ico ico-lg ico-backspace"></div><span class="icon-name">backspace</span></div>
+        <div class="icon-cell"><div class="ico ico-lg ico-send"></div><span class="icon-name">send</span></div>
+        <div class="icon-cell"><div class="ico ico-lg ico-edit"></div><span class="icon-name">edit</span></div>
+        <div class="icon-cell"><div class="ico ico-lg ico-arrow-drop-down"></div><span class="icon-name">arrow_drop_down</span></div>
+        <div class="icon-cell"><div class="ico ico-lg ico-arrow-fwd-ios"></div><span class="icon-name">arrow_forward_ios</span></div>
+        <div class="icon-cell"><div class="ico ico-lg ico-arrow-back-ios"></div><span class="icon-name">arrow_back_ios_new</span></div>
+        <div class="icon-cell"><div class="ico ico-lg ico-search"></div><span class="icon-name">search</span></div>
+        <div class="icon-cell"><div class="ico ico-lg ico-sync"></div><span class="icon-name">sync_saved_locally</span></div>
+        <div class="icon-cell"><div class="ico ico-lg ico-adf-scanner"></div><span class="icon-name">adf_scanner</span></div>
+        <div class="icon-cell"><div class="ico ico-lg ico-info"></div><span class="icon-name">info</span></div>
+        <div class="icon-cell"><div class="ico ico-lg ico-car-tag"></div><span class="icon-name">car_tag</span></div>
+        <div class="icon-cell"><div class="ico ico-lg ico-directions-car"></div><span class="icon-name">directions_car</span></div>
+        <div class="icon-cell"><div class="ico ico-lg ico-call"></div><span class="icon-name">call</span></div>
+        <div class="icon-cell"><div class="ico ico-lg ico-assignment"></div><span class="icon-name">assignment</span></div>
+        <div class="icon-cell"><div class="ico ico-lg ico-chat-bubble"></div><span class="icon-name">chat_bubble</span></div>
+        <div class="icon-cell"><div class="ico ico-lg ico-doc-scanner"></div><span class="icon-name">document_scanner</span></div>
+        <div class="icon-cell"><div class="ico ico-lg ico-arrow-left-alt"></div><span class="icon-name">arrow_left_alt</span></div>
+        <div class="icon-cell"><div class="ico ico-lg ico-checkbox-blank"></div><span class="icon-name">check_box_outline_blank</span></div>
+        <div class="icon-cell"><div class="ico ico-lg ico-arrow-down"></div><span class="icon-name">arrow_downward</span></div>
+        <div class="icon-cell"><div class="ico ico-lg ico-arrow-up"></div><span class="icon-name">arrow_upward</span></div>
+        <div class="icon-cell"><div class="ico ico-lg ico-drag-indicator"></div><span class="icon-name">drag_indicator</span></div>
+        <div class="icon-cell"><div class="ico ico-lg ico-download"></div><span class="icon-name">download</span></div>
+        <div class="icon-cell"><div class="ico ico-lg ico-kbd-arrow-down"></div><span class="icon-name">keyboard_arrow_down</span></div>
+        <div class="icon-cell"><div class="ico ico-lg ico-kbd-arrow-up"></div><span class="icon-name">keyboard_arrow_up</span></div>
+        <div class="icon-cell"><div class="ico ico-lg ico-calendar"></div><span class="icon-name">calendar_month</span></div>
+        <div class="icon-cell"><div class="ico ico-lg ico-visibility-off"></div><span class="icon-name">visibility_off</span></div>
+        <div class="icon-cell"><div class="ico ico-lg ico-visibility"></div><span class="icon-name">visibility</span></div>
+        <div class="icon-cell"><div class="ico ico-lg ico-person"></div><span class="icon-name">person</span></div>
+        <div class="icon-cell"><div class="ico ico-lg ico-key"></div><span class="icon-name">key</span></div>
+        <div class="icon-cell"><div class="ico ico-lg ico-login"></div><span class="icon-name">login</span></div>
+        <div class="icon-cell"><div class="ico ico-lg ico-close"></div><span class="icon-name">close</span></div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:16px;">
+      <div class="sg-sub" style="margin-top:0;">Upotreba u kodu</div>
+      <pre style="background:#0d3349;color:#cce8f4;padding:16px;border-radius:8px;font-size:12px;line-height:1.7;overflow-x:auto;"><code style="background:none;color:inherit;padding:0;">/* 20px (default) */
+&lt;div class="ico ico-search"&gt;&lt;/div&gt;
+
+/* 16px */
+&lt;div class="ico ico-sm ico-edit"&gt;&lt;/div&gt;
+
+/* 24px */
+&lt;div class="ico ico-lg ico-directions-car"&gt;&lt;/div&gt;
+
+/* Bojanje filterom */
+&lt;div class="ico ico-search tint-blue"&gt;&lt;/div&gt;   /* plava */
+&lt;div class="ico ico-search tint-grey"&gt;&lt;/div&gt;   /* siva */
+&lt;div class="ico ico-search tint-red"&gt;&lt;/div&gt;    /* crvena */</code></pre>
+    </div>
+  </section>
+
+
+  <!-- ══ PRIMARY BUTTON ══ -->
+  <section id="btn-primary">
+    <h2 class="sg-title">Button – Primary</h2>
+    <div class="card">
+      <div class="sg-sub">Statusi</div>
+      <div class="btn-grid">
+        <div class="state-col"><span class="state-lbl">Default</span>
+          <button class="btn-p s-default"><div class="ico ico-sm ico-edit"></div> Button</button></div>
+        <div class="state-col"><span class="state-lbl">Hover</span>
+          <button class="btn-p s-hover"><div class="ico ico-sm ico-edit"></div> Button</button></div>
+        <div class="state-col"><span class="state-lbl">Focused</span>
+          <button class="btn-p s-focused"><div class="ico ico-sm ico-edit"></div> Button</button></div>
+        <div class="state-col"><span class="state-lbl">Pressed</span>
+          <button class="btn-p s-pressed"><div class="ico ico-sm ico-edit"></div> Button</button></div>
+        <div class="state-col"><span class="state-lbl">Disabled</span>
+          <button class="btn-p s-disabled" disabled><div class="ico ico-sm ico-edit"></div> Button</button></div>
+      </div>
+      <div class="sg-sub">Specifikacija</div>
+      <table class="spec">
+        <thead><tr><th>Status</th><th>Background</th><th>Text</th><th>Token</th><th>Opis</th></tr></thead>
+        <tbody>
+          <tr><td>Default</td><td><code>#1a82ae</code></td><td><code>#ffffff</code></td><td><code>blue/500</code></td><td>Osnovno stanje</td></tr>
+          <tr><td>Hover</td><td><code>#136c93</code></td><td><code>#ffffff</code></td><td><code>blue/600</code></td><td>Mišem iznad</td></tr>
+          <tr><td>Focused</td><td><code>#0d5475</code></td><td><code>#ffffff</code></td><td><code>blue/700</code></td><td>Keyboard focus – outline <code>#37aada</code></td></tr>
+          <tr><td>Pressed</td><td><code>#0d5475</code></td><td><code>#ffffff</code></td><td><code>blue/700</code></td><td>Klik-down</td></tr>
+          <tr><td>Disabled</td><td><code>#bfbdbd</code></td><td><code>#888686</code></td><td><code>grey/100 · grey/300</code></td><td><code>disabled</code> prop</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+
+  <!-- ══ SECONDARY BUTTON ══ -->
+  <section id="btn-secondary">
+    <h2 class="sg-title">Button – Secondary (Outlined)</h2>
+    <div class="card">
+      <div class="sg-sub">Statusi</div>
+      <div class="btn-grid">
+        <div class="state-col"><span class="state-lbl">Default</span>
+          <button class="btn-s s-default"><div class="ico ico-sm ico-download"></div> Button</button></div>
+        <div class="state-col"><span class="state-lbl">Hover</span>
+          <button class="btn-s s-hover"><div class="ico ico-sm ico-download"></div> Button</button></div>
+        <div class="state-col"><span class="state-lbl">Focused</span>
+          <button class="btn-s s-focused"><div class="ico ico-sm ico-download"></div> Button</button></div>
+        <div class="state-col"><span class="state-lbl">Pressed</span>
+          <button class="btn-s s-pressed"><div class="ico ico-sm ico-download"></div> Button</button></div>
+        <div class="state-col"><span class="state-lbl">Disabled</span>
+          <button class="btn-s s-disabled" disabled><div class="ico ico-sm ico-download"></div> Button</button></div>
+      </div>
+      <div class="sg-sub">Specifikacija</div>
+      <table class="spec">
+        <thead><tr><th>Status</th><th>Background</th><th>Border</th><th>Text</th><th>Token</th></tr></thead>
+        <tbody>
+          <tr><td>Default</td><td><code>#ffffff</code></td><td><code>#7ecfec</code></td><td><code>#1a82ae</code></td><td><code>blue/100 · blue/500</code></td></tr>
+          <tr><td>Hover</td><td><code>#136c93</code></td><td><code>#7ecfec</code></td><td><code>#ffffff</code></td><td><code>blue/600</code></td></tr>
+          <tr><td>Focused</td><td><code>#0d5475</code></td><td><code>#7ecfec</code></td><td><code>#ffffff</code></td><td><code>blue/700</code></td></tr>
+          <tr><td>Pressed</td><td><code>#0d5475</code></td><td><code>#7ecfec</code></td><td><code>#ffffff</code></td><td><code>blue/700</code></td></tr>
+          <tr><td>Disabled</td><td><code>#ffffff</code></td><td><code>#d6d4d4</code></td><td><code>#a8a6a6</code></td><td><code>grey/50 · grey/200</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+
+  <!-- ══ TERTIARY BUTTON ══ -->
+  <section id="btn-tertiary">
+    <h2 class="sg-title">Button – Tertiary (Text) &amp; Navigation</h2>
+    <div class="card" style="margin-bottom:16px;">
+      <div class="sg-sub">Tertiary statusi</div>
+      <div class="btn-grid">
+        <div class="state-col"><span class="state-lbl">Default</span>
+          <button class="btn-t s-default"><div class="ico ico-sm ico-filter-alt"></div> Button</button></div>
+        <div class="state-col"><span class="state-lbl">Hover</span>
+          <button class="btn-t s-hover"><div class="ico ico-sm ico-filter-alt"></div> Button</button></div>
+        <div class="state-col"><span class="state-lbl">Focused</span>
+          <button class="btn-t s-focused"><div class="ico ico-sm ico-filter-alt"></div> Button</button></div>
+        <div class="state-col"><span class="state-lbl">Pressed</span>
+          <button class="btn-t s-pressed"><div class="ico ico-sm ico-filter-alt"></div> Button</button></div>
+        <div class="state-col"><span class="state-lbl">Disabled</span>
+          <button class="btn-t s-disabled" disabled><div class="ico ico-sm ico-filter-alt"></div> Button</button></div>
+      </div>
+      <div class="sg-sub">Specifikacija</div>
+      <table class="spec">
+        <thead><tr><th>Status</th><th>Background</th><th>Text</th><th>Token</th></tr></thead>
+        <tbody>
+          <tr><td>Default</td><td><code>#ffffff</code></td><td><code>#1a82ae</code></td><td><code>blue/500</code></td></tr>
+          <tr><td>Hover</td><td><code>#ddf3fa</code></td><td><code>#0d5475</code></td><td><code>bg/dropdown · blue/700</code></td></tr>
+          <tr><td>Focused</td><td><code>#ffffff</code></td><td><code>#0d5475</code></td><td><code>blue/700</code></td></tr>
+          <tr><td>Pressed (Variant4)</td><td><code>#ffffff</code></td><td><code>#0d5475</code></td><td><code>blue/700</code></td></tr>
+          <tr><td>Disabled (Variant5)</td><td><code>#ffffff</code></td><td><code>#a8a6a6</code></td><td><code>grey/200</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="grid2">
+        <div>
+          <div class="sg-sub" style="margin-top:0;">Navigation Icon Button</div>
+          <div class="row">
+            <div class="state-col"><span class="state-lbl">Default</span>
+              <button class="btn-nav s-default"><div class="ico ico-edit"></div></button></div>
+            <div class="state-col"><span class="state-lbl">Hover</span>
+              <button class="btn-nav s-hover"><div class="ico ico-edit"></div></button></div>
+            <div class="state-col"><span class="state-lbl">Active</span>
+              <button class="btn-nav s-active"><div class="ico ico-edit"></div></button></div>
+          </div>
+        </div>
+        <div>
+          <div class="sg-sub" style="margin-top:0;">Link Button</div>
+          <div class="row">
+            <div class="state-col"><span class="state-lbl">Default</span>
+              <button class="btn-link s-default">Odjava <div class="ico ico-sm ico-arrow-fwd-ios"></div></button></div>
+            <div class="state-col"><span class="state-lbl">Hover</span>
+              <button class="btn-link s-hover">Odjava <div class="ico ico-sm ico-arrow-fwd-ios"></div></button></div>
+            <div class="state-col"><span class="state-lbl">Active</span>
+              <button class="btn-link s-active">Odjava <div class="ico ico-sm ico-arrow-fwd-ios"></div></button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══ TEXT FIELDS ══ -->
+  <section id="fields">
+    <h2 class="sg-title">Text Fields</h2>
+    <div class="card">
+      <div class="sg-sub">Statusi</div>
+      <div class="fields-grid">
+
+        <div class="field-group">
+          <div class="field-lbl">Default</div>
+          <div class="field-wrap">
+            <div class="ico ico-sm ico-search tint-grey field-ico-l"></div>
+            <input class="field-input s-default" placeholder="Default" readonly />
+            <div class="ico ico-sm ico-visibility tint-grey field-ico-r"></div>
+          </div>
+          <span class="field-hint">Supporting text</span>
+        </div>
+
+        <div class="field-group">
+          <div class="field-lbl">Hover</div>
+          <div class="field-wrap">
+            <div class="ico ico-sm ico-search tint-grey field-ico-l"></div>
+            <input class="field-input s-hover" placeholder="Hover" readonly />
+            <div class="ico ico-sm ico-visibility tint-grey field-ico-r"></div>
+          </div>
+          <span class="field-hint">Supporting text</span>
+        </div>
+
+        <div class="field-group">
+          <div class="field-lbl" style="color:var(--blue-500);">Active / Focused</div>
+          <div class="field-wrap" style="position:relative;">
+            <div class="ico ico-sm ico-search tint-blue field-ico-l"></div>
+            <input class="field-input s-focused" placeholder="" readonly />
+            <span class="field-float-label active">Focused</span>
+            <div class="ico ico-sm ico-visibility tint-grey field-ico-r"></div>
+          </div>
+          <span class="field-hint">Supporting text</span>
+        </div>
+
+        <div class="field-group">
+          <div class="field-lbl" style="color:var(--red-300);">Error</div>
+          <div class="field-wrap">
+            <div class="ico ico-sm ico-search tint-red field-ico-l"></div>
+            <input class="field-input s-error" value="Error" readonly />
+            <div class="ico ico-sm ico-visibility tint-grey field-ico-r"></div>
+          </div>
+          <span class="field-hint err">Supporting text</span>
+        </div>
+
+        <div class="field-group">
+          <div class="field-lbl">Disabled</div>
+          <div class="field-wrap">
+            <div class="ico ico-sm ico-search tint-faded field-ico-l"></div>
+            <input class="field-input s-disabled" placeholder="Disable" disabled />
+            <div class="ico ico-sm ico-visibility tint-faded field-ico-r"></div>
+          </div>
+          <span class="field-hint">Supporting text</span>
+        </div>
+
+        <div class="field-group">
+          <div class="field-lbl" style="color:var(--grey-500);">Filled</div>
+          <div class="field-wrap" style="position:relative;">
+            <div class="ico ico-sm ico-search tint-grey field-ico-l"></div>
+            <input class="field-input s-filled" value="Filled" readonly />
+            <span class="field-float-label filled">Input</span>
+            <div class="ico ico-sm ico-visibility tint-grey field-ico-r"></div>
+          </div>
+          <span class="field-hint">Supporting text</span>
+        </div>
+
+      </div>
+      <div class="sg-sub">Specifikacija</div>
+      <table class="spec">
+        <thead><tr><th>Status</th><th>Border</th><th>Background</th><th>Text</th><th>Label</th><th>Token</th></tr></thead>
+        <tbody>
+          <tr><td>Default</td><td><code>#bfbdbd</code></td><td><code>#ffffff</code></td><td><code>#403f3f</code></td><td>–</td><td><code>grey/100</code></td></tr>
+          <tr><td>Hover</td><td><code>#888686</code></td><td><code>#ffffff</code></td><td><code>#403f3f</code></td><td>–</td><td><code>grey/300</code></td></tr>
+          <tr><td>Active / Focused</td><td><code>#37aada</code></td><td><code>#ffffff</code></td><td><code>#403f3f</code></td><td><code>#1a82ae</code></td><td><code>blue/300 · blue/500</code></td></tr>
+          <tr><td>Error</td><td><code>#e84031</code></td><td><code>#ffffff</code></td><td><code>#403f3f</code></td><td>hint: <code>#e84031</code></td><td><code>red/300</code></td></tr>
+          <tr><td>Disabled</td><td><code>#bfbdbd</code></td><td><code>#ffffff</code></td><td><code>#a8a6a6</code></td><td>–</td><td><code>grey/100 · grey/200</code></td></tr>
+          <tr><td>Filled</td><td><code>#696767</code></td><td><code>#ffffff</code></td><td><code>#1e1d1d</code></td><td><code>#403f3f</code></td><td><code>grey/400 · grey/800</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+
+  <!-- ══ TABLE ══ -->
+  <section id="table">
+    <h2 class="sg-title">Table Elements</h2>
+    <div class="card">
+      <div class="grid2">
+        <div>
+          <div class="sg-sub">Table Header</div>
+          <div style="border:1px solid var(--grey-50);border-radius:8px;overflow:hidden;">
+            <div class="trow s-default">
+              <span style="flex:1;">NAZIV</span>
+              <div class="ico ico-sm ico-drag-indicator tint-grey"></div>
+              <div class="ico ico-sm ico-arrow-down tint-grey"></div>
+            </div>
+            <div class="trow s-hover">
+              <span style="flex:1;">NAZIV</span>
+              <div class="ico ico-sm ico-drag-indicator tint-grey"></div>
+              <div class="ico ico-sm ico-arrow-down tint-grey"></div>
+            </div>
+            <div class="trow s-active">
+              <span style="flex:1;">NAZIV</span>
+              <div class="ico ico-sm ico-drag-indicator"></div>
+              <div class="ico ico-sm ico-arrow-up"></div>
+            </div>
+          </div>
+          <div style="display:flex;gap:0;margin-top:6px;font-size:10px;color:var(--grey-400);">
+            <span style="flex:1;">Default</span><span style="flex:1;">Hover</span><span style="flex:1;">Active</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="sg-sub">Table Row</div>
+          <div style="border:1px solid var(--grey-50);border-radius:8px;overflow:hidden;">
+            <div class="list-row s-default">
+              <span style="flex:1;">Andermann, Timothy<br><small style="color:var(--grey-400);font-size:11px;">Referral</small></span>
+              <span class="tag tag-red" style="font-size:11px;">Tag Name</span>
+            </div>
+            <div class="list-row s-hover">
+              <span style="flex:1;">Andermann, Timothy<br><small style="color:var(--grey-400);font-size:11px;">Referral</small></span>
+              <span class="tag tag-red" style="font-size:11px;">Tag Name</span>
+            </div>
+            <div class="list-row s-active">
+              <span style="flex:1;">Andermann, Timothy<br><small style="color:var(--grey-400);font-size:11px;">Referral</small></span>
+              <span class="tag tag-red" style="font-size:11px;">Tag Name</span>
+            </div>
+          </div>
+          <div style="display:flex;gap:0;margin-top:6px;font-size:10px;color:var(--grey-400);">
+            <span style="flex:1;">Default</span><span style="flex:1;">Hover</span><span style="flex:1;">Active</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sg-sub">Specifikacija</div>
+      <table class="spec">
+        <thead><tr><th>Status</th><th>Background</th><th>Token</th></tr></thead>
+        <tbody>
+          <tr><td>Default</td><td>transparent</td><td>–</td></tr>
+          <tr><td>Hover</td><td><code>#f4f4f4</code></td><td><code>bg/table</code></td></tr>
+          <tr><td>Active</td><td><code>#ddf3fa</code></td><td><code>bg/dropdown</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+
+  <!-- ══ CHECKBOXES ══ -->
+  <section id="checkboxes">
+    <h2 class="sg-title">Checkboxes</h2>
+    <div class="card">
+      <div class="sg-sub">Statusi</div>
+      <div class="row">
+        <div class="state-col"><span class="state-lbl">Checked</span><div class="chk s-checked">✓</div></div>
+        <div class="state-col"><span class="state-lbl">Checked Hover</span><div class="chk s-hover">✓</div></div>
+        <div class="state-col"><span class="state-lbl">Indeterminate</span><div class="chk s-indeterminate">–</div></div>
+        <div class="state-col"><span class="state-lbl">Unchecked</span><div class="chk s-unchecked"></div></div>
+      </div>
+      <div class="sg-sub">Specifikacija</div>
+      <table class="spec">
+        <thead><tr><th>Status</th><th>Background</th><th>Border</th><th>MUI prop</th></tr></thead>
+        <tbody>
+          <tr><td>Checked</td><td><code>#1a82ae</code></td><td><code>#1a82ae</code></td><td><code>checked={true}</code></td></tr>
+          <tr><td>Checked Hover</td><td><code>#7ecfec</code></td><td><code>#1a82ae</code></td><td>automatski</td></tr>
+          <tr><td>Indeterminate</td><td><code>#1a82ae</code></td><td><code>#1a82ae</code></td><td><code>indeterminate={true}</code></td></tr>
+          <tr><td>Unchecked</td><td><code>#ffffff</code></td><td><code>#888686</code></td><td><code>checked={false}</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+
+  <!-- ══ RADIO ══ -->
+  <section id="radios">
+    <h2 class="sg-title">Radio Buttons</h2>
+    <div class="card">
+      <div class="sg-sub">Statusi</div>
+      <div class="row">
+        <div class="state-col"><span class="state-lbl">Selected</span><div class="radio s-selected"></div></div>
+        <div class="state-col"><span class="state-lbl">Unselected</span><div class="radio s-unselected"></div></div>
+      </div>
+      <div class="sg-sub">Specifikacija</div>
+      <table class="spec">
+        <thead><tr><th>Status</th><th>Ring</th><th>Dot</th><th>Token</th></tr></thead>
+        <tbody>
+          <tr><td>Selected</td><td><code>#1a82ae</code></td><td><code>#1a82ae</code> 10px</td><td><code>blue/500</code></td></tr>
+          <tr><td>Unselected</td><td><code>#888686</code></td><td>–</td><td><code>grey/300</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+
+  <!-- ══ TABS ══ -->
+  <section id="tabs">
+    <h2 class="sg-title">Tabs</h2>
+    <div class="card">
+      <div class="sg-sub">Statusi</div>
+      <div class="tabs-bar">
+        <div class="tab-item s-active"><div class="ico ico-directions-car"></div> Općenito</div>
+        <div class="tab-item s-default"><div class="ico ico-directions-car"></div> Općenito</div>
+        <div class="tab-item s-active-hover"><div class="ico ico-directions-car"></div> Općenito</div>
+        <div class="tab-item s-default-hover"><div class="ico ico-directions-car"></div> Općenito</div>
+      </div>
+      <div style="display:flex;margin-top:6px;font-size:10px;color:var(--grey-400);">
+        <span style="min-width:120px;text-align:center;">Active</span>
+        <span style="min-width:120px;text-align:center;">Default</span>
+        <span style="min-width:140px;text-align:center;">Active Hover</span>
+        <span style="min-width:140px;text-align:center;">Default Hover</span>
+      </div>
+      <div class="sg-sub">Specifikacija</div>
+      <table class="spec">
+        <thead><tr><th>Status</th><th>Background</th><th>Text</th><th>Indicator 2px</th><th>Token</th></tr></thead>
+        <tbody>
+          <tr><td>Active</td><td><code>#ffffff</code></td><td><code>#1a82ae</code></td><td><code>#56bce3</code></td><td><code>blue/500 · blue/200</code></td></tr>
+          <tr><td>Default</td><td><code>#ffffff</code></td><td><code>#545252</code></td><td><code>#a8a6a6</code></td><td><code>grey/500 · grey/200</code></td></tr>
+          <tr><td>Active-Hover</td><td><code>#ddf3fa</code></td><td><code>#1a82ae</code></td><td><code>#56bce3</code></td><td><code>bg/dropdown · blue/500</code></td></tr>
+          <tr><td>Default-Hover</td><td><code>#f4f4f4</code></td><td><code>#545252</code></td><td><code>#a8a6a6</code></td><td><code>bg/table · grey/500</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+
+  <!-- ══ MENU ══ -->
+  <section id="menu">
+    <h2 class="sg-title">Menu Items</h2>
+    <div class="card">
+      <div class="row" style="align-items:flex-start;">
+        <div class="col">
+          <div class="sg-sub" style="margin-top:0;">Preview</div>
+          <div class="menu-wrap">
+            <div class="menu-item s-default"><div class="ico ico-sm ico-login"></div> Default</div>
+            <div class="menu-item s-hover"><div class="ico ico-sm ico-login"></div> Hover</div>
+            <div class="menu-item s-active"><div class="ico ico-sm ico-login"></div> Active</div>
+            <div class="menu-item s-checkbox"><div class="ico ico-sm ico-checkbox-blank"></div> Checkbox</div>
+          </div>
+        </div>
+        <div style="flex:1;">
+          <div class="sg-sub" style="margin-top:0;">Specifikacija</div>
+          <table class="spec">
+            <thead><tr><th>Status</th><th>Background</th><th>Text</th><th>Token</th></tr></thead>
+            <tbody>
+              <tr><td>Default</td><td><code>#ffffff</code></td><td><code>#2e2d2d</code></td><td><code>grey/700</code></td></tr>
+              <tr><td>Hover</td><td><code>#ddf3fa</code></td><td><code>#2e2d2d</code></td><td><code>bg/dropdown</code></td></tr>
+              <tr><td>Active</td><td><code>#ddf3fa</code></td><td><code>#1a82ae</code></td><td><code>bg/dropdown · blue/500</code></td></tr>
+              <tr><td>Checkbox</td><td><code>#ffffff</code></td><td><code>#2e2d2d</code></td><td>multi-select varijanta</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══ UPLOAD ══ -->
+  <section id="upload">
+    <h2 class="sg-title">Upload / File Import</h2>
+    <div class="card">
+      <div class="sg-sub">Statusi</div>
+      <div class="upload-grid">
+        <div class="state-col">
+          <span class="state-lbl">Default</span>
+          <div class="upload-box s-default">
+            <p class="ub-title">Ubacite svoje datoteke ovdje</p>
+            <p class="ub-sub">Podržani formati: JPG, PNG, PDF – max 5 MB</p>
+            <button class="btn-upload primary"><div class="ico ico-sm ico-ios-share"></div> Prijenos datoteke</button>
+          </div>
+        </div>
+        <div class="state-col">
+          <span class="state-lbl">Hover</span>
+          <div class="upload-box s-hover">
+            <p class="ub-title">Ubacite svoje datoteke ovdje</p>
+            <p class="ub-sub">Podržani formati: JPG, PNG, PDF – max 5 MB</p>
+            <button class="btn-upload primary"><div class="ico ico-sm ico-ios-share"></div> Prijenos datoteke</button>
+          </div>
+        </div>
+        <div class="state-col">
+          <span class="state-lbl">Error</span>
+          <div class="upload-box s-error">
+            <p class="ub-title">Ubacite svoje datoteke ovdje</p>
+            <p class="ub-sub">Neispravan format datoteke. Molimo pokušajte ponovno.</p>
+            <button class="btn-upload primary"><div class="ico ico-sm ico-ios-share"></div> Prijenos datoteke</button>
+          </div>
+        </div>
+        <div class="state-col">
+          <span class="state-lbl">Disabled</span>
+          <div class="upload-box s-disabled">
+            <p class="ub-title" style="color:var(--grey-300);">Ubacite svoje datoteke ovdje</p>
+            <p class="ub-sub">Neispravan format datoteke. Molimo pokušajte ponovno.</p>
+            <button class="btn-upload disabled" disabled><div class="ico ico-sm ico-ios-share"></div> Prijenos datoteke</button>
+          </div>
+        </div>
+        <div class="state-col">
+          <span class="state-lbl">Process</span>
+          <div class="upload-box s-process" style="gap:32px;">
+            <div class="col" style="width:100%;gap:16px;align-items:center;">
+              <p class="ub-title">Datoteke se dohvaćaju</p>
+              <p class="ub-sub">42%</p>
+            </div>
+            <div style="width:100%;">
+              <div class="progress-track"><div class="progress-fill" style="width:42%;"></div></div>
+            </div>
+            <button class="btn-upload outline"><div class="ico ico-sm ico-close"></div> Prekini prijenos</button>
+          </div>
+        </div>
+      </div>
+      <div class="sg-sub">Specifikacija</div>
+      <table class="spec">
+        <thead><tr><th>Status</th><th>Border</th><th>Background</th><th>Token</th></tr></thead>
+        <tbody>
+          <tr><td>Default</td><td>dashed <code>#bfbdbd</code></td><td>transparent</td><td><code>grey/100</code></td></tr>
+          <tr><td>Hover</td><td>dashed <code>#7ecfec</code></td><td><code>#ddf3fa</code></td><td><code>blue/100 · bg/dropdown</code></td></tr>
+          <tr><td>Error</td><td>dashed <code>#e66358</code></td><td>transparent</td><td><code>red/200</code></td></tr>
+          <tr><td>Disabled</td><td>dashed <code>#bfbdbd</code></td><td><code>#f4f4f4</code></td><td><code>grey/100 · bg/table</code></td></tr>
+          <tr><td>Process</td><td>dashed <code>#bfbdbd</code></td><td>transparent</td><td>progress fill: <code>#2299c8</code> (blue/400)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+
+  <!-- ══ COLORS ══ -->
+  <section id="colors">
+    <h2 class="sg-title">Paleta boja (Figma tokeni)</h2>
+    <div class="card">
+      <div class="palette-grid">
+        <div class="pal-group">
+          <div class="pal-label">Blue</div>
+          <div class="pal-swatches" style="margin-bottom:20px;">
+            <div class="col" style="gap:4px;align-items:center;"><div class="swatch" style="background:#083c55;"></div><span style="font-size:9px;color:var(--grey-400);">800</span></div>
+            <div class="col" style="gap:4px;align-items:center;"><div class="swatch" style="background:#0d5475;"></div><span style="font-size:9px;color:var(--grey-400);">700</span></div>
+            <div class="col" style="gap:4px;align-items:center;"><div class="swatch" style="background:#136c93;"></div><span style="font-size:9px;color:var(--grey-400);">600</span></div>
+            <div class="col" style="gap:4px;align-items:center;"><div class="swatch" style="background:#1a82ae;"></div><span style="font-size:9px;color:var(--grey-400);">500</span></div>
+            <div class="col" style="gap:4px;align-items:center;"><div class="swatch" style="background:#2299c8;"></div><span style="font-size:9px;color:var(--grey-400);">400</span></div>
+            <div class="col" style="gap:4px;align-items:center;"><div class="swatch" style="background:#37aada;"></div><span style="font-size:9px;color:var(--grey-400);">300</span></div>
+            <div class="col" style="gap:4px;align-items:center;"><div class="swatch" style="background:#56bce3;"></div><span style="font-size:9px;color:var(--grey-400);">200</span></div>
+            <div class="col" style="gap:4px;align-items:center;"><div class="swatch" style="background:#7ecfec;"></div><span style="font-size:9px;color:var(--grey-400);">100</span></div>
+            <div class="col" style="gap:4px;align-items:center;"><div class="swatch" style="background:#aae0f2;"></div><span style="font-size:9px;color:var(--grey-400);">50</span></div>
+          </div>
+        </div>
+        <div class="pal-group">
+          <div class="pal-label">Grey</div>
+          <div class="pal-swatches" style="margin-bottom:20px;">
+            <div class="col" style="gap:4px;align-items:center;"><div class="swatch" style="background:#1e1d1d;"></div><span style="font-size:9px;color:var(--grey-400);">800</span></div>
+            <div class="col" style="gap:4px;align-items:center;"><div class="swatch" style="background:#2e2d2d;"></div><span style="font-size:9px;color:var(--grey-400);">700</span></div>
+            <div class="col" style="gap:4px;align-items:center;"><div class="swatch" style="background:#403f3f;"></div><span style="font-size:9px;color:var(--grey-400);">600</span></div>
+            <div class="col" style="gap:4px;align-items:center;"><div class="swatch" style="background:#545252;"></div><span style="font-size:9px;color:var(--grey-400);">500</span></div>
+            <div class="col" style="gap:4px;align-items:center;"><div class="swatch" style="background:#696767;"></div><span style="font-size:9px;color:var(--grey-400);">400</span></div>
+            <div class="col" style="gap:4px;align-items:center;"><div class="swatch" style="background:#888686;"></div><span style="font-size:9px;color:var(--grey-400);">300</span></div>
+            <div class="col" style="gap:4px;align-items:center;"><div class="swatch" style="background:#a8a6a6;"></div><span style="font-size:9px;color:var(--grey-400);">200</span></div>
+            <div class="col" style="gap:4px;align-items:center;"><div class="swatch" style="background:#bfbdbd;"></div><span style="font-size:9px;color:var(--grey-400);">100</span></div>
+            <div class="col" style="gap:4px;align-items:center;"><div class="swatch" style="background:#d6d4d4;"></div><span style="font-size:9px;color:var(--grey-400);">50</span></div>
+          </div>
+        </div>
+        <div class="pal-group">
+          <div class="pal-label">Semantic &amp; BG</div>
+          <div class="col" style="gap:8px;">
+            <div style="display:flex;align-items:center;gap:10px;font-size:12px;"><div style="width:32px;height:32px;background:#a8f0b5;border:1px solid rgba(0,0,0,.07);border-radius:4px;"></div><span>green/50 · <code>#a8f0b5</code></span></div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:12px;"><div style="width:32px;height:32px;background:#aae0f2;border:1px solid rgba(0,0,0,.07);border-radius:4px;"></div><span>blue/50 · <code>#aae0f2</code></span></div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:12px;"><div style="width:32px;height:32px;background:#f9c0bb;border:1px solid rgba(0,0,0,.07);border-radius:4px;"></div><span>red/50 · <code>#f9c0bb</code></span></div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:12px;"><div style="width:32px;height:32px;background:#fbe9a8;border:1px solid rgba(0,0,0,.07);border-radius:4px;"></div><span>yellow/50 · <code>#fbe9a8</code></span></div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:12px;"><div style="width:32px;height:32px;background:#ddf3fa;border:1px solid rgba(0,0,0,.07);border-radius:4px;"></div><span>bg/dropdown · <code>#ddf3fa</code></span></div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:12px;"><div style="width:32px;height:32px;background:#f4f4f4;border:1px solid rgba(0,0,0,.07);border-radius:4px;"></div><span>bg/table · <code>#f4f4f4</code></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══ TYPOGRAPHY ══ -->
+  <section id="typo">
+    <h2 class="sg-title">Tipografija · Inter</h2>
+    <div class="card">
+      <div class="typo-list">
+        <div class="typo-row"><div class="typo-meta">Heading Large<br>48px / 700 / -0.5px</div><div style="font-size:48px;font-weight:700;letter-spacing:-.5px;line-height:1.1;">Naslov</div></div>
+        <div class="typo-row"><div class="typo-meta">Heading Medium<br>32px / 700</div><div style="font-size:32px;font-weight:700;line-height:1.2;">Naslov</div></div>
+        <div class="typo-row"><div class="typo-meta">Heading Small<br>24px / 600</div><div style="font-size:24px;font-weight:600;line-height:1.3;">Naslov</div></div>
+        <div class="typo-row"><div class="typo-meta">Label Large<br>16px / 600 / lh 24px</div><div style="font-size:16px;font-weight:600;line-height:24px;">Oznaka</div></div>
+        <div class="typo-row"><div class="typo-meta">Label Medium<br>14px / 600 / lh 20px</div><div style="font-size:14px;font-weight:600;line-height:20px;">Oznaka</div></div>
+        <div class="typo-row"><div class="typo-meta">Label Small<br>12px / 600 / lh 16px</div><div style="font-size:12px;font-weight:600;line-height:16px;">Oznaka</div></div>
+        <div class="typo-row"><div class="typo-meta">Label Small Caps<br>10px / 700 / uppercase</div><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;">Oznaka</div></div>
+        <div class="typo-row"><div class="typo-meta">Paragraph Large<br>16px / 400 / lh 24px</div><div style="font-size:16px;font-weight:400;line-height:24px;">Tekst paragrafa za duži sadržaj.</div></div>
+        <div class="typo-row"><div class="typo-meta">Paragraph Medium<br>14px / 400 / lh 20px</div><div style="font-size:14px;font-weight:400;line-height:20px;">Tekst paragrafa za duži sadržaj.</div></div>
+        <div class="typo-row"><div class="typo-meta">Paragraph Small<br>12px / 400 / lh 16px</div><div style="font-size:12px;font-weight:400;line-height:16px;">Tekst paragrafa za duži sadržaj.</div></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer style="background:var(--blue-800);color:rgba(255,255,255,.5);text-align:center;padding:20px;font-size:11px;margin-top:40px;">
+  Partner Portal – MUI Developer Style Guide &nbsp;·&nbsp; Figma node 2:102 &nbsp;·&nbsp; ivana@navai.io &nbsp;·&nbsp; 2026-04-23
+</footer>
+
+</body>
+</html>
