@@ -111,6 +111,7 @@
     /* ─── TABS ─── */
     .tabs { display: flex; gap: 0; margin-top: 4px; }
     .tab-btn {
+      display: inline-flex; align-items: center; gap: 6px;
       padding: 0 20px; height: 48px; font-size: 14px; font-weight: 500;
       color: var(--grey-500); cursor: pointer; border: none; background: none;
       font-family: 'Inter',sans-serif; position: relative; border-bottom: 2px solid transparent;
@@ -118,6 +119,7 @@
     }
     .tab-btn:hover { color: var(--grey-800); }
     .tab-btn.active { color: var(--blue-500); font-weight: 600; border-bottom-color: var(--blue-500); }
+    .tab-btn svg { flex-shrink: 0; }
 
     /* ─── BODY ─── */
     .page-body { flex: 1; display: flex; overflow: hidden; }
@@ -317,12 +319,30 @@
       </div>
     </div>
     <div class="tabs">
-      <button class="tab-btn active" data-tab="detalji">Detalji</button>
-      <button class="tab-btn" data-tab="specifikacija">Specifikacija</button>
-      <button class="tab-btn" data-tab="dokumenti">Dokumenti</button>
-      <button class="tab-btn" data-tab="komentari">Komentari</button>
-      <button class="tab-btn" data-tab="revizija">Revizija</button>
-      <button class="tab-btn" data-tab="napomena">Napomena</button>
+      <button class="tab-btn active" data-tab="opcenito">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+        Općenito
+      </button>
+      <button class="tab-btn" data-tab="specifikacije">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-8-2H7v-2h4v2zm0-4H7v-2h4v2zm0-4H7V7h4v2zm6 8h-4v-2h4v2zm0-4h-4v-2h4v2zm0-4h-4V7h4v2z"/></svg>
+        Specifikacije
+      </button>
+      <button class="tab-btn" data-tab="dokumenti">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+        Dokumenti
+      </button>
+      <button class="tab-btn" data-tab="komentari">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+        Komentari
+      </button>
+      <button class="tab-btn" data-tab="revizija">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>
+        Revizija
+      </button>
+      <button class="tab-btn" data-tab="napomena">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M21 11.01L3 11v2h18zM3 16h12v2H3zM21 6H3v2.01L21 8z"/></svg>
+        Napomena
+      </button>
     </div>
   </div>
 
@@ -332,8 +352,8 @@
     <!-- Main content -->
     <div class="main-content">
 
-      <!-- DETALJI TAB -->
-      <div class="tab-panel active" id="tab-detalji">
+      <!-- OPĆENITO TAB -->
+      <div class="tab-panel active" id="tab-opcenito">
         <div class="info-grid">
           <div class="info-cell">
             <span class="info-label">Prodajni partner</span>
@@ -410,8 +430,8 @@
         </div>
       </div>
 
-      <!-- SPECIFIKACIJA TAB -->
-      <div class="tab-panel" id="tab-specifikacija">
+      <!-- SPECIFIKACIJE TAB -->
+      <div class="tab-panel" id="tab-specifikacije">
         <div class="section-title">Specifikacija usluga</div>
         <div class="table-wrap">
           <table class="spec-table">
