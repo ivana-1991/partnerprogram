@@ -100,6 +100,15 @@
     .b-grey    { background: var(--grey-badge-bg); color: var(--grey-badge-text); }
 
     .title-actions { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+    .tab-actions { display: none; }
+    .tab-actions.active { display: flex; align-items: center; gap: 8px; }
+    .btn-primary {
+      height: 40px; padding: 0 16px; background: var(--blue-500); color: #fff;
+      border: none; border-radius: 4px; font-family: 'Inter',sans-serif;
+      font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap;
+      display: flex; align-items: center; gap: 8px; transition: background .15s;
+    }
+    .btn-primary:hover { background: var(--blue-600); }
     .btn-secondary {
       height: 40px; padding: 0 16px; background: #fff; color: var(--grey-600);
       border: 1px solid #c4c4c4; border-radius: 4px; font-family: 'Inter',sans-serif;
@@ -107,6 +116,12 @@
       display: flex; align-items: center; gap: 8px; transition: background .15s;
     }
     .btn-secondary:hover { background: var(--bg-table); }
+    .chat-close {
+      width: 32px; height: 32px; border: none; background: none; cursor: pointer;
+      border-radius: 4px; display: flex; align-items: center; justify-content: center;
+      color: var(--grey-400); margin-left: auto; flex-shrink: 0;
+    }
+    .chat-close:hover { background: var(--bg-table); color: var(--grey-700); }
 
     /* ─── TABS ─── */
     .tabs { display: flex; gap: 0; margin-top: 4px; }
@@ -131,41 +146,67 @@
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
 
-    /* Info grid */
-    .info-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 0; border: 1px solid #e8e8e8; border-radius: 4px;
-      overflow: hidden; margin-bottom: 24px; background: #fff;
-    }
-    .info-cell {
-      padding: 14px 16px; border-bottom: 1px solid #e8e8e8;
-      display: flex; flex-direction: column; gap: 4px;
-    }
-    .info-cell:nth-last-child(-n+2) { border-bottom: none; }
-    .info-cell:nth-child(odd) { border-right: 1px solid #e8e8e8; }
-    .info-label { font-size: 11px; font-weight: 600; color: var(--grey-400); text-transform: uppercase; letter-spacing: .4px; }
+    /* ─── FLAT INFO (Općenito tab) ─── */
+    .info-label { font-size: 11px; font-weight: 600; color: var(--grey-400); text-transform: uppercase; letter-spacing: .4px; margin-bottom: 4px; display: block; }
     .info-value { font-size: 14px; font-weight: 500; color: var(--grey-800); }
 
-    /* Items table */
-    .section-title { font-size: 15px; font-weight: 700; color: var(--grey-800); margin-bottom: 12px; }
+    .info-flat-row {
+      display: flex; gap: 0;
+      border-bottom: 1px solid #f0f0f0; padding: 14px 0;
+    }
+    .info-flat-row:first-child { padding-top: 8px; }
+    .info-flat-cell { display: flex; flex-direction: column; flex: 1; padding-right: 24px; }
+    .if-value-row { display: flex; align-items: center; gap: 8px; }
+
+    /* ─── ITEMS TABLE (Općenito stavke) ─── */
+    .items-flat-row {
+      display: flex; gap: 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .items-flat-row:last-child { border-bottom: none; }
+    .items-flat-row.total-row { background: var(--bg-table); }
+    .if-cell { display: flex; flex-direction: column; padding: 12px 16px 12px 0; }
+    .if-cell.wide { flex: 2.5; }
+    .if-cell.narrow { flex: 1; }
+    .if-cell.narrow:last-child { padding-right: 0; }
+    .if-val { font-size: 14px; font-weight: 500; color: var(--grey-800); }
+    .if-val-bold { font-size: 14px; font-weight: 700; color: var(--grey-800); }
+
+    /* ─── SPEC TABLE (Specifikacije tab) ─── */
     .table-wrap { border: 1px solid #e8e8e8; border-radius: 4px; overflow: hidden; background: #fff; margin-bottom: 24px; }
     table { width: 100%; border-collapse: collapse; }
     thead tr { background: var(--bg-table); }
     thead th {
       padding: 0 16px; height: 40px; font-size: 11px; font-weight: 700;
       color: var(--grey-400); text-transform: uppercase; letter-spacing: .4px;
-      text-align: left; border-bottom: 1px solid #e8e8e8;
+      text-align: left; border-bottom: 1px solid #e8e8e8; white-space: nowrap;
     }
-    thead th:not(:first-child) { text-align: right; }
+    .th-inner { display: flex; align-items: center; gap: 4px; }
+    .sort-icon { opacity: .45; flex-shrink: 0; }
     tbody tr { border-bottom: 1px solid #f0f0f0; }
     tbody tr:last-child { border-bottom: none; }
-    tbody tr.total-row { background: var(--bg-table); font-weight: 600; }
-    tbody td { padding: 0 16px; height: 56px; font-size: 14px; color: var(--grey-800); vertical-align: middle; }
-    tbody td:not(:first-child) { text-align: right; }
+    tbody td { padding: 0 16px; height: 56px; font-size: 14px; color: var(--grey-800); vertical-align: middle; text-align: left; }
+    .avatar-cell { display: flex; align-items: center; gap: 10px; }
+    .av { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #fff; flex-shrink: 0; }
+    .b-osporena  { background: var(--red-bg);   color: var(--red-text); }
+    .b-odobrena  { background: var(--green-bg);  color: var(--green-text); }
 
-    /* Spec table – left aligned all */
-    .spec-table thead th,
-    .spec-table tbody td { text-align: left; }
+    /* ─── PAGINATION ─── */
+    .pagination { display: flex; align-items: center; padding: 12px 16px; border-top: 1px solid #e8e8e8; background: #fff; }
+    .pag-info { font-size: 13px; color: var(--grey-400); flex: 1; }
+    .pag-pages { display: flex; align-items: center; gap: 2px; }
+    .pag-btn {
+      width: 28px; height: 28px; border: none; background: none; cursor: pointer;
+      border-radius: 4px; font-size: 13px; font-weight: 500; color: var(--grey-500);
+      display: flex; align-items: center; justify-content: center; font-family: 'Inter',sans-serif;
+    }
+    .pag-btn:hover { background: var(--bg-table); }
+    .pag-btn.active { background: var(--blue-500); color: #fff; }
+    .pag-btn:disabled { opacity: .35; cursor: default; }
+    .pag-ellipsis { width: 28px; text-align: center; font-size: 13px; color: var(--grey-400); }
+
+    /* ─── DOKUMENTI TAB ─── */
+    .section-title { font-size: 15px; font-weight: 700; color: var(--grey-800); margin-bottom: 12px; }
 
     /* Dokumenti tab */
     .upload-area {
@@ -185,9 +226,9 @@
       display: flex; flex-direction: column;
     }
     .chat-header {
-      padding: 16px 20px; border-bottom: 1px solid #e8e8e8;
+      padding: 12px 16px; border-bottom: 1px solid #e8e8e8;
       font-size: 15px; font-weight: 700; color: var(--grey-800);
-      flex-shrink: 0;
+      flex-shrink: 0; display: flex; align-items: center; gap: 8px;
     }
     .chat-messages { flex: 1; overflow-y: auto; padding: 16px 20px; display: flex; flex-direction: column; gap: 16px; }
     .msg { display: flex; flex-direction: column; gap: 4px; max-width: 85%; }
@@ -306,16 +347,33 @@
   <div class="page-header">
     <a class="back-link" href="financije.html">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-      Faktura
+      Povratak
     </a>
     <div class="title-row">
       <span class="faktura-title" id="fakturaNaziv">Faktura: 101-C-10</span>
-      <span class="badge b-red" id="fakturaStatus">Odbijeno</span>
       <div class="title-actions">
-        <button class="btn-secondary">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Preuzimanje
-        </button>
+        <!-- Općenito + Dokumenti buttons -->
+        <div class="tab-actions active" id="actions-opcenito">
+          <button class="btn-secondary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Preuzmi fakturu
+          </button>
+        </div>
+        <!-- Specifikacije buttons -->
+        <div class="tab-actions" id="actions-specifikacije">
+          <button class="btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Prijenos specifikacije
+          </button>
+          <button class="btn-secondary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Preuzmi specifikaciju
+          </button>
+          <button class="btn-secondary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Preuzmi fakturu
+          </button>
+        </div>
       </div>
     </div>
     <div class="tabs">
@@ -342,107 +400,204 @@
 
       <!-- OPĆENITO TAB -->
       <div class="tab-panel active" id="tab-opcenito">
-        <div class="info-grid">
-          <div class="info-cell">
-            <span class="info-label">Prodajni partner</span>
-            <span class="info-value">Prodajni partner 1</span>
-          </div>
-          <div class="info-cell">
-            <span class="info-label">Status</span>
-            <span class="info-value"><span class="badge b-red">Odbijeno</span></span>
-          </div>
-          <div class="info-cell">
+
+        <!-- Broj fakture + Datum -->
+        <div class="info-flat-row">
+          <div class="info-flat-cell">
             <span class="info-label">Broj fakture</span>
-            <span class="info-value">101-C-10</span>
+            <div class="if-value-row">
+              <span class="info-value" id="fakturaStatusVal">101-C-10</span>
+              <span class="badge b-red" id="fakturaStatus">Odbijeno</span>
+            </div>
           </div>
-          <div class="info-cell">
-            <span class="info-label">Datum izrade</span>
-            <span class="info-value">15.04.2026. 14:55</span>
-          </div>
-          <div class="info-cell">
-            <span class="info-label">Osnovica</span>
-            <span class="info-value">100,00 €</span>
-          </div>
-          <div class="info-cell">
-            <span class="info-label">Ukupno</span>
-            <span class="info-value" style="font-weight:700;font-size:16px;">125,00 €</span>
-          </div>
-          <div class="info-cell">
-            <span class="info-label">Period obračuna</span>
-            <span class="info-value">15.04.2026. 14:55</span>
-          </div>
-          <div class="info-cell">
-            <span class="info-label">Napomena</span>
-            <span class="info-value">Partner je odbio fakturu</span>
+          <div class="info-flat-cell">
+            <span class="info-label">Datum</span>
+            <span class="info-value">15.04.2026.</span>
           </div>
         </div>
 
-        <div class="section-title">Stavke fakture</div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Pozicija</th>
-                <th>Kom</th>
-                <th>Neto po kom</th>
-                <th>Iznos</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Usluga vuče vozila</td>
-                <td>10</td>
-                <td>7,50 €</td>
-                <td>75,00 €</td>
-              </tr>
-              <tr>
-                <td>Smještaj – noćenje</td>
-                <td>5</td>
-                <td>4,00 €</td>
-                <td>20,00 €</td>
-              </tr>
-              <tr>
-                <td>PDV (25%)</td>
-                <td>—</td>
-                <td>—</td>
-                <td>25,00 €</td>
-              </tr>
-              <tr class="total-row">
-                <td>Ukupno</td>
-                <td>15</td>
-                <td>—</td>
-                <td>125,00 €</td>
-              </tr>
-            </tbody>
-          </table>
+        <!-- Stavke -->
+        <div style="margin-top:8px;">
+          <!-- Row: Paket 1 -->
+          <div class="items-flat-row">
+            <div class="if-cell wide">
+              <span class="info-label">Stavka</span>
+              <span class="if-val">Paket 1</span>
+            </div>
+            <div class="if-cell narrow">
+              <span class="info-label">Količina</span>
+              <span class="if-val">50</span>
+            </div>
+            <div class="if-cell narrow">
+              <span class="info-label">Jedinična cijena</span>
+              <span class="if-val">100,00 €</span>
+            </div>
+            <div class="if-cell narrow">
+              <span class="info-label">Ukupno</span>
+              <span class="if-val">500,00 €</span>
+            </div>
+          </div>
+          <!-- Row: Paket 2 -->
+          <div class="items-flat-row">
+            <div class="if-cell wide">
+              <span class="info-label">Stavka</span>
+              <span class="if-val">Paket 2</span>
+            </div>
+            <div class="if-cell narrow">
+              <span class="info-label">Količina</span>
+              <span class="if-val">30</span>
+            </div>
+            <div class="if-cell narrow">
+              <span class="info-label">Jedinična cijena</span>
+              <span class="if-val">120,00 €</span>
+            </div>
+            <div class="if-cell narrow">
+              <span class="info-label">Ukupno</span>
+              <span class="if-val">360,00 €</span>
+            </div>
+          </div>
+          <!-- Row: Paket 3 -->
+          <div class="items-flat-row">
+            <div class="if-cell wide">
+              <span class="info-label">Stavka</span>
+              <span class="if-val">Paket 3</span>
+            </div>
+            <div class="if-cell narrow">
+              <span class="info-label">Količina</span>
+              <span class="if-val">20</span>
+            </div>
+            <div class="if-cell narrow">
+              <span class="info-label">Jedinična cijena</span>
+              <span class="if-val">150,00 €</span>
+            </div>
+            <div class="if-cell narrow">
+              <span class="info-label">Ukupno</span>
+              <span class="if-val">300,00 €</span>
+            </div>
+          </div>
+          <!-- Totals row -->
+          <div class="items-flat-row total-row">
+            <div class="if-cell wide" style="justify-content:center;">
+              <span class="if-val-bold">Ukupno</span>
+            </div>
+            <div class="if-cell narrow">
+              <span class="info-label">Osnovica</span>
+              <span class="if-val-bold">150,00 €</span>
+            </div>
+            <div class="if-cell narrow">
+              <span class="info-label">PDV</span>
+              <span class="if-val-bold">25,00 €</span>
+            </div>
+            <div class="if-cell narrow">
+              <span class="info-label">Ukupno</span>
+              <span class="if-val-bold">300,00 €</span>
+            </div>
+          </div>
         </div>
+
       </div>
 
       <!-- SPECIFIKACIJE TAB -->
       <div class="tab-panel" id="tab-specifikacije">
-        <div class="section-title">Specifikacija usluga</div>
         <div class="table-wrap">
-          <table class="spec-table">
+          <table>
             <thead>
               <tr>
-                <th>Naziv usluge</th>
-                <th>Datum od</th>
-                <th>Datum do</th>
-                <th>Kom</th>
-                <th>Iznos</th>
+                <th><div class="th-inner">Naziv specifikacije <svg class="sort-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15z"/></svg></div></th>
+                <th><div class="th-inner">Datum uploada <svg class="sort-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15z"/></svg></div></th>
+                <th><div class="th-inner">Korisnik <svg class="sort-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15z"/></svg></div></th>
+                <th><div class="th-inner">Status <svg class="sort-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15z"/></svg></div></th>
+                <th><div class="th-inner">Datum osporavanja <svg class="sort-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15z"/></svg></div></th>
               </tr>
             </thead>
             <tbody>
-              <tr><td>Vuča vozila – A1 autocesta</td><td>01.04.2026.</td><td>01.04.2026.</td><td>1</td><td>45,00 €</td></tr>
-              <tr><td>Smještaj vozača – Hotel Zagreb</td><td>01.04.2026.</td><td>02.04.2026.</td><td>1</td><td>80,00 €</td></tr>
-              <tr><td>Zamjensko vozilo</td><td>02.04.2026.</td><td>05.04.2026.</td><td>3</td><td>90,00 €</td></tr>
-              <tr><td>Gorivo – nadoknada</td><td>01.04.2026.</td><td>01.04.2026.</td><td>1</td><td>15,00 €</td></tr>
-              <tr><td>Cestarina – povrat</td><td>01.04.2026.</td><td>01.04.2026.</td><td>2</td><td>12,00 €</td></tr>
-              <tr><td>Administrativna naknada</td><td>15.04.2026.</td><td>15.04.2026.</td><td>1</td><td>8,00 €</td></tr>
-              <tr class="total-row"><td colspan="4">PDV (25%)</td><td>25,00 €</td></tr>
-              <tr class="total-row"><td colspan="4">Ukupno za naplatu</td><td>125,00 €</td></tr>
+              <tr>
+                <td>Lorem_Ipsum.xlsx</td>
+                <td>15.04.2026.</td>
+                <td><div class="avatar-cell"><div class="av" style="background:#3182ce">JW</div>John Williams</div></td>
+                <td><span class="badge b-osporena">Osporena</span></td>
+                <td>17.04.2026.</td>
+              </tr>
+              <tr>
+                <td>Design_Notes.xlsx</td>
+                <td>17.04.2026.</td>
+                <td><div class="avatar-cell"><div class="av" style="background:#38a169">MS</div>Mary Smith</div></td>
+                <td><span class="badge b-odobrena">Odobrena</span></td>
+                <td>–</td>
+              </tr>
+              <tr>
+                <td>Project_Brief.xlsx</td>
+                <td>19.04.2026.</td>
+                <td><div class="avatar-cell"><div class="av" style="background:#805ad5">AB</div>Alice Brown</div></td>
+                <td><span class="badge b-osporena">Osporena</span></td>
+                <td>19.04.2026.</td>
+              </tr>
+              <tr>
+                <td>User_Research.xlsx</td>
+                <td>21.04.2026.</td>
+                <td><div class="avatar-cell"><div class="av" style="background:#d69e2e">CK</div>Charlie King</div></td>
+                <td><span class="badge b-odobrena">Odobrena</span></td>
+                <td>–</td>
+              </tr>
+              <tr>
+                <td>Wireframe_Sketch.xlsx</td>
+                <td>23.04.2026.</td>
+                <td><div class="avatar-cell"><div class="av" style="background:#319795">DT</div>Diana Turner</div></td>
+                <td><span class="badge b-osporena">Osporena</span></td>
+                <td>23.04.2026.</td>
+              </tr>
+              <tr>
+                <td>Style_Guide.xlsx</td>
+                <td>25.04.2026.</td>
+                <td><div class="avatar-cell"><div class="av" style="background:#dd6b20">EP</div>Ethan Park</div></td>
+                <td><span class="badge b-odobrena">Odobrena</span></td>
+                <td>–</td>
+              </tr>
+              <tr>
+                <td>Feedback_Analysis.xlsx</td>
+                <td>27.04.2026.</td>
+                <td><div class="avatar-cell"><div class="av" style="background:#e53e3e">FG</div>Fiona Green</div></td>
+                <td><span class="badge b-osporena">Osporena</span></td>
+                <td>27.04.2026.</td>
+              </tr>
+              <tr>
+                <td>Prototype.xlsx</td>
+                <td>29.04.2026.</td>
+                <td><div class="avatar-cell"><div class="av" style="background:#2b6cb0">HJ</div>Henry Johnson</div></td>
+                <td><span class="badge b-odobrena">Odobrena</span></td>
+                <td>–</td>
+              </tr>
+              <tr>
+                <td>Presentation_Slides.xlsx</td>
+                <td>01.05.2026.</td>
+                <td><div class="avatar-cell"><div class="av" style="background:#9b2c2c">LM</div>Lisa Miller</div></td>
+                <td><span class="badge b-osporena">Osporena</span></td>
+                <td>01.05.2026.</td>
+              </tr>
+              <tr>
+                <td>Competitive_Analysis.xlsx</td>
+                <td>03.05.2026.</td>
+                <td><div class="avatar-cell"><div class="av" style="background:#276749">QR</div>Quincy Roberts</div></td>
+                <td><span class="badge b-odobrena">Odobrena</span></td>
+                <td>–</td>
+              </tr>
             </tbody>
           </table>
+          <div class="pagination">
+            <span class="pag-info">1–10 od 66</span>
+            <div class="pag-pages">
+              <button class="pag-btn" disabled>&#171;</button>
+              <button class="pag-btn" disabled>&#8249;</button>
+              <button class="pag-btn active">1</button>
+              <button class="pag-btn">2</button>
+              <button class="pag-btn">3</button>
+              <span class="pag-ellipsis">…</span>
+              <button class="pag-btn">6</button>
+              <button class="pag-btn">7</button>
+              <button class="pag-btn">&#8250;</button>
+              <button class="pag-btn">&#187;</button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -479,32 +634,46 @@
 
     <!-- Chat panel -->
     <div class="chat-panel">
-      <div class="chat-header">Komentari</div>
+      <div class="chat-header">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--grey-500)" style="flex-shrink:0"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+        Komentari
+        <button class="chat-close" title="Zatvori">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </div>
       <div class="chat-messages" id="chatMessages">
         <div class="msg in">
-          <span class="msg-author">Dispečer</span>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div class="av" style="background:#2b6cb0;width:28px;height:28px;font-size:10px;">IH</div>
+            <span class="msg-author">Ivan Horvat</span>
+          </div>
           <div class="msg-bubble">Faktura primljena na pregled. Provjeravamo stavke.</div>
           <span class="msg-time">15.04.2026. 15:30</span>
         </div>
-        <div class="msg out">
-          <span class="msg-author">Prodajni partner 1</span>
-          <div class="msg-bubble">Hvala, javite ako trebate dodatne informacije o stavkama.</div>
-          <span class="msg-time">15.04.2026. 15:45</span>
-        </div>
         <div class="msg in">
-          <span class="msg-author">Dispečer</span>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div class="av" style="background:#2b6cb0;width:28px;height:28px;font-size:10px;">IH</div>
+            <span class="msg-author">Ivan Horvat</span>
+          </div>
           <div class="msg-bubble">Pronašli smo nesukladnost u iznosu za zamjensko vozilo. Može li dostaviti potvrdu?</div>
           <span class="msg-time">15.04.2026. 16:10</span>
         </div>
-        <div class="msg out">
-          <span class="msg-author">Prodajni partner 1</span>
-          <div class="msg-bubble">Slažem se da postoji greška. Odbijam fakturu i kreiram novu s ispravnim iznosom.</div>
+        <div class="msg in">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div class="av" style="background:#2b6cb0;width:28px;height:28px;font-size:10px;">IH</div>
+            <span class="msg-author">Ivan Horvat</span>
+          </div>
+          <div class="msg-bubble" style="background:#fff;"></div>
           <span class="msg-time">16.04.2026. 09:00</span>
         </div>
       </div>
-      <div class="chat-input-wrap">
-        <input class="chat-input" type="text" id="chatInput" placeholder="Upiši komentar…">
-        <button class="chat-send" id="chatSend">
+      <div class="chat-input-wrap" style="flex-direction:column;gap:6px;">
+        <div style="position:relative;flex:1;width:100%;">
+          <label style="position:absolute;top:8px;left:12px;font-size:11px;color:var(--grey-400);font-family:'Inter',sans-serif;pointer-events:none;">Unesite poruku</label>
+          <textarea class="chat-input" id="chatInput" rows="3" style="height:72px;padding:24px 12px 8px;width:100%;resize:none;border-radius:4px;"></textarea>
+        </div>
+        <button class="chat-send" id="chatSend" style="width:auto;padding:0 16px;border-radius:4px;gap:8px;font-size:14px;font-weight:600;font-family:'Inter',sans-serif;">
+          Pošalji
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
         </button>
       </div>
@@ -522,12 +691,22 @@
   document.addEventListener('click', () => dd.classList.remove('open'));
 
   // Tab switching
+  const specActions = document.getElementById('actions-specifikacije');
+  const defaultActions = document.getElementById('actions-opcenito');
   document.querySelectorAll('.tab-btn').forEach(tab => {
     tab.addEventListener('click', function() {
       document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
       document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
       this.classList.add('active');
       document.getElementById('tab-' + this.dataset.tab).classList.add('active');
+      // swap header buttons
+      if (this.dataset.tab === 'specifikacije') {
+        specActions.classList.add('active');
+        defaultActions.classList.remove('active');
+      } else {
+        defaultActions.classList.add('active');
+        specActions.classList.remove('active');
+      }
     });
   });
 
@@ -556,7 +735,7 @@
     chatInput.value = '';
   }
   chatSend.addEventListener('click', sendMsg);
-  chatInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendMsg(); });
+  chatInput.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMsg(); } });
 })();
 </script>
 </body>
