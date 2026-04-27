@@ -11,15 +11,14 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --blue-800: #083c55; --blue-700: #0d5475; --blue-600: #136c93;
-      --blue-500: #1a82ae; --blue-400: #2299c8; --blue-300: #37aada;
-      --blue-200: #56bce3; --blue-100: #7ecfec; --blue-50: #aae0f2;
+      --blue-500: #1a82ae; --blue-600: #136c93;
       --grey-800: #1e1d1d; --grey-700: #2e2d2d; --grey-600: #403f3f;
       --grey-500: #545252; --grey-400: #696767; --grey-300: #888686;
       --grey-200: #a8a6a6; --grey-100: #bfbdbd; --grey-50: #d6d4d4;
-      --green-50: #a8f0b5; --green-800: #085317;
-      --red-50: #f9c0bb; --red-800: #730b04;
-      --yellow-50: #fbe9a8; --yellow-800: #6e4e08;
+      --green-bg: #d4edda; --green-text: #085317;
+      --yellow-bg: #fff3cd; --yellow-text: #856404;
+      --red-bg: #f8d7da;   --red-text:   #730b04;
+      --grey-badge-bg: #e9ecef; --grey-badge-text: #495057;
       --bg-table: #f4f4f4; --bg-dropdown: #ddf3fa;
     }
 
@@ -42,12 +41,12 @@
     }
     .nav-link.active { color: var(--blue-500); }
     .nav-link:hover:not(.active) { color: var(--grey-700); }
+    .nav-user-wrap { position: relative; flex-shrink: 0; }
     .nav-user-btn {
       width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
       cursor: pointer; border-radius: 50%; border: none; background: none; flex-shrink: 0;
     }
     .nav-user-btn:hover { background: var(--bg-table); }
-    .nav-user-wrap { position: relative; flex-shrink: 0; }
     .nav-dropdown {
       position: absolute; top: calc(100% + 8px); right: 0; width: 208px; background: #fff;
       border: 1px solid var(--grey-50); border-radius: 8px;
@@ -70,114 +69,94 @@
     .nav-dd-item.blue:hover { background: #c4ebf7; }
     .nav-dd-icon { width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 
-    /* ─── LAYOUT ─── */
-    .page-content { padding: clamp(16px,1.67vw,24px); padding-bottom: 48px; overflow-y: auto; height: calc(100vh - 64px); }
-
-    .page-header {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 28px; gap: 16px;
-    }
-    .page-title { font-size: clamp(20px,1.67vw,24px); font-weight: 700; color: var(--grey-800); }
-
-    /* ─── KPI CARDS ─── */
-    .kpi-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-bottom: 32px; }
-    .kpi-card {
-      border: 1px solid var(--grey-50); border-radius: 8px; padding: 20px 24px;
-      display: flex; flex-direction: column; gap: 8px; background: #fff;
-    }
-    .kpi-label { font-size: 11px; font-weight: 600; color: var(--grey-400); letter-spacing: .5px; text-transform: uppercase; }
-    .kpi-value { font-size: 28px; font-weight: 700; color: var(--grey-800); line-height: 1.1; }
-    .kpi-sub { font-size: 12px; color: var(--grey-400); }
-    .kpi-sub.up   { color: var(--green-800); }
-    .kpi-sub.down { color: var(--red-800); }
+    /* ─── PAGE ─── */
+    .page-content { padding: 24px; padding-bottom: 48px; }
+    .page-title { font-size: 24px; font-weight: 700; color: var(--grey-800); margin-bottom: 24px; line-height: 32px; }
 
     /* ─── FILTER BAR ─── */
-    .filter-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
-    .filter-left { display: flex; align-items: center; gap: 12px; }
-    .filter-right { display: flex; align-items: center; gap: 12px; }
-
-    .field-wrap { position: relative; height: 40px; }
-    .field-icon {
-      position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
-      pointer-events: none; display: flex; align-items: center; color: var(--grey-300);
+    .filter-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+    .date-field {
+      position: relative; display: flex; align-items: center;
+      height: 40px; border: 1px solid #c4c4c4; border-radius: 4px;
+      background: #fff; padding: 0 12px 0 36px; gap: 8px;
+      font-size: 14px; color: var(--grey-400); cursor: pointer; min-width: 200px;
     }
-    .field-base {
-      height: 40px; border: 1px solid var(--grey-50); border-radius: 4px;
-      padding: 0 12px 0 34px; font-family: 'Inter',sans-serif;
-      font-size: 14px; color: var(--grey-800); background: #fff; outline: none;
-      width: 100%; transition: border-color .15s; cursor: pointer;
-      display: flex; align-items: center; user-select: none; white-space: nowrap;
-    }
-    input.field-base { cursor: text; }
-    input.field-base::placeholder { color: var(--grey-300); }
-    .field-base:focus { border-color: var(--blue-400); }
-
+    .date-field svg { position: absolute; left: 10px; color: var(--grey-400); flex-shrink: 0; }
     .btn-primary {
-      height: 40px; padding: 0 20px; background: var(--blue-500); color: #fff;
+      height: 40px; padding: 0 24px; background: var(--blue-500); color: #fff;
       border: none; border-radius: 4px; font-family: 'Inter',sans-serif;
       font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap;
       display: flex; align-items: center; gap: 8px; transition: background .15s;
     }
     .btn-primary:hover { background: var(--blue-600); }
     .btn-secondary {
-      height: 40px; padding: 0 16px; background: #fff; color: var(--blue-500);
-      border: 1px solid var(--blue-500); border-radius: 4px; font-family: 'Inter',sans-serif;
+      height: 40px; padding: 0 16px; background: #fff; color: var(--grey-600);
+      border: 1px solid #c4c4c4; border-radius: 4px; font-family: 'Inter',sans-serif;
       font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap;
       display: flex; align-items: center; gap: 8px; transition: background .15s;
     }
-    .btn-secondary:hover { background: var(--bg-dropdown); }
-
-    /* ─── STATUS TABS ─── */
-    .status-tabs { display: flex; align-items: center; gap: 4px; margin-bottom: 16px; }
-    .status-tab {
-      padding: 7px 16px; border: 1px solid var(--grey-50); border-radius: 100px;
-      font-size: 13px; font-weight: 500; color: var(--grey-500); cursor: pointer;
-      transition: all .15s; background: #fff;
-    }
-    .status-tab.active { background: var(--blue-500); color: #fff; border-color: var(--blue-500); font-weight: 600; }
-    .status-tab:hover:not(.active) { background: var(--bg-table); }
+    .btn-secondary:hover { background: var(--bg-table); }
+    .btn-export { margin-left: auto; }
 
     /* ─── TABLE ─── */
-    .table-scroll { border: 1px solid var(--grey-50); border-radius: 4px; overflow: hidden; background: #fff; }
+    .table-wrap { border: 1px solid #e5e5e5; border-radius: 4px; overflow: hidden; background: #fff; }
     table { width: 100%; border-collapse: collapse; }
-    thead tr { background: var(--bg-table); border-bottom: 1px solid var(--grey-50); }
+    thead tr { background: var(--bg-table); border-bottom: 1px solid #e5e5e5; }
     thead th {
-      padding: 0 12px; height: 40px; font-size: 10px; font-weight: 600;
-      color: var(--grey-400); letter-spacing: .5px; text-transform: uppercase; text-align: left;
+      padding: 0 12px; height: 40px; font-size: 11px; font-weight: 700;
+      color: var(--grey-400); letter-spacing: .5px; text-transform: uppercase;
+      text-align: left; white-space: nowrap; user-select: none;
     }
-    tbody tr { border-bottom: 1px solid var(--grey-50); transition: background .1s; cursor: pointer; }
+    .th-inner { display: flex; align-items: center; gap: 4px; }
+    .sort-icon { color: var(--grey-300); flex-shrink: 0; }
+    tbody tr { border-bottom: 1px solid #f0f0f0; transition: background .1s; cursor: pointer; }
     tbody tr:last-child { border-bottom: none; }
     tbody tr:hover { background: #f5fbfe; }
-    tbody td { padding: 14px 12px; font-size: 14px; color: var(--grey-800); }
-    .td-mono { font-variant-numeric: tabular-nums; }
+    tbody td { padding: 0 12px; height: 56px; font-size: 14px; color: var(--grey-800); vertical-align: middle; }
 
+    /* Avatar */
+    .partner-cell { display: flex; align-items: center; gap: 10px; }
+    .avatar-circle {
+      width: 32px; height: 32px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700; color: #fff; flex-shrink: 0;
+    }
+    .partner-name { font-size: 14px; color: var(--grey-800); }
+
+    /* PDF icon */
+    .pdf-cell { display: flex; align-items: center; }
+    .pdf-link { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 4px; color: var(--grey-400); text-decoration: none; }
+    .pdf-link:hover { background: var(--bg-table); color: var(--blue-500); }
+
+    /* Badges */
     .badge {
       display: inline-flex; align-items: center; padding: 3px 10px;
       border-radius: 4px; font-size: 12px; font-weight: 600; white-space: nowrap;
     }
-    .b-green  { background: var(--green-50);  color: var(--green-800); }
-    .b-yellow { background: var(--yellow-50); color: var(--yellow-800); }
-    .b-red    { background: var(--red-50);    color: var(--red-800); }
-    .b-grey   { background: var(--grey-50);   color: var(--grey-700); }
-    .b-blue   { background: var(--blue-50);   color: var(--blue-800); }
+    .b-green   { background: var(--green-bg);      color: var(--green-text); }
+    .b-yellow  { background: var(--yellow-bg);     color: var(--yellow-text); }
+    .b-red     { background: var(--red-bg);        color: var(--red-text); }
+    .b-grey    { background: var(--grey-badge-bg); color: var(--grey-badge-text); }
+
+    .napomena-text { font-size: 13px; color: var(--grey-500); }
 
     /* ─── PAGINATION ─── */
     .pag-bar {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 12px 16px; border-top: 1px solid var(--grey-50);
+      padding: 12px 16px; border-top: 1px solid #f0f0f0;
       font-size: 13px; color: var(--grey-400);
     }
     .pag-ctrl { display: flex; align-items: center; gap: 2px; }
     .pg-btn {
-      width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;
       border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: 500;
       border: none; background: none; color: var(--grey-700);
       font-family: 'Inter',sans-serif; transition: background .1s;
     }
     .pg-btn:hover:not(:disabled):not(.active) { background: var(--bg-table); }
-    .pg-btn.active { background: var(--blue-500); color: #fff; }
+    .pg-btn.active { background: var(--blue-500); color: #fff; border-radius: 50%; }
     .pg-btn:disabled { opacity: .3; cursor: not-allowed; }
-    .pg-sep { padding: 0 4px; color: var(--grey-300); font-size: 13px; }
+    .pg-sep { padding: 0 2px; color: var(--grey-300); font-size: 13px; line-height: 28px; }
   </style>
 </head>
 <body>
@@ -210,24 +189,24 @@
 <path d="M22.0056 11.4619L13.887 18.5047L15.509 11.5943L22.0056 11.4619Z" fill="#FF1100"/>
 <path d="M33.1035 3.12819C25.8207 1.60543 19.2166 5.16405 19.2166 5.16405C27.9724 2.59025 31.2497 4.13784 31.2497 4.13784L33.1035 3.12819Z" fill="#FF1100"/>
 <path d="M10.4441 13.5557L8.08545 17.8012L13.8868 18.5046L10.4441 13.5557Z" fill="#FF1100"/>
-<mask id="mask0_fin" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="25" y="4" width="8" height="15"><path d="M31.2497 4.1626L32.1104 12.5295L27.8484 18.0578L25.4897 7.29915L31.2497 4.1626Z" fill="white"/></mask>
-<g mask="url(#mask0_fin)"><path d="M25.5655 3.46428L24.0229 17.8979L32.038 18.7545L33.5805 4.32084L25.5655 3.46428Z" fill="#FF1100"/></g>
-<mask id="mask1_fin" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="31" y="3" width="7" height="6"><path d="M32.4829 8.23438L37.5477 7.24955L37.7132 5.69369L33.0704 3.12817L31.2498 4.15438L32.4829 8.23438Z" fill="white"/></mask>
-<g mask="url(#mask1_fin)"><path d="M35.2968 0.00198832L28.7815 5.0376L33.6703 11.363L40.1857 6.32741L35.2968 0.00198832Z" fill="#FF1100"/></g>
-<mask id="mask2_fin" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="28" y="11" width="8" height="8"><path d="M35.3049 11.4453L28.6428 18.7943L33.7739 14.8384L35.3049 11.4453Z" fill="white"/></mask>
-<g mask="url(#mask2_fin)"><path d="M29.322 9.42351L26.4033 18.0464L34.6186 20.8271L37.5373 12.2042L29.322 9.42351Z" fill="#FF1100"/></g>
-<mask id="mask3_fin" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="32" y="15" width="5" height="5"><path d="M36.9434 15.666L34.2289 15.9143L32.6482 17.0067L32.8385 19.7377L36.9434 15.666Z" fill="white"/></mask>
-<g mask="url(#mask3_fin)"><path d="M32.6526 15.4891L32.4822 19.7312L36.9393 19.9102L37.1097 15.6681L32.6526 15.4891Z" fill="#FF1100"/></g>
-<mask id="mask4_fin" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="13" y="11" width="10" height="8"><path d="M22.0056 11.4619L13.887 18.5047L22.1297 18.8357L22.0056 11.4619Z" fill="white"/></mask>
-<g mask="url(#mask4_fin)"><path d="M13.9832 10.5846L13.1108 18.7478L22.0311 19.7011L22.9035 11.5379L13.9832 10.5846Z" fill="#FF1100"/></g>
-<mask id="mask5_fin" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="10" y="11" width="6" height="8"><path d="M10.4441 13.5559L13.8869 18.5048L15.5089 11.5945L10.4441 13.5559Z" fill="white"/></mask>
-<g mask="url(#mask5_fin)"><path d="M10.7411 10.3995L8.80762 18.0969L15.2048 19.7038L17.1382 12.0063L10.7411 10.3995Z" fill="#FF1100"/></g>
-<mask id="mask6_fin" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="5" y="17" width="9" height="5"><path d="M13.8869 18.5047L9.21108 21.2109L5.1228 18.6785L8.08556 17.8013L13.8869 18.5047Z" fill="white"/></mask>
-<g mask="url(#mask6_fin)"><path d="M5.13736 17.4465L4.98657 21.2007L13.876 21.5577L14.0267 17.8035L5.13736 17.4465Z" fill="#FF1100"/></g>
-<mask id="mask7_fin" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="5" y="18" width="5" height="4"><path d="M5.1228 18.6785L5.66073 20.6564L9.21108 21.2109L5.1228 18.6785Z" fill="white"/></mask>
-<g mask="url(#mask7_fin)"><path d="M5.12732 18.5079L5.01904 21.2036L9.19499 21.3713L9.30326 18.6756L5.12732 18.5079Z" fill="#FF1100"/></g>
-<mask id="mask8_fin" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="18" width="6" height="6"><path d="M5.12279 18.6785L0.173828 22.7833L1.6221 23.1061L5.66072 20.6564L5.12279 18.6785Z" fill="white"/></mask>
-<g mask="url(#mask8_fin)"><path d="M0.201666 18.4496L0.015625 23.1006L5.67631 23.327L5.86236 18.676L0.201666 18.4496Z" fill="#FF1100"/></g>
+<mask id="mf0" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="25" y="4" width="8" height="15"><path d="M31.2497 4.1626L32.1104 12.5295L27.8484 18.0578L25.4897 7.29915L31.2497 4.1626Z" fill="white"/></mask>
+<g mask="url(#mf0)"><path d="M25.5655 3.46428L24.0229 17.8979L32.038 18.7545L33.5805 4.32084L25.5655 3.46428Z" fill="#FF1100"/></g>
+<mask id="mf1" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="31" y="3" width="7" height="6"><path d="M32.4829 8.23438L37.5477 7.24955L37.7132 5.69369L33.0704 3.12817L31.2498 4.15438L32.4829 8.23438Z" fill="white"/></mask>
+<g mask="url(#mf1)"><path d="M35.2968 0.00198832L28.7815 5.0376L33.6703 11.363L40.1857 6.32741L35.2968 0.00198832Z" fill="#FF1100"/></g>
+<mask id="mf2" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="28" y="11" width="8" height="8"><path d="M35.3049 11.4453L28.6428 18.7943L33.7739 14.8384L35.3049 11.4453Z" fill="white"/></mask>
+<g mask="url(#mf2)"><path d="M29.322 9.42351L26.4033 18.0464L34.6186 20.8271L37.5373 12.2042L29.322 9.42351Z" fill="#FF1100"/></g>
+<mask id="mf3" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="32" y="15" width="5" height="5"><path d="M36.9434 15.666L34.2289 15.9143L32.6482 17.0067L32.8385 19.7377L36.9434 15.666Z" fill="white"/></mask>
+<g mask="url(#mf3)"><path d="M32.6526 15.4891L32.4822 19.7312L36.9393 19.9102L37.1097 15.6681L32.6526 15.4891Z" fill="#FF1100"/></g>
+<mask id="mf4" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="13" y="11" width="10" height="8"><path d="M22.0056 11.4619L13.887 18.5047L22.1297 18.8357L22.0056 11.4619Z" fill="white"/></mask>
+<g mask="url(#mf4)"><path d="M13.9832 10.5846L13.1108 18.7478L22.0311 19.7011L22.9035 11.5379L13.9832 10.5846Z" fill="#FF1100"/></g>
+<mask id="mf5" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="10" y="11" width="6" height="8"><path d="M10.4441 13.5559L13.8869 18.5048L15.5089 11.5945L10.4441 13.5559Z" fill="white"/></mask>
+<g mask="url(#mf5)"><path d="M10.7411 10.3995L8.80762 18.0969L15.2048 19.7038L17.1382 12.0063L10.7411 10.3995Z" fill="#FF1100"/></g>
+<mask id="mf6" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="5" y="17" width="9" height="5"><path d="M13.8869 18.5047L9.21108 21.2109L5.1228 18.6785L8.08556 17.8013L13.8869 18.5047Z" fill="white"/></mask>
+<g mask="url(#mf6)"><path d="M5.13736 17.4465L4.98657 21.2007L13.876 21.5577L14.0267 17.8035L5.13736 17.4465Z" fill="#FF1100"/></g>
+<mask id="mf7" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="5" y="18" width="5" height="4"><path d="M5.1228 18.6785L5.66073 20.6564L9.21108 21.2109L5.1228 18.6785Z" fill="white"/></mask>
+<g mask="url(#mf7)"><path d="M5.12732 18.5079L5.01904 21.2036L9.19499 21.3713L9.30326 18.6756L5.12732 18.5079Z" fill="#FF1100"/></g>
+<mask id="mf8" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="18" width="6" height="6"><path d="M5.12279 18.6785L0.173828 22.7833L1.6221 23.1061L5.66072 20.6564L5.12279 18.6785Z" fill="white"/></mask>
+<g mask="url(#mf8)"><path d="M0.201666 18.4496L0.015625 23.1006L5.67631 23.327L5.86236 18.676L0.201666 18.4496Z" fill="#FF1100"/></g>
       </svg>
     </a>
     <div class="nav-links">
@@ -265,140 +244,186 @@
 
 <!-- PAGE -->
 <div class="page-content">
-
-  <!-- Header -->
-  <div class="page-header">
-    <h1 class="page-title">Financije</h1>
-    <div style="display:flex;gap:12px">
-      <button class="btn-secondary">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-        Izvoz
-      </button>
-      <button class="btn-primary">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
-        Novi račun
-      </button>
-    </div>
-  </div>
-
-  <!-- KPI Cards -->
-  <div class="kpi-row">
-    <div class="kpi-card">
-      <span class="kpi-label">Ukupno fakturirano</span>
-      <span class="kpi-value">248.640 €</span>
-      <span class="kpi-sub up">↑ 12,4 % u odnosu na prethodni kvartal</span>
-    </div>
-    <div class="kpi-card">
-      <span class="kpi-label">Naplaćeno</span>
-      <span class="kpi-value">201.380 €</span>
-      <span class="kpi-sub up">↑ 8,1 % u odnosu na prethodni kvartal</span>
-    </div>
-    <div class="kpi-card">
-      <span class="kpi-label">Otvoreno</span>
-      <span class="kpi-value">47.260 €</span>
-      <span class="kpi-sub down">↑ 3,2 % u odnosu na prethodni kvartal</span>
-    </div>
-    <div class="kpi-card">
-      <span class="kpi-label">Prosječni iznos</span>
-      <span class="kpi-value">1.840 €</span>
-      <span class="kpi-sub">po intervenciji (Q1 2026)</span>
-    </div>
-  </div>
+  <h1 class="page-title">Financije</h1>
 
   <!-- Filter bar -->
   <div class="filter-bar">
-    <div class="filter-left">
-      <div class="field-wrap" style="width:220px">
-        <span class="field-icon">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" fill="#888686"/></svg>
-        </span>
-        <input class="field-base" type="text" placeholder="Pretraži račune…">
-      </div>
-      <div class="field-wrap" style="width:200px">
-        <span class="field-icon">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z" fill="#888686"/></svg>
-        </span>
-        <div class="field-base" style="color:var(--grey-300)">Odabir datuma</div>
-      </div>
+    <div class="date-field">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+      </svg>
+      Odabir datuma
     </div>
-    <div class="filter-right">
-      <span style="font-size:13px;color:var(--grey-400)">135 zapisa</span>
-    </div>
-  </div>
-
-  <!-- Status tabs -->
-  <div class="status-tabs">
-    <button class="status-tab active">Svi</button>
-    <button class="status-tab">Plaćeno</button>
-    <button class="status-tab">Čeka plaćanje</button>
-    <button class="status-tab">Kasni</button>
-    <button class="status-tab">Stornirano</button>
+    <button class="btn-primary">Dohvati</button>
+    <button class="btn-secondary btn-export">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Export tablice
+    </button>
   </div>
 
   <!-- Table -->
-  <div class="table-scroll">
+  <div class="table-wrap">
     <table>
       <thead>
         <tr>
-          <th style="width:140px">Broj računa</th>
-          <th style="width:160px">Intervencija</th>
-          <th style="width:120px">Datum</th>
-          <th style="width:120px">Rok plaćanja</th>
-          <th style="width:130px">Iznos</th>
-          <th style="width:130px">Status</th>
-          <th>Opis</th>
+          <th><div class="th-inner">Period obračuna <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg></div></th>
+          <th><div class="th-inner">Broj <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg></div></th>
+          <th><div class="th-inner">Datum izrade <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg></div></th>
+          <th><div class="th-inner">Prodajni partner <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg></div></th>
+          <th><div class="th-inner">Osnovica <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg></div></th>
+          <th><div class="th-inner">PDF <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg></div></th>
+          <th><div class="th-inner">Ukupno <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg></div></th>
+          <th><div class="th-inner">Statusa <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg></div></th>
+          <th><div class="th-inner">Napomena <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg></div></th>
         </tr>
       </thead>
       <tbody>
-        <tr><td class="td-mono">R-2026-0135</td><td>M-202610042</td><td>03.04.2026.</td><td>18.04.2026.</td><td class="td-mono">2.340,00 €</td><td><span class="badge b-green">Plaćeno</span></td><td>Vuča vozila – Zagreb</td></tr>
-        <tr><td class="td-mono">R-2026-0134</td><td>M-202609981</td><td>01.04.2026.</td><td>16.04.2026.</td><td class="td-mono">1.890,00 €</td><td><span class="badge b-yellow">Čeka plaćanje</span></td><td>Smještaj – Splitska rivijera</td></tr>
-        <tr><td class="td-mono">R-2026-0133</td><td>M-202609875</td><td>28.03.2026.</td><td>12.04.2026.</td><td class="td-mono">3.120,00 €</td><td><span class="badge b-red">Kasni</span></td><td>Vuča + smještaj – Osijek</td></tr>
-        <tr><td class="td-mono">R-2026-0132</td><td>M-202609764</td><td>25.03.2026.</td><td>09.04.2026.</td><td class="td-mono">1.200,00 €</td><td><span class="badge b-green">Plaćeno</span></td><td>Zamjensko vozilo – Rijeka</td></tr>
-        <tr><td class="td-mono">R-2026-0131</td><td>M-202609650</td><td>22.03.2026.</td><td>06.04.2026.</td><td class="td-mono">980,00 €</td><td><span class="badge b-green">Plaćeno</span></td><td>Vuča vozila – Varaždin</td></tr>
-        <tr><td class="td-mono">R-2026-0130</td><td>M-202609540</td><td>20.03.2026.</td><td>04.04.2026.</td><td class="td-mono">2.780,00 €</td><td><span class="badge b-yellow">Čeka plaćanje</span></td><td>Servis + smještaj – Dubrovnik</td></tr>
-        <tr><td class="td-mono">R-2026-0129</td><td>M-202609411</td><td>17.03.2026.</td><td>01.04.2026.</td><td class="td-mono">1.560,00 €</td><td><span class="badge b-grey">Stornirano</span></td><td>Vuča vozila – Karlovac</td></tr>
-        <tr><td class="td-mono">R-2026-0128</td><td>M-202609302</td><td>14.03.2026.</td><td>29.03.2026.</td><td class="td-mono">2.100,00 €</td><td><span class="badge b-green">Plaćeno</span></td><td>Smještaj – Zadar</td></tr>
-        <tr><td class="td-mono">R-2026-0127</td><td>M-202609190</td><td>11.03.2026.</td><td>26.03.2026.</td><td class="td-mono">1.730,00 €</td><td><span class="badge b-red">Kasni</span></td><td>Zamjensko vozilo – Pula</td></tr>
-        <tr><td class="td-mono">R-2026-0126</td><td>M-202609088</td><td>08.03.2026.</td><td>23.03.2026.</td><td class="td-mono">2.450,00 €</td><td><span class="badge b-green">Plaćeno</span></td><td>Vuča + servis – Sisak</td></tr>
+        <tr onclick="window.location.href='faktura.html?id=101-C-10'">
+          <td>15.04.2026. 14:55</td>
+          <td>101-C-10</td>
+          <td>15.04.2026. 14:55</td>
+          <td><div class="partner-cell"><div class="avatar-circle" style="background:#e53e3e">JW</div><span class="partner-name">Prodajni partner 1</span></div></td>
+          <td>100,00 €</td>
+          <td class="pdf-cell"><a class="pdf-link" href="#" onclick="event.stopPropagation()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg></a></td>
+          <td>125,00 €</td>
+          <td><span class="badge b-red">Odbijeno</span></td>
+          <td class="napomena-text">Partner je odbio fakturu</td>
+        </tr>
+        <tr onclick="window.location.href='faktura.html?id=101-C-11'">
+          <td>15.04.2026. 14:55</td>
+          <td>101-C-11</td>
+          <td>15.04.2026. 14:55</td>
+          <td><div class="partner-cell"><div class="avatar-circle" style="background:#3182ce">JP</div><span class="partner-name">Prodajni partner 2</span></div></td>
+          <td>150,00 €</td>
+          <td class="pdf-cell"><a class="pdf-link" href="#" onclick="event.stopPropagation()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg></a></td>
+          <td>130,00 €</td>
+          <td><span class="badge b-yellow">U obradi</span></td>
+          <td class="napomena-text">Čekanje potvrde</td>
+        </tr>
+        <tr onclick="window.location.href='faktura.html?id=101-C-12'">
+          <td>15.04.2026. 14:55</td>
+          <td>101-C-12</td>
+          <td>15.04.2026. 14:55</td>
+          <td><div class="partner-cell"><div class="avatar-circle" style="background:#38a169">JA</div><span class="partner-name">Prodajni partner 3</span></div></td>
+          <td>200,00 €</td>
+          <td class="pdf-cell"><a class="pdf-link" href="#" onclick="event.stopPropagation()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg></a></td>
+          <td>135,00 €</td>
+          <td><span class="badge b-grey">Zaključeno</span></td>
+          <td class="napomena-text">Faktura je otkazana</td>
+        </tr>
+        <tr onclick="window.location.href='faktura.html?id=101-C-13'">
+          <td>15.04.2026. 14:55</td>
+          <td>101-C-13</td>
+          <td>15.04.2026. 14:55</td>
+          <td><div class="partner-cell"><div class="avatar-circle" style="background:#805ad5">JL</div><span class="partner-name">Prodajni partner 4</span></div></td>
+          <td>250,00 €</td>
+          <td class="pdf-cell"><a class="pdf-link" href="#" onclick="event.stopPropagation()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg></a></td>
+          <td>140,00 €</td>
+          <td><span class="badge b-green">Fakturirano</span></td>
+          <td class="napomena-text">Faktura je poslata</td>
+        </tr>
+        <tr onclick="window.location.href='faktura.html?id=101-C-14'">
+          <td>15.04.2026. 14:55</td>
+          <td>101-C-14</td>
+          <td>15.04.2026. 14:55</td>
+          <td><div class="partner-cell"><div class="avatar-circle" style="background:#d69e2e">JH</div><span class="partner-name">Prodajni partner 5</span></div></td>
+          <td>300,00 €</td>
+          <td class="pdf-cell"><a class="pdf-link" href="#" onclick="event.stopPropagation()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg></a></td>
+          <td>145,00 €</td>
+          <td><span class="badge b-grey">Zaključeno</span></td>
+          <td class="napomena-text">–</td>
+        </tr>
+        <tr onclick="window.location.href='faktura.html?id=101-C-15'">
+          <td>15.04.2026. 14:55</td>
+          <td>101-C-15</td>
+          <td>15.04.2026. 14:55</td>
+          <td><div class="partner-cell"><div class="avatar-circle" style="background:#319795">JG</div><span class="partner-name">Prodajni partner 6</span></div></td>
+          <td>350,00 €</td>
+          <td class="pdf-cell"><a class="pdf-link" href="#" onclick="event.stopPropagation()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg></a></td>
+          <td>150,00 €</td>
+          <td><span class="badge b-yellow">U obradi</span></td>
+          <td class="napomena-text">Faktura je u pregledu</td>
+        </tr>
+        <tr onclick="window.location.href='faktura.html?id=101-C-16'">
+          <td>15.04.2026. 14:55</td>
+          <td>101-C-16</td>
+          <td>15.04.2026. 14:55</td>
+          <td><div class="partner-cell"><div class="avatar-circle" style="background:#dd6b20">JF</div><span class="partner-name">Prodajni partner 7</span></div></td>
+          <td>400,00 €</td>
+          <td class="pdf-cell"><a class="pdf-link" href="#" onclick="event.stopPropagation()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg></a></td>
+          <td>155,00 €</td>
+          <td><span class="badge b-grey">Zaključeno</span></td>
+          <td class="napomena-text">–</td>
+        </tr>
+        <tr onclick="window.location.href='faktura.html?id=101-C-17'">
+          <td>15.04.2026. 14:55</td>
+          <td>101-C-17</td>
+          <td>15.04.2026. 14:55</td>
+          <td><div class="partner-cell"><div class="avatar-circle" style="background:#2b6cb0">JE</div><span class="partner-name">Prodajni partner 8</span></div></td>
+          <td>450,00 €</td>
+          <td class="pdf-cell"><a class="pdf-link" href="#" onclick="event.stopPropagation()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg></a></td>
+          <td>160,00 €</td>
+          <td><span class="badge b-green">Fakturirano</span></td>
+          <td class="napomena-text">Faktura je ispravna</td>
+        </tr>
+        <tr onclick="window.location.href='faktura.html?id=101-C-18'">
+          <td>15.04.2026. 14:55</td>
+          <td>101-C-18</td>
+          <td>15.04.2026. 14:55</td>
+          <td><div class="partner-cell"><div class="avatar-circle" style="background:#9b2c2c">JD</div><span class="partner-name">Prodajni partner 9</span></div></td>
+          <td>500,00 €</td>
+          <td class="pdf-cell"><a class="pdf-link" href="#" onclick="event.stopPropagation()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg></a></td>
+          <td>165,00 €</td>
+          <td><span class="badge b-red">Odbijeno</span></td>
+          <td class="napomena-text">Faktura je poslata</td>
+        </tr>
+        <tr onclick="window.location.href='faktura.html?id=101-C-19'">
+          <td>15.04.2026. 14:55</td>
+          <td>101-C-19</td>
+          <td>15.04.2026. 14:55</td>
+          <td><div class="partner-cell"><div class="avatar-circle" style="background:#276749">JC</div><span class="partner-name">Prodajni partner 10</span></div></td>
+          <td>550,00 €</td>
+          <td class="pdf-cell"><a class="pdf-link" href="#" onclick="event.stopPropagation()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg></a></td>
+          <td>170,00 €</td>
+          <td><span class="badge b-yellow">U obradi</span></td>
+          <td class="napomena-text">–</td>
+        </tr>
       </tbody>
     </table>
     <div class="pag-bar">
-      <span>1–10 od 135</span>
+      <span>1–10 od 66</span>
       <div class="pag-ctrl">
-        <button class="pg-btn" disabled><svg width="14" height="14" viewBox="0 0 24 24"><path d="M18.41 16.59L13.82 12l4.59-4.59L17 6l-6 6 6 6zM6 6h2v12H6z" fill="currentColor"/></svg></button>
-        <button class="pg-btn" disabled><svg width="14" height="14" viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" fill="currentColor"/></svg></button>
+        <button class="pg-btn" disabled><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="11 17 6 12 11 7"/><polyline points="18 17 13 12 18 7"/></svg></button>
+        <button class="pg-btn" disabled><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
         <button class="pg-btn active">1</button>
         <button class="pg-btn">2</button>
         <button class="pg-btn">3</button>
         <span class="pg-sep">…</span>
-        <button class="pg-btn">13</button>
-        <button class="pg-btn">14</button>
-        <button class="pg-btn"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" fill="currentColor"/></svg></button>
-        <button class="pg-btn"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M5.59 7.41L10.18 12l-4.59 4.59L7 18l6-6-6-6zM16 6h2v12h-2z" fill="currentColor"/></svg></button>
+        <button class="pg-btn">6</button>
+        <button class="pg-btn">7</button>
+        <button class="pg-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
+        <button class="pg-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg></button>
       </div>
     </div>
   </div>
-
-</div><!-- /page-content -->
+</div>
 
 <script>
-  // Status tab switching
-  document.querySelectorAll('.status-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('.status-tab').forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
+(function() {
+  const btn = document.getElementById('navUserBtn');
+  const dd  = document.getElementById('navDropdown');
+  btn.addEventListener('click', e => { e.stopPropagation(); dd.classList.toggle('open'); });
+  document.addEventListener('click', () => dd.classList.remove('open'));
+  dd.addEventListener('click', e => e.stopPropagation());
+
+  document.querySelectorAll('.pg-btn:not(:disabled)').forEach(b => {
+    b.addEventListener('click', function() {
+      if (this.querySelector('svg')) return;
+      document.querySelectorAll('.pg-btn').forEach(x => x.classList.remove('active'));
+      this.classList.add('active');
     });
   });
-
-  // User dropdown
-  (function() {
-    const btn = document.getElementById('navUserBtn');
-    const dd  = document.getElementById('navDropdown');
-    if (!btn || !dd) return;
-    btn.addEventListener('click', e => { e.stopPropagation(); dd.classList.toggle('open'); });
-    document.addEventListener('click', () => dd.classList.remove('open'));
-    dd.addEventListener('click', e => e.stopPropagation());
-  })();
+})();
 </script>
 </body>
 </html>
