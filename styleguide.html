@@ -347,6 +347,67 @@
     .row  { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start; }
     .col  { display: flex; flex-direction: column; gap: 8px; }
     .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+    /* ─── NAVIGATION DEMO ─── */
+    .nd-bar { background: #fff; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; height: 52px; box-shadow: 0 2px 4px rgba(0,0,0,.08); gap: 12px; }
+    .nd-left { display: flex; align-items: center; gap: 20px; flex: 1; min-width: 0; }
+    .nd-links { display: flex; align-items: center; gap: 2px; flex-wrap: wrap; }
+    .nd-link { padding: 6px 10px; border-radius: 6px; font: 600 12px/20px var(--font); color: var(--grey-500); white-space: nowrap; }
+    .nd-link.active { color: var(--blue-500); background: var(--bg-dropdown); }
+    .nd-link.hover  { color: var(--grey-700); background: var(--bg-table); }
+    .nd-user-btn { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--grey-50); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .nd-user-btn.hover { background: var(--bg-table); }
+    .nd-state-lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--grey-400); padding: 5px 12px; background: var(--bg-table); border-top: 1px solid var(--grey-50); }
+    .nd-user-menu-wrap { display: flex; justify-content: flex-end; padding: 4px 20px 12px; }
+    .nd-user-menu { background: #fff; border: 1px solid var(--grey-50); border-radius: 8px; min-width: 180px; box-shadow: 0 4px 12px rgba(0,0,0,.1); overflow: hidden; }
+    .nd-menu-header { padding: 10px 14px; border-bottom: 1px solid var(--grey-50); }
+    .nd-menu-name  { font: 600 13px/1 var(--font); color: var(--grey-800); }
+    .nd-menu-email { font: 400 11px/1 var(--font); color: var(--grey-400); margin-top: 3px; }
+    .nd-menu-item  { display: flex; align-items: center; gap: 8px; padding: 9px 14px; font: 500 13px/1 var(--font); color: var(--grey-700); border-bottom: 1px solid var(--grey-50); }
+    .nd-menu-item:last-child { border-bottom: none; }
+    .nd-menu-item.hover { background: var(--bg-dropdown); color: var(--blue-500); }
+
+    /* ─── DATE PICKER DEMO ─── */
+    .dpp-row { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start; }
+    .dpp-col { display: flex; flex-direction: column; gap: 6px; }
+    .dpp-lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--grey-400); }
+    .dpp-frame { border: 1px solid var(--grey-50); border-radius: 8px; padding: 10px; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,.06); display: inline-block; }
+    .dpp-hrow { display: flex; align-items: center; gap: 2px; margin-bottom: 6px; }
+    .dpp-hbtn { width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--grey-500); }
+    .dpp-htitle { flex: 1; font: 600 11px var(--font); color: var(--grey-700); display: flex; align-items: center; justify-content: center; gap: 3px; }
+    .dpp-cal { display: grid; grid-template-columns: repeat(7, 24px); }
+    .dpp-ch { width: 24px; height: 20px; display: flex; align-items: center; justify-content: center; font: 700 9px var(--font); color: var(--grey-300); }
+    .dpp-cd { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font: 400 10px var(--font); color: var(--grey-700); }
+    .dpp-cd.out { color: var(--grey-100); }
+    .dpp-cd.sel { background: var(--blue-600); color: #fff; border-radius: 50%; }
+    .dpp-cd.today { outline: 1.5px solid var(--blue-300); outline-offset: -1.5px; border-radius: 50%; }
+    .dpp-cd.rs { background: var(--blue-600); color: #fff; border-radius: 50% 0 0 50%; }
+    .dpp-cd.re { background: var(--blue-600); color: #fff; border-radius: 0 50% 50% 0; }
+    .dpp-cd.rm { background: #cde8f5; border-radius: 0; }
+    .dpp-ftr { display: flex; justify-content: flex-end; gap: 4px; padding-top: 6px; border-top: 1px solid var(--grey-50); margin-top: 4px; }
+    .dpp-cancel { padding: 3px 8px; background: none; border: none; font: 500 11px var(--font); color: var(--grey-400); }
+    .dpp-ok     { padding: 3px 8px; background: none; border: none; font: 600 11px var(--font); color: var(--blue-500); }
+    .dpp-mlist-wrap { display: flex; }
+    .dpp-mlist { border-right: 1px solid var(--grey-50); padding: 4px 0; }
+    .dpp-mi { padding: 5px 8px; font: 400 10px var(--font); color: var(--grey-700); white-space: nowrap; }
+    .dpp-mi.sel { background: var(--blue-500); color: #fff; }
+
+    /* ─── COMMENTS DEMO ─── */
+    .cc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(205px, 1fr)); gap: 12px; margin-bottom: 20px; }
+    .cc { border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 10px; }
+    .cc-blue  { background: var(--bg-dropdown); border: 1px solid #b8dff2; }
+    .cc-white { background: #fff; border: 1px solid var(--grey-50); }
+    .cc-grey  { background: #f5f5f5; border: 1px solid var(--grey-50); }
+    .cc-txt   { font: 400 11.5px/1.65 var(--font); color: var(--grey-700); }
+    .cc-foot  { display: flex; align-items: center; gap: 6px; }
+    .cc-av    { width: 24px; height: 24px; border-radius: 50%; background: var(--blue-100); color: var(--blue-800); font: 700 9px/1 var(--font); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .cc-acts  { display: flex; gap: 4px; margin-left: auto; }
+    .cc-act   { width: 20px; height: 20px; border: 1px solid var(--grey-50); background: #fff; border-radius: 3px; display: flex; align-items: center; justify-content: center; }
+    .cc-input { display: flex; flex-direction: column; gap: 10px; }
+    .cc-tf-wrap { position: relative; display: inline-block; }
+    .cc-tf-lbl  { position: absolute; top: -8px; left: 8px; background: #fff; padding: 0 4px; font: 500 11px var(--font); color: var(--blue-500); }
+    .cc-textarea { width: 360px; max-width: 100%; min-height: 72px; border: 1px solid var(--blue-300); border-radius: 4px; padding: 10px 12px; font: 400 13px/1.5 var(--font); color: var(--grey-800); resize: vertical; outline: none; }
+    .cc-send { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: var(--blue-500); color: #fff; border: none; border-radius: 4px; font: 600 13px var(--font); cursor: default; }
   </style>
 </head>
 <body>
@@ -369,6 +430,9 @@
   <a href="#tabs">Tabs</a>
   <a href="#menu">Menu</a>
   <a href="#upload">Upload</a>
+  <a href="#nav">Navigacija</a>
+  <a href="#datepicker">Date Picker</a>
+  <a href="#comments">Komentari</a>
   <a href="#colors">Boje</a>
   <a href="#typo">Tipografija</a>
 </nav>
@@ -910,6 +974,374 @@
           <tr><td>Error</td><td>dashed <code>#e66358</code></td><td>transparent</td><td><code>red/200</code></td></tr>
           <tr><td>Disabled</td><td>dashed <code>#bfbdbd</code></td><td><code>#f4f4f4</code></td><td><code>grey/100 · bg/table</code></td></tr>
           <tr><td>Process</td><td>dashed <code>#bfbdbd</code></td><td>transparent</td><td>progress fill: <code>#2299c8</code> (blue/400)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+
+  <!-- ══ NAVIGATION ══ -->
+  <section id="nav">
+    <h2 class="sg-title">Navigation</h2>
+    <p class="section-desc">Globalna navigacija – sticky header, bijela pozadina, box-shadow. Logo + nav linkovi lijevo, user icon desno.</p>
+
+    <!-- State 1: Default -->
+    <div style="border:1px solid var(--grey-50);border-radius:8px;overflow:hidden;margin-bottom:12px;">
+      <div class="nd-bar">
+        <div class="nd-left">
+          <svg width="140" height="18" viewBox="0 0 192 24" fill="none" style="flex-shrink:0;display:block;">
+            <path d="M50.309 11.1144C50.4083 10.5599 50.4662 9.35164 49.1421 9.35164C48.3427 9.39716 47.6318 9.88213 47.2966 10.6096C46.6767 11.7508 46.2224 12.974 45.9476 14.2427C45.8814 14.6316 45.6414 15.9806 47.1062 15.9806C48.5711 15.9806 49.1256 14.6896 49.8456 12.6703C50.0318 12.1704 50.1865 11.659 50.309 11.1392M46.6097 18.5875C44.0111 18.5875 41.8759 16.9323 42.4718 13.5061C43.0676 10.0799 45.7407 6.70337 49.7214 6.70337C52.5683 6.70337 54.3228 8.65647 53.7849 11.7268C53.1393 15.4096 50.2842 18.5875 46.6097 18.5875Z" fill="#FF1100"/><path d="M58.3945 11.677H59.6855C60.1655 11.7209 60.648 11.6257 61.0758 11.4039C61.4276 11.1888 61.6758 10.8387 61.7627 10.4357C61.9448 9.38462 60.6703 9.38462 60.3807 9.38462H59.1807L58.3945 11.677ZM62.5986 18.2977H59.2055L58.9489 14.0688H57.5834L56.0855 18.3557H52.7751L56.7393 7.00945H61.7545C62.6673 6.91014 63.5867 7.13276 64.3531 7.63841C65.0979 8.30545 65.4174 9.33166 65.1807 10.3032C64.992 11.3617 64.3978 12.3068 63.5255 12.935C63.1092 13.223 62.6516 13.4456 62.1683 13.597L62.5986 18.2977Z" fill="#FF1100"/><path d="M70.8083 13.4233L69.1531 18.3226H65.6855L67.44 13.2412L65.8428 7.00952H69.5173L70.138 10.0302C70.2158 10.3008 70.2679 10.5781 70.2952 10.8578L71.0152 10.0302L73.5973 7.00952H76.7338L70.8083 13.4233Z" fill="#FF1100"/><path d="M80.8386 12.4634L82.6097 18.331H78.9683L78.1986 15.451C78.0828 15.029 78.0745 14.9958 77.9669 14.6234L77.338 15.3186L74.6897 18.3227H71.6028L77.1476 12.2814L75.4924 7.00137H79.1421L79.7711 9.29378C79.8563 9.5644 79.92 9.84081 79.9614 10.1214C80.1352 9.93102 80.8552 9.13654 81.0042 8.98757L82.8414 6.96826H85.9283L80.8386 12.4634Z" fill="#FF1100"/><path d="M87.7242 7.36535C87.8094 7.16425 88.0031 7.02935 88.2207 7.01777H93.0455C93.2036 7.01611 93.312 7.12453 93.312 7.25611C93.312 7.29418 93.3029 7.33142 93.2855 7.36535L91.5642 11.9998C91.4773 12.1993 91.2853 12.3342 91.0676 12.3474H86.2345C86.0764 12.3491 85.968 12.2407 85.968 12.1091C85.968 12.071 85.9771 12.0338 85.9945 11.9998L87.7242 7.36535Z" fill="#FF1100"/><path d="M89.7103 13.3571C89.7939 13.1543 89.9883 13.0186 90.2068 13.0095H95.0316C95.1897 13.0078 95.2981 13.1162 95.2981 13.2478C95.2981 13.2859 95.289 13.3231 95.2716 13.3571L93.5585 17.9915C93.4708 18.1943 93.2739 18.3292 93.0537 18.3391H88.2289C88.0708 18.3408 87.9624 18.2324 87.9624 18.1008C87.9624 18.0627 87.9715 18.0255 87.9889 17.9915L89.7103 13.3571Z" fill="#FF1100"/><path d="M103.125 14.0688V9.01221L99.8731 14.0688H103.125ZM103.034 18.3722V15.6412H98.8965L97.142 18.3722H95.1724L102.621 7.06738H105.17L105.277 18.3722H103.034Z" fill="#696767"/><path d="M115.034 9.86468C114.942 9.34992 114.601 8.91295 114.124 8.69778C113.799 8.54054 113.442 8.45861 113.081 8.45778C112.045 8.34275 111.069 9.00151 110.789 10.0054C110.665 10.7005 111.095 11.0895 112.097 11.3792C113.992 11.9419 114.405 12.0578 114.993 12.6123C115.545 13.1874 115.773 14.0026 115.597 14.7805C115.465 15.5088 114.546 18.5792 110.334 18.5792C106.974 18.5792 106.519 16.4771 106.37 15.7654L108.364 15.1033C108.48 15.6081 108.77 16.8826 110.789 16.8826C112.61 16.8826 113.272 15.8481 113.421 15.1364C113.57 14.4247 113.048 14.0357 112.378 13.8288L110.615 13.2909C109.217 12.8523 108.348 11.884 108.629 10.2867C108.977 8.31709 110.748 6.76123 113.429 6.76123C115.912 6.76123 116.739 8.06882 117.029 9.18606L115.034 9.86468Z" fill="#696767"/><path d="M126.116 18.2977L130.014 6.99292H132.149L128.226 18.2977H126.116Z" fill="#696767"/><path d="M124.908 9.93084C124.813 9.41691 124.473 8.97994 123.997 8.76394C123.672 8.6067 123.315 8.52477 122.955 8.52394C121.918 8.40891 120.943 9.06767 120.662 10.0715C120.538 10.7667 120.968 11.1557 121.97 11.4453C123.865 12.0081 124.279 12.1239 124.866 12.6784C125.417 13.2544 125.641 14.0704 125.462 14.8467C125.338 15.575 124.411 18.6453 120.199 18.6453C116.839 18.6453 116.384 16.5433 116.235 15.8315L118.229 15.1695C118.345 15.6743 118.635 16.9488 120.654 16.9488C122.475 16.9488 123.137 15.9143 123.286 15.2026C123.435 14.4908 122.913 14.1019 122.243 13.895L120.48 13.357C119.082 12.9184 118.213 11.9502 118.494 10.3529C118.842 8.38325 120.613 6.82739 123.302 6.82739C125.785 6.82739 126.613 8.13498 126.902 9.25222L124.908 9.93084Z" fill="#696767"/><path d="M179.586 11.0068C179.586 10.2951 179.752 8.39165 177.724 8.39165C176.706 8.39165 175.904 8.87992 175.117 10.0468C174.374 11.2907 173.843 12.6504 173.545 14.0689C173.106 16.5516 174.646 16.833 175.25 16.833C176.715 16.833 177.857 15.4261 178.378 14.5158L179.926 15.211C178.643 17.313 176.971 18.5875 174.786 18.5875C172.105 18.5875 170.938 16.4854 171.476 13.622C172.064 10.262 174.604 6.70337 178.097 6.70337C180.728 6.70337 181.771 8.35854 181.548 10.6675L179.586 11.0068Z" fill="#696767"/><path d="M139.465 9.93099C139.371 9.41706 139.03 8.98009 138.555 8.76409C138.229 8.60685 137.873 8.52492 137.512 8.52409C136.476 8.40906 135.5 9.06782 135.219 10.0717C135.095 10.7669 135.526 11.1558 136.527 11.4455C138.422 12.0082 138.836 12.1241 139.423 12.6786C139.994 13.2629 140.223 14.1037 140.028 14.8965C139.903 15.6248 138.977 18.6951 134.764 18.6951C131.404 18.6951 130.949 16.5931 130.8 15.8813L132.795 15.2193C132.91 15.7241 133.2 16.9986 135.219 16.9986C137.04 16.9986 137.702 15.9641 137.851 15.2524C138 14.5406 137.479 14.1517 136.808 13.9448L135.046 13.4069C133.647 12.9682 132.778 12 133.059 10.4027C133.407 8.43306 135.178 6.8772 137.868 6.8772C140.35 6.8772 141.178 8.18478 141.468 9.30202L139.465 9.93099Z" fill="#696767"/><path d="M147.658 8.77223L144.356 18.2977H142.237L145.539 8.77223H142.626L143.239 6.99292H151.184L150.563 8.77223H147.658Z" fill="#696767"/><path d="M155.884 13.9943V8.97085L152.64 13.9943H155.884ZM155.793 18.2977V15.5667H151.655L149.901 18.2977H147.956L155.404 6.99292H157.953L158.069 18.2977H155.793Z" fill="#696767"/><path d="M166.246 18.2977L163.837 9.80671L160.899 18.2977H159.244L163.167 6.99292H165.286L167.479 14.7557L170.177 6.99292H171.807L167.901 18.2977H166.246Z" fill="#696767"/><path d="M180.563 18.2977L184.486 6.99292H191.735L191.106 8.77223H185.909L184.891 11.7102H189.194L188.623 13.3819H184.32L183.236 16.5184H188.64L188.011 18.2977H180.563Z" fill="#696767"/><path d="M22.1298 18.8358L21.9312 11.5696L25.4898 7.29102L27.8567 18.0248L22.1298 18.8358Z" fill="#FF1100"/><path d="M31.2498 4.1543L32.1104 12.5295L32.4829 8.2343L31.2498 4.1543Z" fill="#FF1100"/><path d="M32.1105 12.5295L27.8484 18.0577L28.6429 18.7943L35.3049 11.4453L32.1105 12.5295Z" fill="#FF1100"/><path d="M22.0056 11.4619L13.887 18.5047L15.509 11.5943L22.0056 11.4619Z" fill="#FF1100"/>
+          </svg>
+          <div class="nd-links">
+            <span class="nd-link">Intervencije</span>
+            <span class="nd-link">Pokazatelji</span>
+            <span class="nd-link">Servisni partneri</span>
+            <span class="nd-link">Zahtjevi</span>
+            <span class="nd-link">Korisnici</span>
+            <span class="nd-link">Financije</span>
+            <span class="nd-link">Import</span>
+          </div>
+        </div>
+        <div class="nd-user-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" fill="#545252"/></svg>
+        </div>
+      </div>
+      <div class="nd-state-lbl">Default – nema aktivnog linka</div>
+    </div>
+
+    <!-- State 2: Active link -->
+    <div style="border:1px solid var(--grey-50);border-radius:8px;overflow:hidden;margin-bottom:12px;">
+      <div class="nd-bar">
+        <div class="nd-left">
+          <svg width="140" height="18" viewBox="0 0 192 24" fill="none" style="flex-shrink:0;display:block;"><path d="M50.309 11.1144C50.4083 10.5599 50.4662 9.35164 49.1421 9.35164C48.3427 9.39716 47.6318 9.88213 47.2966 10.6096C46.6767 11.7508 46.2224 12.974 45.9476 14.2427C45.8814 14.6316 45.6414 15.9806 47.1062 15.9806C48.5711 15.9806 49.1256 14.6896 49.8456 12.6703C50.0318 12.1704 50.1865 11.659 50.309 11.1392M46.6097 18.5875C44.0111 18.5875 41.8759 16.9323 42.4718 13.5061C43.0676 10.0799 45.7407 6.70337 49.7214 6.70337C52.5683 6.70337 54.3228 8.65647 53.7849 11.7268C53.1393 15.4096 50.2842 18.5875 46.6097 18.5875Z" fill="#FF1100"/><path d="M103.125 14.0688V9.01221L99.8731 14.0688H103.125ZM103.034 18.3722V15.6412H98.8965L97.142 18.3722H95.1724L102.621 7.06738H105.17L105.277 18.3722H103.034Z" fill="#696767"/><path d="M180.563 18.2977L184.486 6.99292H191.735L191.106 8.77223H185.909L184.891 11.7102H189.194L188.623 13.3819H184.32L183.236 16.5184H188.64L188.011 18.2977H180.563Z" fill="#696767"/><path d="M22.1298 18.8358L21.9312 11.5696L25.4898 7.29102L27.8567 18.0248L22.1298 18.8358Z" fill="#FF1100"/><path d="M32.1105 12.5295L27.8484 18.0577L28.6429 18.7943L35.3049 11.4453L32.1105 12.5295Z" fill="#FF1100"/></svg>
+          <div class="nd-links">
+            <span class="nd-link active">Intervencije</span>
+            <span class="nd-link">Pokazatelji</span>
+            <span class="nd-link">Servisni partneri</span>
+            <span class="nd-link">Zahtjevi</span>
+            <span class="nd-link">Korisnici</span>
+            <span class="nd-link">Financije</span>
+            <span class="nd-link">Import</span>
+          </div>
+        </div>
+        <div class="nd-user-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" fill="#545252"/></svg>
+        </div>
+      </div>
+      <div class="nd-state-lbl">Active – "Intervencije" selektiran</div>
+    </div>
+
+    <!-- State 3: User menu open -->
+    <div style="border:1px solid var(--grey-50);border-radius:8px;overflow:hidden;margin-bottom:20px;">
+      <div class="nd-bar">
+        <div class="nd-left">
+          <svg width="140" height="18" viewBox="0 0 192 24" fill="none" style="flex-shrink:0;display:block;"><path d="M50.309 11.1144C50.4083 10.5599 50.4662 9.35164 49.1421 9.35164C48.3427 9.39716 47.6318 9.88213 47.2966 10.6096C46.6767 11.7508 46.2224 12.974 45.9476 14.2427C45.8814 14.6316 45.6414 15.9806 47.1062 15.9806C48.5711 15.9806 49.1256 14.6896 49.8456 12.6703C50.0318 12.1704 50.1865 11.659 50.309 11.1392M46.6097 18.5875C44.0111 18.5875 41.8759 16.9323 42.4718 13.5061C43.0676 10.0799 45.7407 6.70337 49.7214 6.70337C52.5683 6.70337 54.3228 8.65647 53.7849 11.7268C53.1393 15.4096 50.2842 18.5875 46.6097 18.5875Z" fill="#FF1100"/><path d="M103.125 14.0688V9.01221L99.8731 14.0688H103.125ZM103.034 18.3722V15.6412H98.8965L97.142 18.3722H95.1724L102.621 7.06738H105.17L105.277 18.3722H103.034Z" fill="#696767"/><path d="M22.1298 18.8358L21.9312 11.5696L25.4898 7.29102L27.8567 18.0248L22.1298 18.8358Z" fill="#FF1100"/><path d="M32.1105 12.5295L27.8484 18.0577L28.6429 18.7943L35.3049 11.4453L32.1105 12.5295Z" fill="#FF1100"/></svg>
+          <div class="nd-links">
+            <span class="nd-link active">Intervencije</span>
+            <span class="nd-link">Pokazatelji</span>
+            <span class="nd-link">Servisni partneri</span>
+            <span class="nd-link">Zahtjevi</span>
+            <span class="nd-link">Korisnici</span>
+            <span class="nd-link">Financije</span>
+            <span class="nd-link">Import</span>
+          </div>
+        </div>
+        <div class="nd-user-btn hover">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" fill="#545252"/></svg>
+        </div>
+      </div>
+      <div class="nd-user-menu-wrap">
+        <div class="nd-user-menu">
+          <div class="nd-menu-header">
+            <div class="nd-menu-name">Porsche Croatia</div>
+            <div class="nd-menu-email">partner@email.com</div>
+          </div>
+          <div class="nd-menu-item hover">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>
+            Odjava
+          </div>
+          <div class="nd-menu-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
+            Izmjena lozinke
+          </div>
+        </div>
+      </div>
+      <div class="nd-state-lbl">User menu open – Hover na "Odjava"</div>
+    </div>
+
+    <div class="card">
+      <div class="sg-sub" style="margin-top:0;">Specifikacija</div>
+      <table class="spec">
+        <thead><tr><th>Element</th><th>Background</th><th>Text / Fill</th><th>Token</th><th>Napomena</th></tr></thead>
+        <tbody>
+          <tr><td>Nav bar</td><td><code>#ffffff</code></td><td>–</td><td>–</td><td>box-shadow: 0 2px 4px rgba(0,0,0,.08)</td></tr>
+          <tr><td>Nav link – default</td><td>transparent</td><td><code>#545252</code></td><td><code>grey/500</code></td><td>–</td></tr>
+          <tr><td>Nav link – hover</td><td><code>#f4f4f4</code></td><td><code>#2e2d2d</code></td><td><code>bg/table · grey/700</code></td><td>border-radius 6px</td></tr>
+          <tr><td>Nav link – active</td><td><code>#ddf3fa</code></td><td><code>#1a82ae</code></td><td><code>bg/dropdown · blue/500</code></td><td>border-radius 6px</td></tr>
+          <tr><td>User icon btn</td><td>transparent</td><td><code>#545252</code></td><td><code>grey/500</code></td><td>border-radius 50%</td></tr>
+          <tr><td>User icon – hover</td><td><code>#f4f4f4</code></td><td><code>#545252</code></td><td><code>bg/table</code></td><td>–</td></tr>
+          <tr><td>Dropdown menu</td><td><code>#ffffff</code></td><td>–</td><td>–</td><td>border 1px grey/50, border-radius 8px</td></tr>
+          <tr><td>Menu item – hover</td><td><code>#ddf3fa</code></td><td><code>#1a82ae</code></td><td><code>bg/dropdown · blue/500</code></td><td>–</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+
+  <!-- ══ DATE PICKER ══ -->
+  <section id="datepicker">
+    <h2 class="sg-title">Date Picker</h2>
+    <p class="section-desc">Calendar popup za odabir datuma ili raspona. Dijeli se na: Single, Range i Month-picker stanje.</p>
+    <div class="card">
+      <div class="sg-sub">Statusi</div>
+      <div class="dpp-row">
+
+        <!-- State 1: Single date selected -->
+        <div class="dpp-col">
+          <span class="dpp-lbl">Single date</span>
+          <div class="dpp-frame">
+            <div class="dpp-hrow">
+              <div class="dpp-hbtn">‹</div>
+              <div class="dpp-htitle">Aug <svg width="10" height="10" viewBox="0 0 24 24" fill="#696767"><path d="M7 10l5 5 5-5z"/></svg></div>
+              <div class="dpp-hbtn">›</div>
+              <div style="width:6px;"></div>
+              <div class="dpp-hbtn">‹</div>
+              <div class="dpp-htitle">2025 <svg width="10" height="10" viewBox="0 0 24 24" fill="#696767"><path d="M7 10l5 5 5-5z"/></svg></div>
+              <div class="dpp-hbtn">›</div>
+            </div>
+            <div class="dpp-cal">
+              <div class="dpp-ch">S</div><div class="dpp-ch">M</div><div class="dpp-ch">T</div><div class="dpp-ch">W</div><div class="dpp-ch">T</div><div class="dpp-ch">F</div><div class="dpp-ch">S</div>
+              <div class="dpp-cd out">27</div><div class="dpp-cd out">28</div><div class="dpp-cd out">29</div><div class="dpp-cd out">30</div><div class="dpp-cd out">31</div><div class="dpp-cd">1</div><div class="dpp-cd">2</div>
+              <div class="dpp-cd">3</div><div class="dpp-cd">4</div><div class="dpp-cd">5</div><div class="dpp-cd">6</div><div class="dpp-cd">7</div><div class="dpp-cd">8</div><div class="dpp-cd">9</div>
+              <div class="dpp-cd">10</div><div class="dpp-cd">11</div><div class="dpp-cd">12</div><div class="dpp-cd">13</div><div class="dpp-cd">14</div><div class="dpp-cd">15</div><div class="dpp-cd">16</div>
+              <div class="dpp-cd sel">17</div><div class="dpp-cd">18</div><div class="dpp-cd">19</div><div class="dpp-cd">20</div><div class="dpp-cd">21</div><div class="dpp-cd">22</div><div class="dpp-cd">23</div>
+              <div class="dpp-cd">24</div><div class="dpp-cd">25</div><div class="dpp-cd">26</div><div class="dpp-cd">27</div><div class="dpp-cd">28</div><div class="dpp-cd">29</div><div class="dpp-cd">30</div>
+              <div class="dpp-cd">31</div><div class="dpp-cd out">1</div><div class="dpp-cd out">2</div><div class="dpp-cd out">3</div><div class="dpp-cd out">4</div><div class="dpp-cd out">5</div><div class="dpp-cd out">6</div>
+            </div>
+            <div class="dpp-ftr">
+              <span class="dpp-cancel">Cancel</span>
+              <span class="dpp-ok">OK</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- State 2: Range selection -->
+        <div class="dpp-col">
+          <span class="dpp-lbl">Range selected</span>
+          <div class="dpp-frame">
+            <div class="dpp-hrow">
+              <div class="dpp-hbtn">‹</div>
+              <div class="dpp-htitle">Aug <svg width="10" height="10" viewBox="0 0 24 24" fill="#696767"><path d="M7 10l5 5 5-5z"/></svg></div>
+              <div class="dpp-hbtn">›</div>
+              <div style="width:6px;"></div>
+              <div class="dpp-hbtn">‹</div>
+              <div class="dpp-htitle">2025 <svg width="10" height="10" viewBox="0 0 24 24" fill="#696767"><path d="M7 10l5 5 5-5z"/></svg></div>
+              <div class="dpp-hbtn">›</div>
+            </div>
+            <div class="dpp-cal">
+              <div class="dpp-ch">S</div><div class="dpp-ch">M</div><div class="dpp-ch">T</div><div class="dpp-ch">W</div><div class="dpp-ch">T</div><div class="dpp-ch">F</div><div class="dpp-ch">S</div>
+              <div class="dpp-cd out">27</div><div class="dpp-cd out">28</div><div class="dpp-cd out">29</div><div class="dpp-cd out">30</div><div class="dpp-cd out">31</div><div class="dpp-cd">1</div><div class="dpp-cd">2</div>
+              <div class="dpp-cd">3</div><div class="dpp-cd">4</div><div class="dpp-cd">5</div><div class="dpp-cd">6</div><div class="dpp-cd">7</div><div class="dpp-cd">8</div><div class="dpp-cd">9</div>
+              <div class="dpp-cd">10</div><div class="dpp-cd">11</div><div class="dpp-cd">12</div><div class="dpp-cd">13</div><div class="dpp-cd">14</div><div class="dpp-cd">15</div><div class="dpp-cd">16</div>
+              <div class="dpp-cd rs">17</div><div class="dpp-cd rm">18</div><div class="dpp-cd rm">19</div><div class="dpp-cd rm">20</div><div class="dpp-cd rm">21</div><div class="dpp-cd re">22</div><div class="dpp-cd">23</div>
+              <div class="dpp-cd">24</div><div class="dpp-cd">25</div><div class="dpp-cd">26</div><div class="dpp-cd">27</div><div class="dpp-cd">28</div><div class="dpp-cd">29</div><div class="dpp-cd">30</div>
+              <div class="dpp-cd">31</div><div class="dpp-cd out">1</div><div class="dpp-cd out">2</div><div class="dpp-cd out">3</div><div class="dpp-cd out">4</div><div class="dpp-cd out">5</div><div class="dpp-cd out">6</div>
+            </div>
+            <div class="dpp-ftr">
+              <span class="dpp-cancel">Cancel</span>
+              <span class="dpp-ok">OK</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- State 3: Range + today ring -->
+        <div class="dpp-col">
+          <span class="dpp-lbl">Range + today</span>
+          <div class="dpp-frame">
+            <div class="dpp-hrow">
+              <div class="dpp-hbtn">‹</div>
+              <div class="dpp-htitle">Aug <svg width="10" height="10" viewBox="0 0 24 24" fill="#696767"><path d="M7 10l5 5 5-5z"/></svg></div>
+              <div class="dpp-hbtn">›</div>
+              <div style="width:6px;"></div>
+              <div class="dpp-hbtn">‹</div>
+              <div class="dpp-htitle">2025 <svg width="10" height="10" viewBox="0 0 24 24" fill="#696767"><path d="M7 10l5 5 5-5z"/></svg></div>
+              <div class="dpp-hbtn">›</div>
+            </div>
+            <div class="dpp-cal">
+              <div class="dpp-ch">S</div><div class="dpp-ch">M</div><div class="dpp-ch">T</div><div class="dpp-ch">W</div><div class="dpp-ch">T</div><div class="dpp-ch">F</div><div class="dpp-ch">S</div>
+              <div class="dpp-cd out">27</div><div class="dpp-cd out">28</div><div class="dpp-cd out">29</div><div class="dpp-cd out">30</div><div class="dpp-cd out">31</div><div class="dpp-cd">1</div><div class="dpp-cd">2</div>
+              <div class="dpp-cd">3</div><div class="dpp-cd">4</div><div class="dpp-cd">5</div><div class="dpp-cd">6</div><div class="dpp-cd">7</div><div class="dpp-cd">8</div><div class="dpp-cd">9</div>
+              <div class="dpp-cd">10</div><div class="dpp-cd">11</div><div class="dpp-cd">12</div><div class="dpp-cd">13</div><div class="dpp-cd">14</div><div class="dpp-cd">15</div><div class="dpp-cd">16</div>
+              <div class="dpp-cd rs">17</div><div class="dpp-cd rm">18</div><div class="dpp-cd rm today">19</div><div class="dpp-cd rm">20</div><div class="dpp-cd rm">21</div><div class="dpp-cd re">22</div><div class="dpp-cd">23</div>
+              <div class="dpp-cd">24</div><div class="dpp-cd">25</div><div class="dpp-cd">26</div><div class="dpp-cd">27</div><div class="dpp-cd">28</div><div class="dpp-cd">29</div><div class="dpp-cd">30</div>
+              <div class="dpp-cd">31</div><div class="dpp-cd out">1</div><div class="dpp-cd out">2</div><div class="dpp-cd out">3</div><div class="dpp-cd out">4</div><div class="dpp-cd out">5</div><div class="dpp-cd out">6</div>
+            </div>
+            <div class="dpp-ftr">
+              <span class="dpp-cancel">Cancel</span>
+              <span class="dpp-ok">OK</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- State 4: Month dropdown open -->
+        <div class="dpp-col">
+          <span class="dpp-lbl">Month picker open</span>
+          <div class="dpp-frame">
+            <div class="dpp-hrow">
+              <div class="dpp-hbtn">‹</div>
+              <div class="dpp-htitle" style="color:var(--blue-500);">Aug <svg width="10" height="10" viewBox="0 0 24 24" fill="#1a82ae"><path d="M7 10l5 5 5-5z"/></svg></div>
+              <div class="dpp-hbtn">›</div>
+              <div style="width:6px;"></div>
+              <div class="dpp-hbtn">‹</div>
+              <div class="dpp-htitle">2025 <svg width="10" height="10" viewBox="0 0 24 24" fill="#696767"><path d="M7 10l5 5 5-5z"/></svg></div>
+              <div class="dpp-hbtn">›</div>
+            </div>
+            <div class="dpp-mlist-wrap">
+              <div class="dpp-mlist">
+                <div class="dpp-mi">January</div>
+                <div class="dpp-mi sel">February</div>
+                <div class="dpp-mi">March</div>
+                <div class="dpp-mi">April</div>
+                <div class="dpp-mi">May</div>
+                <div class="dpp-mi">June</div>
+              </div>
+              <div>
+                <div class="dpp-cal">
+                  <div class="dpp-ch">S</div><div class="dpp-ch">M</div><div class="dpp-ch">T</div><div class="dpp-ch">W</div><div class="dpp-ch">T</div><div class="dpp-ch">F</div><div class="dpp-ch">S</div>
+                  <div class="dpp-cd out">27</div><div class="dpp-cd out">28</div><div class="dpp-cd out">29</div><div class="dpp-cd out">30</div><div class="dpp-cd out">31</div><div class="dpp-cd">1</div><div class="dpp-cd">2</div>
+                  <div class="dpp-cd">3</div><div class="dpp-cd">4</div><div class="dpp-cd">5</div><div class="dpp-cd">6</div><div class="dpp-cd">7</div><div class="dpp-cd">8</div><div class="dpp-cd">9</div>
+                  <div class="dpp-cd">10</div><div class="dpp-cd">11</div><div class="dpp-cd">12</div><div class="dpp-cd">13</div><div class="dpp-cd">14</div><div class="dpp-cd">15</div><div class="dpp-cd">16</div>
+                  <div class="dpp-cd rs">17</div><div class="dpp-cd rm">18</div><div class="dpp-cd rm">19</div><div class="dpp-cd rm">20</div><div class="dpp-cd rm">21</div><div class="dpp-cd re">22</div><div class="dpp-cd">23</div>
+                  <div class="dpp-cd">24</div><div class="dpp-cd">25</div><div class="dpp-cd">26</div><div class="dpp-cd">27</div><div class="dpp-cd">28</div><div class="dpp-cd">29</div><div class="dpp-cd">30</div>
+                </div>
+              </div>
+            </div>
+            <div class="dpp-ftr">
+              <span class="dpp-cancel">Cancel</span>
+              <span class="dpp-ok">OK</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- end dpp-row -->
+
+      <div class="sg-sub">Specifikacija</div>
+      <table class="spec">
+        <thead><tr><th>Element</th><th>Background / Fill</th><th>Token</th><th>Napomena</th></tr></thead>
+        <tbody>
+          <tr><td>Popup container</td><td><code>#ffffff</code></td><td>–</td><td>border 1px grey/50, border-radius 8px, box-shadow</td></tr>
+          <tr><td>Day header (S M T…)</td><td>transparent</td><td><code>grey/300</code></td><td>font 700 9px uppercase</td></tr>
+          <tr><td>Day – selected</td><td><code>#136c93</code></td><td><code>blue/600</code></td><td>border-radius 50%</td></tr>
+          <tr><td>Range start</td><td><code>#136c93</code></td><td><code>blue/600</code></td><td>border-radius 50% 0 0 50%</td></tr>
+          <tr><td>Range end</td><td><code>#136c93</code></td><td><code>blue/600</code></td><td>border-radius 0 50% 50% 0</td></tr>
+          <tr><td>Range middle</td><td><code>#cde8f5</code></td><td>–</td><td>border-radius 0</td></tr>
+          <tr><td>Today indicator</td><td>transparent</td><td><code>blue/300</code></td><td>outline 1.5px solid, border-radius 50%</td></tr>
+          <tr><td>Month item – selected</td><td><code>#1a82ae</code></td><td><code>blue/500</code></td><td>color #fff</td></tr>
+          <tr><td>Footer Cancel</td><td>transparent</td><td><code>grey/400</code></td><td>–</td></tr>
+          <tr><td>Footer OK</td><td>transparent</td><td><code>blue/500</code></td><td>font-weight 600</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+
+  <!-- ══ COMMENTS ══ -->
+  <section id="comments">
+    <h2 class="sg-title">Komentari</h2>
+    <p class="section-desc">Kartice komentara za prikaz poruka i korisnikov unos. Vlastiti komentari imaju plavu pozadinu, tuđi bijelu ili sivu.</p>
+    <div class="card">
+      <div class="sg-sub">Statusi kartica</div>
+      <div class="cc-grid">
+
+        <!-- Own comment – no actions -->
+        <div>
+          <div class="sg-sub" style="margin-top:0;">Vlastiti – bez akcija</div>
+          <div class="cc cc-blue">
+            <p class="cc-txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Sed ut perspiciatis unde omnis.</p>
+            <div class="cc-foot">
+              <div class="cc-av">IH</div>
+              <span style="font:400 10px var(--font);color:var(--grey-400);">Ivan Horvat</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Own comment – with actions -->
+        <div>
+          <div class="sg-sub" style="margin-top:0;">Vlastiti – s akcijama</div>
+          <div class="cc cc-blue">
+            <p class="cc-txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Sed ut perspiciatis unde omnis.</p>
+            <div class="cc-foot">
+              <div class="cc-av">IH</div>
+              <span style="font:400 10px var(--font);color:var(--grey-400);">Ivan Horvat</span>
+              <div class="cc-acts">
+                <div class="cc-act">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="#888686"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                </div>
+                <div class="cc-act">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="#e84031"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Other comment – with actions -->
+        <div>
+          <div class="sg-sub" style="margin-top:0;">Tuđi – s akcijama</div>
+          <div class="cc cc-white">
+            <p class="cc-txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Sed ut perspiciatis unde omnis.</p>
+            <div class="cc-foot">
+              <div class="cc-av" style="background:var(--grey-50);color:var(--grey-600);">IH</div>
+              <span style="font:400 10px var(--font);color:var(--grey-400);">Ivan Horvat</span>
+              <div class="cc-acts">
+                <div class="cc-act">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="#888686"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                </div>
+                <div class="cc-act">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="#e84031"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Other comment – read only, avatar right -->
+        <div>
+          <div class="sg-sub" style="margin-top:0;">Tuđi – read-only</div>
+          <div class="cc cc-grey">
+            <p class="cc-txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Sed ut perspiciatis unde omnis.</p>
+            <div class="cc-foot" style="justify-content:flex-end;">
+              <span style="font:400 10px var(--font);color:var(--grey-400);">Ivan Horvat</span>
+              <div class="cc-av" style="background:var(--grey-50);color:var(--grey-600);">IH</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- end cc-grid -->
+
+      <div class="sg-sub">Input polje</div>
+      <div class="cc-input">
+        <div class="cc-tf-wrap">
+          <span class="cc-tf-lbl">Unesite poruku</span>
+          <textarea class="cc-textarea" placeholder=""></textarea>
+        </div>
+        <button class="cc-send">
+          Pohvali
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+        </button>
+      </div>
+
+      <div class="sg-sub">Specifikacija</div>
+      <table class="spec">
+        <thead><tr><th>Varijanta</th><th>Background</th><th>Border</th><th>Token</th></tr></thead>
+        <tbody>
+          <tr><td>Vlastiti komentar</td><td><code>#ddf3fa</code></td><td><code>#b8dff2</code></td><td><code>bg/dropdown</code></td></tr>
+          <tr><td>Tuđi komentar</td><td><code>#ffffff</code></td><td><code>#d6d4d4</code></td><td><code>grey/50</code></td></tr>
+          <tr><td>Tuđi – read-only</td><td><code>#f5f5f5</code></td><td><code>#d6d4d4</code></td><td><code>bg/table ≈</code></td></tr>
+          <tr><td>Avatar – vlastiti</td><td><code>#7ecfec</code></td><td>–</td><td><code>blue/100</code></td></tr>
+          <tr><td>Avatar – tuđi</td><td><code>#d6d4d4</code></td><td>–</td><td><code>grey/50</code></td></tr>
+          <tr><td>Input textarea – focused</td><td><code>#ffffff</code></td><td><code>#37aada</code></td><td><code>blue/300</code></td></tr>
+          <tr><td>Send button</td><td><code>#1a82ae</code></td><td>–</td><td><code>blue/500</code></td></tr>
         </tbody>
       </table>
     </div>
