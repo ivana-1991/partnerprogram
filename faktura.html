@@ -259,6 +259,18 @@
       transition: background .15s;
     }
     .chat-send:hover { background: var(--blue-600); }
+
+    /* ─── TABLE DRAG / RESIZE / STICKY ─── */
+    thead th { position: relative; }
+    thead th.col-dragging  { opacity: .3; cursor: grabbing; }
+    thead th.col-drag-over { box-shadow: inset 3px 0 0 #2299c8; background: var(--bg-dropdown); }
+    .col-resize-handle { position: absolute; top: 0; right: 0; bottom: 0; width: 6px; cursor: col-resize; z-index: 2; }
+    .col-resize-handle::after { content: ''; position: absolute; top: 20%; bottom: 20%; right: 1px; width: 2px; border-radius: 1px; background: transparent; transition: background .15s; }
+    .col-resize-handle:hover::after, .col-resize-handle.resizing::after { background: #2299c8; }
+    .table-wrap { overflow-x: auto; }
+    thead th:first-child { position: sticky; left: 0; z-index: 2; background: var(--bg-table, #f4f4f4); }
+    tbody td:first-child { position: sticky; left: 0; z-index: 1; background: #fff; }
+    tbody tr:hover td:first-child { background: #f5fbfe; }
   </style>
 </head>
 <body>
@@ -737,6 +749,68 @@
   chatSend.addEventListener('click', sendMsg);
   chatInput.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMsg(); } });
 })();
+
+function initTableFeatures(table) {
+  const tr = table.querySelector('thead tr');
+  if (!tr) return;
+  [...tr.children].forEach(th => {
+    th.setAttribute('draggable', 'true');
+    if (!th.querySelector('.col-resize-handle')) {
+      const rh = document.createElement('div');
+      rh.className = 'col-resize-handle';
+      th.appendChild(rh);
+    }
+    if (!th.style.width) th.style.width = th.offsetWidth + 'px';
+  });
+  let di = null;
+  tr.addEventListener('dragstart', e => {
+    if (e.target.classList.contains('col-resize-handle')) { e.preventDefault(); return; }
+    const th = e.target.closest('th');
+    if (!th) return;
+    di = [...tr.children].indexOf(th);
+    th.classList.add('col-dragging');
+    e.dataTransfer.effectAllowed = 'move';
+  });
+  tr.addEventListener('dragend', () => { di = null; [...tr.children].forEach(t => t.classList.remove('col-dragging','col-drag-over')); });
+  tr.addEventListener('dragover', e => {
+    e.preventDefault();
+    const th = e.target.closest('th');
+    if (!th) return;
+    [...tr.children].forEach(t => t.classList.remove('col-drag-over'));
+    th.classList.add('col-drag-over');
+  });
+  tr.addEventListener('dragleave', e => { if (!tr.contains(e.relatedTarget)) [...tr.children].forEach(t => t.classList.remove('col-drag-over')); });
+  tr.addEventListener('drop', e => {
+    e.preventDefault();
+    const th = e.target.closest('th');
+    if (!th || di === null) return;
+    const dst = [...tr.children].indexOf(th);
+    if (di === dst) { di = null; return; }
+    const src = di; di = null;
+    const ths = [...tr.querySelectorAll('th')];
+    const [mth] = ths.splice(src, 1); ths.splice(dst, 0, mth);
+    ths.forEach(t => tr.appendChild(t));
+    const tbody = table.querySelector('tbody');
+    if (tbody) tbody.querySelectorAll('tr').forEach(row => {
+      const tds = [...row.querySelectorAll('td')];
+      const [mtd] = tds.splice(src, 1); tds.splice(dst, 0, mtd);
+      tds.forEach(td => row.appendChild(td));
+    });
+    [...tr.children].forEach(t => t.classList.remove('col-drag-over'));
+  });
+  tr.querySelectorAll('.col-resize-handle').forEach(h => {
+    h.addEventListener('mousedown', e => {
+      e.stopPropagation(); e.preventDefault();
+      const th = h.closest('th'), sx = e.clientX, sw = th.offsetWidth;
+      h.classList.add('resizing');
+      document.body.style.cursor = 'col-resize'; document.body.style.userSelect = 'none';
+      const mv = ev => { th.style.width = Math.max(60, sw + ev.clientX - sx) + 'px'; };
+      const up = () => { h.classList.remove('resizing'); document.body.style.cursor = document.body.style.userSelect = ''; document.removeEventListener('mousemove', mv); document.removeEventListener('mouseup', up); };
+      document.addEventListener('mousemove', mv); document.addEventListener('mouseup', up);
+    });
+  });
+}
+document.querySelectorAll('table').forEach(initTableFeatures);
 </script>
 </body>
 </html>
