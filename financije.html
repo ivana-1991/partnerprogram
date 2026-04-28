@@ -70,33 +70,64 @@
     .nav-dd-icon { width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 
     /* ─── PAGE ─── */
-    .page-content { padding: 24px; padding-bottom: 48px; }
-    .page-title { font-size: 24px; font-weight: 700; color: var(--grey-800); margin-bottom: 24px; line-height: 32px; }
+    .page-content { padding: clamp(16px,1.67vw,24px); padding-bottom: 48px; }
+    .page-title { font-size: clamp(20px,1.67vw,24px); font-weight: 700; color: var(--grey-800); margin-bottom: 24px; line-height: 32px; }
 
     /* ─── FILTER BAR ─── */
-    .filter-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
-    .date-field {
-      position: relative; display: flex; align-items: center;
-      height: 40px; border: 1px solid #c4c4c4; border-radius: 4px;
-      background: #fff; padding: 0 12px 0 36px; gap: 8px;
-      font-size: 14px; color: var(--grey-400); cursor: pointer; min-width: 200px;
+    .filter-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 32px; }
+    .filter-left  { display: flex; align-items: center; gap: 16px; flex: 1; min-width: 0; }
+    .filter-right { display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
+
+    /* Floating-label field */
+    .field-wrap { position: relative; height: 40px; flex: 1; min-width: 160px; max-width: 280px; }
+    .field-icon {
+      position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
+      pointer-events: none; display: flex; align-items: center; color: var(--grey-300);
     }
-    .date-field svg { position: absolute; left: 10px; color: var(--grey-400); flex-shrink: 0; }
+    .field-float {
+      display: none; position: absolute; top: -8px; left: 8px;
+      background: #fff; padding: 0 4px; font-size: 11px; font-weight: 500;
+      color: var(--blue-500); line-height: 1; white-space: nowrap;
+    }
+    .field-base {
+      height: 40px; border: 1px solid var(--grey-50); border-radius: 4px;
+      padding: 0 12px 0 34px; font-family: 'Inter', sans-serif;
+      font-size: 14px; color: var(--grey-800); background: #fff; outline: none;
+      width: 100%; transition: border-color .15s;
+      cursor: pointer; display: flex; align-items: center; user-select: none;
+    }
+    .field-base:focus, .field-base.open { border-color: var(--blue-500); }
+    .field-base.has-value { border-color: var(--blue-500); }
+    .field-base.has-value ~ .field-float,
+    .field-base:focus ~ .field-float,
+    .field-base.open ~ .field-float { display: block; }
+    .field-placeholder { color: var(--grey-300); font-size: 14px; }
+
+    /* Buttons */
     .btn-primary {
-      height: 40px; padding: 0 24px; background: var(--blue-500); color: #fff;
+      height: 40px; padding: 0 clamp(12px,1.25vw,24px);
+      background: var(--blue-500); color: #fff;
       border: none; border-radius: 4px; font-family: 'Inter',sans-serif;
       font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap;
-      display: flex; align-items: center; gap: 8px; transition: background .15s;
+      flex-shrink: 0; display: flex; align-items: center; gap: 8px; transition: background .15s;
     }
     .btn-primary:hover { background: var(--blue-600); }
     .btn-secondary {
-      height: 40px; padding: 0 16px; background: #fff; color: var(--grey-600);
-      border: 1px solid #c4c4c4; border-radius: 4px; font-family: 'Inter',sans-serif;
+      height: 40px; padding: 0 16px; background: #fff;
+      color: var(--blue-500); border: 1px solid var(--blue-500);
+      border-radius: 4px; font-family: 'Inter',sans-serif;
       font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap;
       display: flex; align-items: center; gap: 8px; transition: background .15s;
+      flex-shrink: 0;
     }
-    .btn-secondary:hover { background: var(--bg-table); }
-    .btn-export { margin-left: auto; }
+    .btn-secondary:hover { background: var(--bg-dropdown); }
+    /* Export — icon-only at narrow, full label at wider */
+    #exportBtn { width: 40px; padding: 0; justify-content: center; gap: 0; }
+    .export-label { display: none; }
+    @media (min-width: 1300px) {
+      #exportBtn { width: auto; padding: 0 16px; gap: 8px; }
+      .export-label { display: inline; }
+    }
 
     /* ─── TABLE ─── */
     .table-wrap { border: 1px solid #e5e5e5; border-radius: 4px; overflow-x: auto; background: #fff; }
@@ -262,17 +293,44 @@
 
   <!-- Filter bar -->
   <div class="filter-bar">
-    <div class="date-field">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-      </svg>
-      Odabir datuma
+    <div class="filter-left">
+      <!-- Date from -->
+      <div class="field-wrap">
+        <span class="field-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z" fill="#888686"/>
+          </svg>
+        </span>
+        <div class="field-base" id="dateFromTrigger" tabindex="0" role="button">
+          <span class="field-placeholder" id="dateFromText">Datum od</span>
+        </div>
+        <span class="field-float">Datum od</span>
+      </div>
+
+      <!-- Date to -->
+      <div class="field-wrap">
+        <span class="field-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z" fill="#888686"/>
+          </svg>
+        </span>
+        <div class="field-base" id="dateToTrigger" tabindex="0" role="button">
+          <span class="field-placeholder" id="dateToText">Datum do</span>
+        </div>
+        <span class="field-float">Datum do</span>
+      </div>
+
+      <button class="btn-primary" id="fetchBtn">Dohvati</button>
     </div>
-    <button class="btn-primary">Dohvati</button>
-    <button class="btn-secondary btn-export">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Export tablice
-    </button>
+
+    <div class="filter-right">
+      <button class="btn-secondary" id="exportBtn">
+        <span class="export-label">Export tablice</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" fill="#1a82ae"/>
+        </svg>
+      </button>
+    </div>
   </div>
 
   <!-- Table -->
