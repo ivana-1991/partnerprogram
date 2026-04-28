@@ -192,6 +192,57 @@
     .pg-btn:disabled { opacity: .3; cursor: not-allowed; }
     .pg-sep { padding: 0 2px; color: var(--grey-300); font-size: 13px; line-height: 28px; }
 
+    /* ─── DATE PICKER ─── */
+    .dpp-trigger { cursor: pointer; transition: border-color .15s, background .15s; }
+    .dpp-trigger:hover { background: #f5fbfe; border-color: var(--blue-500); }
+    .dpp-backdrop { display: none; position: fixed; inset: 0; z-index: 490; }
+    .dpp-backdrop.open { display: block; }
+    .dpp-popup {
+      display: none; position: fixed; z-index: 491;
+      width: 360px; background: #fff;
+      border: 1px solid var(--grey-50); border-radius: 16px;
+      box-shadow: 0 4px 4px rgba(0,0,0,.25);
+      font-family: 'Inter', sans-serif; overflow: hidden;
+    }
+    .dpp-popup.open { display: block; }
+    .dpp-header { display: flex; align-items: center; justify-content: space-between; height: 64px; padding: 0 4px; }
+    .dpp-month-wrap { display: flex; align-items: center; position: relative; }
+    .dpp-year-wrap  { display: flex; align-items: center; }
+    .dpp-nav {
+      width: 48px; height: 48px; border: none; background: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      border-radius: 50%; color: var(--grey-500); transition: background .1s;
+    }
+    .dpp-nav:hover { background: var(--bg-table); }
+    .dpp-mon-btn, .dpp-yr-btn {
+      border: none; background: none; cursor: pointer;
+      font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600;
+      color: var(--grey-800); display: flex; align-items: center; gap: 8px;
+      padding: 10px 4px 10px 8px; border-radius: 100px; transition: background .1s;
+      white-space: nowrap;
+    }
+    .dpp-mon-btn:hover, .dpp-yr-btn:hover { background: var(--bg-table); }
+    .dpp-mon-btn.open { background: var(--bg-dropdown); color: var(--blue-500); }
+    .dpp-weekdays { display: grid; grid-template-columns: repeat(7,1fr); padding: 0 12px; }
+    .dpp-wd { height: 48px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 600; color: var(--grey-800); }
+    .dpp-days { display: grid; grid-template-columns: repeat(7,1fr); padding: 0 12px 4px; }
+    .dpp-d { height: 48px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; color: var(--grey-800); position: relative; }
+    .dpp-out { color: var(--grey-400); opacity: .38; cursor: default; pointer-events: none; }
+    .dpp-dn { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative; z-index: 1; flex-shrink: 0; transition: background .1s; }
+    .dpp-d:hover:not(.dpp-out):not(.dpp-sel) > .dpp-dn { background: var(--bg-table); }
+    .dpp-today > .dpp-dn { border: 1px solid var(--blue-500); color: var(--blue-600); }
+    .dpp-sel > .dpp-dn { background: var(--blue-500); color: #fff; font-weight: 600; }
+    .dpp-footer { display: flex; align-items: center; justify-content: flex-end; gap: 4px; padding: 4px 12px 12px; border-top: 1px solid var(--grey-50); }
+    .dpp-cancel-btn, .dpp-ok-btn { border: none; background: none; cursor: pointer; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; padding: 10px 16px; border-radius: 100px; transition: background .1s; }
+    .dpp-cancel-btn { color: var(--grey-600); }
+    .dpp-ok-btn     { color: var(--blue-500); }
+    .dpp-cancel-btn:hover, .dpp-ok-btn:hover { background: var(--bg-dropdown); }
+    .dpp-mon-list { position: absolute; top: 48px; left: 48px; width: 148px; background: #fff; border: 1px solid var(--grey-50); border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,.12); overflow-y: auto; max-height: 228px; z-index: 10; display: none; }
+    .dpp-mon-list.open { display: block; }
+    .dpp-mon-opt { padding: 10px 16px; font-size: 14px; color: var(--grey-700); cursor: pointer; font-weight: 500; transition: background .1s; }
+    .dpp-mon-opt:hover { background: var(--bg-table); }
+    .dpp-mon-opt.sel { background: var(--bg-dropdown); color: var(--blue-500); font-weight: 600; }
+
     /* ─── TABLE DRAG / RESIZE / STICKY ─── */
     thead th { position: relative; }
     thead th.col-dragging  { opacity: .3; cursor: grabbing; }
@@ -205,6 +256,33 @@
   </style>
 </head>
 <body>
+
+<!-- DATE PICKER POPUP -->
+<div class="dpp-backdrop" id="dppBackdrop"></div>
+<div class="dpp-popup" id="dppPopup">
+  <div class="dpp-header">
+    <div class="dpp-month-wrap">
+      <button class="dpp-nav" id="dppPrevMon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" fill="currentColor"/></svg></button>
+      <button class="dpp-mon-btn" id="dppMonBtn"><span id="dppMonLabel">Tra</span><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg></button>
+      <button class="dpp-nav" id="dppNextMon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" fill="currentColor"/></svg></button>
+      <div class="dpp-mon-list" id="dppMonList"></div>
+    </div>
+    <div class="dpp-year-wrap">
+      <button class="dpp-nav" id="dppPrevYr"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" fill="currentColor"/></svg></button>
+      <button class="dpp-yr-btn" id="dppYrBtn"><span id="dppYrLabel">2026</span><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg></button>
+      <button class="dpp-nav" id="dppNextYr"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" fill="currentColor"/></svg></button>
+    </div>
+  </div>
+  <div class="dpp-weekdays">
+    <div class="dpp-wd">P</div><div class="dpp-wd">U</div><div class="dpp-wd">S</div>
+    <div class="dpp-wd">Č</div><div class="dpp-wd">P</div><div class="dpp-wd">S</div><div class="dpp-wd">N</div>
+  </div>
+  <div class="dpp-days" id="dppDays"></div>
+  <div class="dpp-footer">
+    <button class="dpp-cancel-btn" id="dppCancel">Odustani</button>
+    <button class="dpp-ok-btn" id="dppOk">OK</button>
+  </div>
+</div>
 
 <!-- NAV -->
 <nav class="nav">
@@ -301,7 +379,7 @@
             <path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z" fill="#888686"/>
           </svg>
         </span>
-        <div class="field-base" id="dateFromTrigger" tabindex="0" role="button">
+        <div class="field-base dpp-trigger" id="dateFromTrigger" tabindex="0" role="button">
           <span class="field-placeholder" id="dateFromText">Datum od</span>
         </div>
         <span class="field-float">Datum od</span>
@@ -314,7 +392,7 @@
             <path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z" fill="#888686"/>
           </svg>
         </span>
-        <div class="field-base" id="dateToTrigger" tabindex="0" role="button">
+        <div class="field-base dpp-trigger" id="dateToTrigger" tabindex="0" role="button">
           <span class="field-placeholder" id="dateToText">Datum do</span>
         </div>
         <span class="field-float">Datum do</span>
@@ -559,6 +637,115 @@ function initTableFeatures(table) {
   });
 }
 document.querySelectorAll('.table-wrap table').forEach(initTableFeatures);
+
+/* ── DATE PICKER (shared popup, two triggers) ── */
+(function() {
+  const MONTHS_SHORT = ['Sij','Velj','Ožu','Tra','Svi','Lip','Srp','Kol','Ruj','Lis','Stu','Pro'];
+  const MONTHS_FULL  = ['Siječanj','Veljača','Ožujak','Travanj','Svibanj','Lipanj',
+                        'Srpanj','Kolovoz','Rujan','Listopad','Studeni','Prosinac'];
+
+  const popup    = document.getElementById('dppPopup');
+  const backdrop = document.getElementById('dppBackdrop');
+  const daysEl   = document.getElementById('dppDays');
+  const monLabel = document.getElementById('dppMonLabel');
+  const yrLabel  = document.getElementById('dppYrLabel');
+  const monList  = document.getElementById('dppMonList');
+
+  const triggers = [
+    { el: document.getElementById('dateFromTrigger'), txt: document.getElementById('dateFromText'), flt: document.querySelector('#dateFromTrigger ~ .field-float') },
+    { el: document.getElementById('dateToTrigger'),   txt: document.getElementById('dateToText'),   flt: document.querySelector('#dateToTrigger ~ .field-float')   }
+  ];
+
+  let curYear, curMonth, selDate = null, activeTrigger = null;
+
+  function formatHR(d) { return d.getDate() + '.' + (d.getMonth()+1) + '.' + d.getFullYear() + '.'; }
+
+  function renderGrid() {
+    monLabel.textContent = MONTHS_SHORT[curMonth];
+    yrLabel.textContent  = curYear;
+    const today      = new Date();
+    const firstDay   = new Date(curYear, curMonth, 1);
+    const startOff   = (firstDay.getDay() + 6) % 7;
+    const daysInMon  = new Date(curYear, curMonth + 1, 0).getDate();
+    const daysInPrev = new Date(curYear, curMonth, 0).getDate();
+    const total      = Math.ceil((startOff + daysInMon) / 7) * 7;
+    let html = '';
+    for (let i = 0; i < total; i++) {
+      let d, m, y, out = false;
+      if (i < startOff)            { d = daysInPrev - startOff + i + 1; m = curMonth - 1; y = curYear; if (m < 0) { m = 11; y--; } out = true; }
+      else if (i >= startOff + daysInMon) { d = i - startOff - daysInMon + 1; m = curMonth + 1; y = curYear; if (m > 11) { m = 0; y++; } out = true; }
+      else                         { d = i - startOff + 1; m = curMonth; y = curYear; }
+      const td = new Date(y, m, d);
+      const isTod = td.toDateString() === today.toDateString();
+      const isSel = selDate && td.toDateString() === selDate.toDateString();
+      let cls = 'dpp-d' + (out ? ' dpp-out' : '') + (isTod && !isSel ? ' dpp-today' : '') + (isSel ? ' dpp-sel' : '');
+      html += `<div class="${cls}" data-y="${y}" data-m="${m}" data-d="${d}"><span class="dpp-dn">${d}</span></div>`;
+    }
+    daysEl.innerHTML = html;
+    daysEl.querySelectorAll('.dpp-d:not(.dpp-out)').forEach(el => {
+      el.addEventListener('click', () => {
+        selDate = new Date(+el.dataset.y, +el.dataset.m, +el.dataset.d);
+        renderGrid();
+      });
+    });
+    monList.querySelectorAll('.dpp-mon-opt').forEach((el,i) => el.classList.toggle('sel', i === curMonth));
+  }
+
+  function buildMonList() {
+    monList.innerHTML = MONTHS_FULL.map((n,i) =>
+      `<div class="dpp-mon-opt${i===curMonth?' sel':''}" data-m="${i}">${n}</div>`).join('');
+    monList.querySelectorAll('.dpp-mon-opt').forEach(el =>
+      el.addEventListener('click', e => { e.stopPropagation(); curMonth = +el.dataset.m; renderGrid(); closeMonList(); }));
+  }
+  function openMonList()  { buildMonList(); monList.classList.add('open'); document.getElementById('dppMonBtn').classList.add('open'); }
+  function closeMonList() { monList.classList.remove('open'); document.getElementById('dppMonBtn').classList.remove('open'); }
+
+  function openPicker(trigger) {
+    activeTrigger = trigger;
+    const now = new Date();
+    curYear  = now.getFullYear();
+    curMonth = now.getMonth();
+    selDate  = null;
+    renderGrid();
+    const rect = trigger.el.getBoundingClientRect();
+    let left = Math.min(rect.left, window.innerWidth - 380);
+    popup.style.left = left + 'px';
+    const spaceBelow = window.innerHeight - rect.bottom;
+    if (spaceBelow >= 420) { popup.style.top = (rect.bottom + 6) + 'px'; popup.style.bottom = 'auto'; }
+    else                   { popup.style.bottom = (window.innerHeight - rect.top + 6) + 'px'; popup.style.top = 'auto'; }
+    popup.classList.add('open');
+    backdrop.classList.add('open');
+  }
+
+  function closePicker(save) {
+    popup.classList.remove('open'); backdrop.classList.remove('open'); closeMonList();
+    if (save && selDate && activeTrigger) {
+      const label = formatHR(selDate);
+      activeTrigger.txt.textContent = label;
+      activeTrigger.txt.style.color = 'var(--grey-800)';
+      activeTrigger.el.classList.add('has-value');
+      if (activeTrigger.flt) activeTrigger.flt.style.display = 'block';
+    }
+    activeTrigger = null;
+  }
+
+  document.getElementById('dppPrevMon').addEventListener('click', () => { curMonth--; if (curMonth < 0) { curMonth = 11; curYear--; } renderGrid(); });
+  document.getElementById('dppNextMon').addEventListener('click', () => { curMonth++; if (curMonth > 11) { curMonth = 0; curYear++; } renderGrid(); });
+  document.getElementById('dppPrevYr').addEventListener('click', () => { curYear--; renderGrid(); });
+  document.getElementById('dppNextYr').addEventListener('click', () => { curYear++; renderGrid(); });
+  document.getElementById('dppMonBtn').addEventListener('click', e => { e.stopPropagation(); monList.classList.contains('open') ? closeMonList() : openMonList(); });
+  document.getElementById('dppCancel').addEventListener('click', () => closePicker(false));
+  document.getElementById('dppOk').addEventListener('click',     () => closePicker(true));
+  backdrop.addEventListener('click', () => closePicker(false));
+  popup.addEventListener('click', e => e.stopPropagation());
+
+  triggers.forEach(t => {
+    t.el.addEventListener('click', () => {
+      if (popup.classList.contains('open') && activeTrigger === t) { closePicker(false); return; }
+      openPicker(t);
+    });
+  });
+})();
 </script>
 </body>
 </html>
