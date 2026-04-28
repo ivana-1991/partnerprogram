@@ -117,9 +117,12 @@
     /* Avatar */
     .partner-cell { display: flex; align-items: center; gap: 10px; }
     .avatar-circle {
-      width: 32px; height: 32px; border-radius: 50%;
+      height: 24px; min-width: 24px; padding: 4px 6px;
+      border-radius: 300px; border: 1px solid var(--grey-50);
       display: flex; align-items: center; justify-content: center;
-      font-size: 11px; font-weight: 700; color: #fff; flex-shrink: 0;
+      font-size: 10px; font-weight: 600; color: var(--grey-600);
+      background: #fff; flex-shrink: 0; line-height: 16px;
+      text-transform: uppercase; white-space: nowrap;
     }
     .partner-name { font-size: 14px; color: var(--grey-800); }
 
@@ -293,7 +296,7 @@
           <td>15.04.2026. 14:55</td>
           <td>101-C-10</td>
           <td>15.04.2026. 14:55</td>
-          <td><div class="partner-cell"><div class="avatar-circle" style="background:#e53e3e">JW</div><span class="partner-name">Prodajni partner 1</span></div></td>
+          <td><div class="partner-cell"><div class="avatar-circle">P1</div><span class="partner-name">Prodajni partner 1</span></div></td>
           <td>100,00 €</td>
           <td class="pdf-cell"><a class="pdf-link" href="#" onclick="event.stopPropagation()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg></a></td>
           <td>125,00 €</td>
@@ -304,7 +307,7 @@
           <td>15.04.2026. 14:55</td>
           <td>101-C-11</td>
           <td>15.04.2026. 14:55</td>
-          <td><div class="partner-cell"><div class="avatar-circle" style="background:#3182ce">JP</div><span class="partner-name">Prodajni partner 2</span></div></td>
+          <td><div class="partner-cell"><div class="avatar-circle">P2</div><span class="partner-name">Prodajni partner 2</span></div></td>
           <td>150,00 €</td>
           <td class="pdf-cell"><a class="pdf-link" href="#" onclick="event.stopPropagation()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg></a></td>
           <td>130,00 €</td>
@@ -315,7 +318,7 @@
           <td>15.04.2026. 14:55</td>
           <td>101-C-12</td>
           <td>15.04.2026. 14:55</td>
-          <td><div class="partner-cell"><div class="avatar-circle" style="background:#38a169">JA</div><span class="partner-name">Prodajni partner 3</span></div></td>
+          <td><div class="partner-cell"><div class="avatar-circle">P3</div><span class="partner-name">Prodajni partner 3</span></div></td>
           <td>200,00 €</td>
           <td class="pdf-cell"><a class="pdf-link" href="#" onclick="event.stopPropagation()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg></a></td>
           <td>135,00 €</td>
@@ -326,7 +329,7 @@
           <td>15.04.2026. 14:55</td>
           <td>101-C-13</td>
           <td>15.04.2026. 14:55</td>
-          <td><div class="partner-cell"><div class="avatar-circle" style="background:#805ad5">JL</div><span class="partner-name">Prodajni partner 4</span></div></td>
+          <td><div class="partner-cell"><div class="avatar-circle">P4</div><span class="partner-name">Prodajni partner 4</span></div></td>
           <td>250,00 €</td>
           <td class="pdf-cell"><a class="pdf-link" href="#" onclick="event.stopPropagation()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg></a></td>
           <td>140,00 €</td>
@@ -337,7 +340,7 @@
           <td>15.04.2026. 14:55</td>
           <td>101-C-14</td>
           <td>15.04.2026. 14:55</td>
-          <td><div class="partner-cell"><div class="avatar-circle" style="background:#d69e2e">JH</div><span class="partner-name">Prodajni partner 5</span></div></td>
+          <td><div class="partner-cell"><div class="avatar-circle">P5</div><span class="partner-name">Prodajni partner 5</span></div></td>
           <td>300,00 €</td>
           <td class="pdf-cell"><a class="pdf-link" href="#" onclick="event.stopPropagation()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg></a></td>
           <td>145,00 €</td>
@@ -348,7 +351,7 @@
           <td>15.04.2026. 14:55</td>
           <td>101-C-15</td>
           <td>15.04.2026. 14:55</td>
-          <td><div class="partner-cell"><div class="avatar-circle" style="background:#319795">JG</div><span class="partner-name">Prodajni partner 6</span></div></td>
+          <td><div class="partner-cell"><div class="avatar-circle">P6</div><span class="partner-name">Prodajni partner 6</span></div></td>
           <td>350,00 €</td>
           <td class="pdf-cell"><a class="pdf-link" href="#" onclick="event.stopPropagation()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg></a></td>
           <td>150,00 €</td>
@@ -359,7 +362,7 @@
           <td>15.04.2026. 14:55</td>
           <td>101-C-16</td>
           <td>15.04.2026. 14:55</td>
-          <td><div class="partner-cell"><div class="avatar-circle" style="background:#dd6b20">JF</div><span class="partner-name">Prodajni partner 7</span></div></td>
+          <td><div class="partner-cell"><div class="avatar-circle">P7</div><span class="partner-name">Prodajni partner 7</span></div></td>
           <td>400,00 €</td>
           <td class="pdf-cell"><a class="pdf-link" href="#" onclick="event.stopPropagation()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg></a></td>
           <td>155,00 €</td>
@@ -370,7 +373,7 @@
           <td>15.04.2026. 14:55</td>
           <td>101-C-17</td>
           <td>15.04.2026. 14:55</td>
-          <td><div class="partner-cell"><div class="avatar-circle" style="background:#2b6cb0">JE</div><span class="partner-name">Prodajni partner 8</span></div></td>
+          <td><div class="partner-cell"><div class="avatar-circle">P8</div><span class="partner-name">Prodajni partner 8</span></div></td>
           <td>450,00 €</td>
           <td class="pdf-cell"><a class="pdf-link" href="#" onclick="event.stopPropagation()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg></a></td>
           <td>160,00 €</td>
@@ -381,7 +384,7 @@
           <td>15.04.2026. 14:55</td>
           <td>101-C-18</td>
           <td>15.04.2026. 14:55</td>
-          <td><div class="partner-cell"><div class="avatar-circle" style="background:#9b2c2c">JD</div><span class="partner-name">Prodajni partner 9</span></div></td>
+          <td><div class="partner-cell"><div class="avatar-circle">P9</div><span class="partner-name">Prodajni partner 9</span></div></td>
           <td>500,00 €</td>
           <td class="pdf-cell"><a class="pdf-link" href="#" onclick="event.stopPropagation()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg></a></td>
           <td>165,00 €</td>
@@ -392,7 +395,7 @@
           <td>15.04.2026. 14:55</td>
           <td>101-C-19</td>
           <td>15.04.2026. 14:55</td>
-          <td><div class="partner-cell"><div class="avatar-circle" style="background:#276749">JC</div><span class="partner-name">Prodajni partner 10</span></div></td>
+          <td><div class="partner-cell"><div class="avatar-circle">P10</div><span class="partner-name">Prodajni partner 10</span></div></td>
           <td>550,00 €</td>
           <td class="pdf-cell"><a class="pdf-link" href="#" onclick="event.stopPropagation()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg></a></td>
           <td>170,00 €</td>
@@ -450,12 +453,13 @@ function initTableFeatures(table) {
   });
   let di = null;
   tr.addEventListener('dragstart', e => {
-    if (e.target.classList.contains('col-resize-handle')) { e.preventDefault(); return; }
+    if (e.target.closest('.col-resize-handle')) { e.preventDefault(); return; }
     const th = e.target.closest('th');
     if (!th) return;
     di = [...tr.children].indexOf(th);
     th.classList.add('col-dragging');
     e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', String(di));
   });
   tr.addEventListener('dragend', () => { di = null; [...tr.children].forEach(t => t.classList.remove('col-dragging','col-drag-over')); });
   tr.addEventListener('dragover', e => {
