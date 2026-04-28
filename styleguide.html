@@ -400,14 +400,36 @@
     .cc-grey  { background: #f5f5f5; border: 1px solid var(--grey-50); }
     .cc-txt   { font: 400 11.5px/1.65 var(--font); color: var(--grey-700); }
     .cc-foot  { display: flex; align-items: center; gap: 6px; }
-    .cc-av    { width: 24px; height: 24px; border-radius: 50%; background: var(--blue-100); color: var(--blue-800); font: 700 9px/1 var(--font); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .cc-acts  { display: flex; gap: 4px; margin-left: auto; }
-    .cc-act   { width: 20px; height: 20px; border: 1px solid var(--grey-50); background: #fff; border-radius: 3px; display: flex; align-items: center; justify-content: center; }
+    .cc-av    { width: 24px; height: 24px; border-radius: 50%; background: var(--blue-700); color: #fff; font: 700 9px/1 var(--font); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .cc-av.other { background: var(--grey-500); }
+    .cc-acts  { display: flex; gap: 8px; margin-left: auto; align-items: center; }
     .cc-input { display: flex; flex-direction: column; gap: 10px; }
     .cc-tf-wrap { position: relative; display: inline-block; }
     .cc-tf-lbl  { position: absolute; top: -8px; left: 8px; background: #fff; padding: 0 4px; font: 500 11px var(--font); color: var(--blue-500); }
     .cc-textarea { width: 360px; max-width: 100%; min-height: 72px; border: 1px solid var(--blue-300); border-radius: 4px; padding: 10px 12px; font: 400 13px/1.5 var(--font); color: var(--grey-800); resize: vertical; outline: none; }
     .cc-send { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: var(--blue-500); color: #fff; border: none; border-radius: 4px; font: 600 13px var(--font); cursor: default; }
+
+    /* ─── ALERTS ─── */
+    .alert-list { display: flex; flex-direction: column; gap: 12px; }
+    .al { display: flex; align-items: flex-start; gap: 12px; padding: 16px 20px; border-radius: 12px; border: 1px solid; position: relative; }
+    .al-info    { background: #ebf8fd; border-color: #1a82ae; }
+    .al-warning { background: #fffaeb; border-color: #d97706; }
+    .al-error   { background: #fff1f0; border-color: #e84031; }
+    .al-success { background: #f0fdf4; border-color: #16a34a; }
+    .al-icon { flex-shrink: 0; width: 22px; height: 22px; margin-top: 1px; }
+    .al-body { flex: 1; min-width: 0; }
+    .al-title { font: 700 14px/20px var(--font); }
+    .al-info    .al-title, .al-info    .al-icon { color: #1a82ae; }
+    .al-warning .al-title, .al-warning .al-icon { color: #d97706; }
+    .al-error   .al-title, .al-error   .al-icon { color: #e84031; }
+    .al-success .al-title, .al-success .al-icon { color: #16a34a; }
+    .al-text { font: 400 13px/1.6 var(--font); color: var(--grey-700); margin-top: 2px; }
+    .al-close { background: none; border: none; cursor: pointer; padding: 0; margin-left: 8px; flex-shrink: 0; opacity: .6; display: flex; align-items: center; justify-content: center; }
+    .al-close:hover { opacity: 1; }
+    .al-info    .al-close { color: #1a82ae; }
+    .al-warning .al-close { color: #d97706; }
+    .al-error   .al-close { color: #e84031; }
+    .al-success .al-close { color: #16a34a; }
   </style>
 </head>
 <body>
@@ -433,6 +455,7 @@
   <a href="#nav">Navigacija</a>
   <a href="#datepicker">Date Picker</a>
   <a href="#comments">Komentari</a>
+  <a href="#alerts">Alerti</a>
   <a href="#colors">Boje</a>
   <a href="#typo">Tipografija</a>
 </nav>
@@ -1257,11 +1280,11 @@
         <div>
           <div class="sg-sub" style="margin-top:0;">Vlastiti – bez akcija</div>
           <div class="cc cc-blue">
-            <p class="cc-txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Sed ut perspiciatis unde omnis.</p>
             <div class="cc-foot">
               <div class="cc-av">IH</div>
-              <span style="font:400 10px var(--font);color:var(--grey-400);">Ivan Horvat</span>
+              <span style="font:600 12px var(--font);color:var(--grey-700);">Ivan Horvat</span>
             </div>
+            <p class="cc-txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Sed ut perspiciatis unde omnis.</p>
           </div>
         </div>
 
@@ -1269,19 +1292,15 @@
         <div>
           <div class="sg-sub" style="margin-top:0;">Vlastiti – s akcijama</div>
           <div class="cc cc-blue">
-            <p class="cc-txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Sed ut perspiciatis unde omnis.</p>
             <div class="cc-foot">
               <div class="cc-av">IH</div>
-              <span style="font:400 10px var(--font);color:var(--grey-400);">Ivan Horvat</span>
+              <span style="font:600 12px var(--font);color:var(--grey-700);">Ivan Horvat</span>
               <div class="cc-acts">
-                <div class="cc-act">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="#888686"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
-                </div>
-                <div class="cc-act">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="#e84031"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-                </div>
+                <div class="ico ico-sm ico-edit tint-grey"></div>
+                <div class="ico ico-sm ico-backspace tint-grey"></div>
               </div>
             </div>
+            <p class="cc-txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Sed ut perspiciatis unde omnis.</p>
           </div>
         </div>
 
@@ -1289,19 +1308,15 @@
         <div>
           <div class="sg-sub" style="margin-top:0;">Tuđi – s akcijama</div>
           <div class="cc cc-white">
-            <p class="cc-txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Sed ut perspiciatis unde omnis.</p>
             <div class="cc-foot">
-              <div class="cc-av" style="background:var(--grey-50);color:var(--grey-600);">IH</div>
-              <span style="font:400 10px var(--font);color:var(--grey-400);">Ivan Horvat</span>
+              <div class="cc-av other">IH</div>
+              <span style="font:600 12px var(--font);color:var(--grey-700);">Ivan Horvat</span>
               <div class="cc-acts">
-                <div class="cc-act">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="#888686"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
-                </div>
-                <div class="cc-act">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="#e84031"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-                </div>
+                <div class="ico ico-sm ico-edit tint-grey"></div>
+                <div class="ico ico-sm ico-backspace tint-grey"></div>
               </div>
             </div>
+            <p class="cc-txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Sed ut perspiciatis unde omnis.</p>
           </div>
         </div>
 
@@ -1309,11 +1324,11 @@
         <div>
           <div class="sg-sub" style="margin-top:0;">Tuđi – read-only</div>
           <div class="cc cc-grey">
-            <p class="cc-txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Sed ut perspiciatis unde omnis.</p>
             <div class="cc-foot" style="justify-content:flex-end;">
-              <span style="font:400 10px var(--font);color:var(--grey-400);">Ivan Horvat</span>
-              <div class="cc-av" style="background:var(--grey-50);color:var(--grey-600);">IH</div>
+              <span style="font:600 12px var(--font);color:var(--grey-700);">Ivan Horvat</span>
+              <div class="cc-av other">IH</div>
             </div>
+            <p class="cc-txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Sed ut perspiciatis unde omnis.</p>
           </div>
         </div>
 
@@ -1338,10 +1353,98 @@
           <tr><td>Vlastiti komentar</td><td><code>#ddf3fa</code></td><td><code>#b8dff2</code></td><td><code>bg/dropdown</code></td></tr>
           <tr><td>Tuđi komentar</td><td><code>#ffffff</code></td><td><code>#d6d4d4</code></td><td><code>grey/50</code></td></tr>
           <tr><td>Tuđi – read-only</td><td><code>#f5f5f5</code></td><td><code>#d6d4d4</code></td><td><code>bg/table ≈</code></td></tr>
-          <tr><td>Avatar – vlastiti</td><td><code>#7ecfec</code></td><td>–</td><td><code>blue/100</code></td></tr>
-          <tr><td>Avatar – tuđi</td><td><code>#d6d4d4</code></td><td>–</td><td><code>grey/50</code></td></tr>
+          <tr><td>Avatar – vlastiti</td><td><code>#0d5475</code></td><td>–</td><td><code>blue/700</code></td></tr>
+          <tr><td>Avatar – tuđi</td><td><code>#545252</code></td><td>–</td><td><code>grey/500</code></td></tr>
+          <tr><td>Akcije – edit</td><td>–</td><td><code>grey/300</code></td><td><code>.ico-edit</code> + <code>.ico-backspace</code></td></tr>
           <tr><td>Input textarea – focused</td><td><code>#ffffff</code></td><td><code>#37aada</code></td><td><code>blue/300</code></td></tr>
           <tr><td>Send button</td><td><code>#1a82ae</code></td><td>–</td><td><code>blue/500</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+
+  <!-- ══ ALERTS ══ -->
+  <section id="alerts">
+    <h2 class="sg-title">Alerti</h2>
+    <p class="section-desc">4 varijante obavijesti — Info, Warning, Error, Success. Svaki ima ikonu, naslov, tekst i X za zatvaranje. Animirano nestajanje na dismiss.</p>
+    <div class="card">
+      <div class="sg-sub">Preview</div>
+      <div class="alert-list">
+
+        <!-- Info -->
+        <div class="al al-info">
+          <svg class="al-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+          <div class="al-body">
+            <div class="al-title">Info Headline</div>
+            <p class="al-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
+          </div>
+          <button class="al-close" aria-label="Zatvori">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+          </button>
+        </div>
+
+        <!-- Warning -->
+        <div class="al al-warning">
+          <svg class="al-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+          <div class="al-body">
+            <div class="al-title">Warning Headline</div>
+            <p class="al-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
+          </div>
+          <button class="al-close" aria-label="Zatvori">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+          </button>
+        </div>
+
+        <!-- Error -->
+        <div class="al al-error">
+          <svg class="al-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+          <div class="al-body">
+            <div class="al-title">Warning Headline</div>
+            <p class="al-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
+          </div>
+          <button class="al-close" aria-label="Zatvori">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+          </button>
+        </div>
+
+        <!-- Success -->
+        <div class="al al-success">
+          <svg class="al-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14l-5-5 1.41-1.41L10 13.17l7.59-7.59L19 7l-9 9z"/></svg>
+          <div class="al-body">
+            <div class="al-title">Warning Headline</div>
+            <p class="al-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
+          </div>
+          <button class="al-close" aria-label="Zatvori">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+          </button>
+        </div>
+
+      </div><!-- end alert-list -->
+
+      <div class="sg-sub">Dismiss animacija (JS)</div>
+      <pre style="background:#0d3349;color:#cce8f4;padding:16px;border-radius:8px;font-size:12px;line-height:1.7;overflow-x:auto;"><code style="background:none;color:inherit;padding:0;">closeBtn.addEventListener('click', () => {
+  const al = closeBtn.closest('.alert');
+  al.style.transition = 'opacity .2s, max-height .25s .05s, margin .25s .05s, padding .25s .05s';
+  al.style.overflow   = 'hidden';
+  al.style.maxHeight  = al.offsetHeight + 'px';
+  al.style.opacity    = '0';
+  requestAnimationFrame(() => {
+    al.style.maxHeight = '0';
+    al.style.padding   = '0 20px';
+    al.style.margin    = '0';
+  });
+  setTimeout(() => al.remove(), 320);
+});</code></pre>
+
+      <div class="sg-sub">Specifikacija</div>
+      <table class="spec">
+        <thead><tr><th>Varijanta</th><th>Background</th><th>Border</th><th>Icon / Title / X boja</th><th>Ikona</th></tr></thead>
+        <tbody>
+          <tr><td>Info</td><td><code>#ebf8fd</code></td><td><code>#1a82ae</code></td><td><code>#1a82ae</code> · blue/500</td><td>info (filled circle)</td></tr>
+          <tr><td>Warning</td><td><code>#fffaeb</code></td><td><code>#d97706</code></td><td><code>#d97706</code> · amber-600</td><td>warning (triangle)</td></tr>
+          <tr><td>Error</td><td><code>#fff1f0</code></td><td><code>#e84031</code></td><td><code>#e84031</code> · red/300</td><td>error (circle !)</td></tr>
+          <tr><td>Success</td><td><code>#f0fdf4</code></td><td><code>#16a34a</code></td><td><code>#16a34a</code> · green-600</td><td>check_circle</td></tr>
         </tbody>
       </table>
     </div>
