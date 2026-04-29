@@ -130,20 +130,24 @@
     }
 
     /* ─── TABLE ─── */
-    .table-wrap { border: 1px solid #e5e5e5; border-radius: 4px; overflow-x: auto; background: #fff; }
-    table { width: 100%; border-collapse: collapse; }
-    thead tr { background: var(--bg-table); border-bottom: 1px solid #e5e5e5; }
+    .table-wrap { border: 1px solid var(--grey-50); border-radius: 4px; overflow-x: auto; background: #fff; }
+    table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+    thead tr { background: var(--bg-table); border-bottom: 1px solid var(--grey-50); }
     thead th {
-      padding: 0 12px; height: 40px; font-size: 11px; font-weight: 700;
+      padding: 0 8px; height: 40px; font-size: 10px; font-weight: 600;
       color: var(--grey-400); letter-spacing: .5px; text-transform: uppercase;
-      text-align: left; white-space: nowrap; user-select: none;
+      text-align: left; white-space: nowrap; user-select: none; overflow: hidden;
+      position: relative;
     }
-    .th-inner { display: flex; align-items: center; gap: 4px; }
+    .th-inner { display: flex; align-items: center; gap: 4px; height: 100%; overflow: hidden; }
+    .th-label { flex: 1; overflow: hidden; text-overflow: ellipsis; }
+    .sort-grp { display: flex; align-items: center; gap: 1px; opacity: .45; cursor: pointer; padding: 2px 4px; border-radius: 2px; flex-shrink: 0; transition: opacity .15s; }
+    .sort-grp:hover, .sort-grp.active { opacity: 1; background: rgba(0,0,0,.06); }
     .sort-icon { color: var(--grey-300); flex-shrink: 0; }
-    tbody tr { border-bottom: 1px solid #f0f0f0; transition: background .1s; cursor: pointer; }
+    tbody tr { border-bottom: 1px solid var(--grey-50); transition: background .1s; cursor: pointer; }
     tbody tr:last-child { border-bottom: none; }
     tbody tr:hover { background: #f5fbfe; }
-    tbody td { padding: 0 12px; height: 56px; font-size: 14px; color: var(--grey-800); vertical-align: middle; }
+    tbody td { padding: 12px 8px; font-size: 14px; font-weight: 400; color: var(--grey-800); line-height: 20px; vertical-align: middle; white-space: nowrap; }
 
     /* Avatar */
     .partner-cell { display: flex; align-items: center; gap: 10px; }
@@ -177,20 +181,20 @@
     /* ─── PAGINATION ─── */
     .pag-bar {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 12px 16px; border-top: 1px solid #f0f0f0;
+      padding: 12px 16px; border-top: 1px solid var(--grey-50);
       font-size: 13px; color: var(--grey-400);
     }
     .pag-ctrl { display: flex; align-items: center; gap: 2px; }
     .pg-btn {
-      width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
       border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: 500;
       border: none; background: none; color: var(--grey-700);
       font-family: 'Inter',sans-serif; transition: background .1s;
     }
     .pg-btn:hover:not(:disabled):not(.active) { background: var(--bg-table); }
-    .pg-btn.active { background: var(--blue-500); color: #fff; border-radius: 50%; }
+    .pg-btn.active { background: var(--blue-500); color: #fff; }
     .pg-btn:disabled { opacity: .3; cursor: not-allowed; }
-    .pg-sep { padding: 0 2px; color: var(--grey-300); font-size: 13px; line-height: 28px; }
+    .pg-sep { padding: 0 4px; color: var(--grey-300); font-size: 13px; }
 
     /* ─── DATE PICKER ─── */
     .dpp-trigger { cursor: pointer; transition: border-color .15s, background .15s; }
@@ -416,15 +420,15 @@
     <table>
       <thead>
         <tr>
-          <th><div class="th-inner">Period obračuna <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg></div></th>
-          <th><div class="th-inner">Broj <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg></div></th>
-          <th><div class="th-inner">Datum izrade <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg></div></th>
-          <th><div class="th-inner">Prodajni partner <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg></div></th>
-          <th><div class="th-inner">Osnovica <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg></div></th>
-          <th><div class="th-inner">PDF <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg></div></th>
-          <th><div class="th-inner">Ukupno <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg></div></th>
-          <th><div class="th-inner">Statusa <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg></div></th>
-          <th><div class="th-inner">Napomena <svg class="sort-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg></div></th>
+          <th><div class="th-inner"><span class="th-label">Period obračuna</span><span class="sort-grp"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg></span></div></th>
+          <th><div class="th-inner"><span class="th-label">Broj</span><span class="sort-grp"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg></span></div></th>
+          <th><div class="th-inner"><span class="th-label">Datum izrade</span><span class="sort-grp"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg></span></div></th>
+          <th><div class="th-inner"><span class="th-label">Prodajni partner</span><span class="sort-grp"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg></span></div></th>
+          <th><div class="th-inner"><span class="th-label">Osnovica</span><span class="sort-grp"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg></span></div></th>
+          <th><div class="th-inner"><span class="th-label">PDF</span><span class="sort-grp"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg></span></div></th>
+          <th><div class="th-inner"><span class="th-label">Ukupno</span><span class="sort-grp"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg></span></div></th>
+          <th><div class="th-inner"><span class="th-label">Status</span><span class="sort-grp"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg></span></div></th>
+          <th><div class="th-inner"><span class="th-label">Napomena</span><span class="sort-grp"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg></span></div></th>
         </tr>
       </thead>
       <tbody>

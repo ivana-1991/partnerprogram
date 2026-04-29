@@ -110,28 +110,38 @@
     .b-standard { background: #e9ecef; color: #495057; }
 
     /* ─── AVATAR ─── */
-    .av { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #fff; flex-shrink: 0; }
-    .avatar-cell { display: flex; align-items: center; gap: 10px; }
+    .av {
+      height: 24px; min-width: 24px; padding: 4px 2px;
+      border-radius: 300px; border: 1px solid var(--grey-100);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; font-weight: 600; color: var(--grey-600);
+      background: #fff; flex-shrink: 0; line-height: 16px;
+      text-transform: uppercase;
+    }
+    .avatar-cell { display: flex; align-items: center; gap: 8px; }
 
     /* ─── TABLE ─── */
-    .table-wrap { border: 1px solid #e8e8e8; border-radius: 4px; overflow-x: auto; background: #fff; }
-    table { width: 100%; border-collapse: collapse; }
-    thead tr { background: var(--bg-table); }
+    .table-wrap { border: 1px solid var(--grey-50); border-radius: 4px; overflow-x: auto; background: #fff; }
+    table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+    thead tr { background: var(--bg-table); border-bottom: 1px solid var(--grey-50); }
     thead th {
-      padding: 0 16px; height: 40px; font-size: 11px; font-weight: 700;
-      color: var(--grey-400); text-transform: uppercase; letter-spacing: .4px;
-      text-align: left; border-bottom: 1px solid #e8e8e8; white-space: nowrap;
+      padding: 0 8px; height: 40px; font-size: 10px; font-weight: 600;
+      color: var(--grey-400); text-transform: uppercase; letter-spacing: .5px;
+      text-align: left; white-space: nowrap; user-select: none; overflow: hidden;
       position: relative;
     }
     thead th:first-child { position: sticky; left: 0; z-index: 2; background: var(--bg-table); }
-    .th-inner { display: flex; align-items: center; gap: 4px; }
+    .th-inner { display: flex; align-items: center; gap: 4px; height: 100%; overflow: hidden; }
+    .th-label { flex: 1; overflow: hidden; text-overflow: ellipsis; }
+    .sort-grp { display: flex; align-items: center; gap: 1px; opacity: .45; cursor: pointer; padding: 2px 4px; border-radius: 2px; flex-shrink: 0; transition: opacity .15s; }
+    .sort-grp:hover, .sort-grp.active { opacity: 1; background: rgba(0,0,0,.06); }
     .sort-icon { opacity: .45; flex-shrink: 0; }
-    tbody tr { border-bottom: 1px solid #f0f0f0; }
+    tbody tr { border-bottom: 1px solid var(--grey-50); transition: background .1s; }
     tbody tr:last-child { border-bottom: none; }
     tbody tr:hover { background: #f5fbfe; }
     tbody td:first-child { position: sticky; left: 0; z-index: 1; background: #fff; }
     tbody tr:hover td:first-child { background: #f5fbfe; }
-    tbody td { padding: 0 16px; height: 56px; font-size: 14px; color: var(--grey-800); vertical-align: middle; text-align: left; }
+    tbody td { padding: 12px 8px; font-size: 14px; font-weight: 400; color: var(--grey-800); line-height: 20px; vertical-align: middle; text-align: left; white-space: nowrap; }
 
     .action-btn {
       background: none; border: none; cursor: pointer; padding: 4px;
@@ -148,15 +158,16 @@
     .col-resize-handle:hover::after, .col-resize-handle.resizing::after { background: #2299c8; }
 
     /* ─── PAGINATION ─── */
-    .pagination { display: flex; align-items: center; padding: 12px 16px; border-top: 1px solid #e8e8e8; background: #fff; }
+    .pagination { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-top: 1px solid var(--grey-50); background: #fff; font-size: 13px; color: var(--grey-400); }
     .pag-info { font-size: 13px; color: var(--grey-400); flex: 1; }
     .pag-pages { display: flex; align-items: center; gap: 2px; }
     .pag-btn {
-      width: 28px; height: 28px; border: none; background: none; cursor: pointer;
-      border-radius: 4px; font-size: 13px; font-weight: 500; color: var(--grey-500);
+      width: 32px; height: 32px; border: none; background: none; cursor: pointer;
+      border-radius: 4px; font-size: 13px; font-weight: 500; color: var(--grey-700);
       display: flex; align-items: center; justify-content: center; font-family: 'Inter',sans-serif;
+      transition: background .1s;
     }
-    .pag-btn:hover { background: var(--bg-table); }
+    .pag-btn:hover:not(:disabled):not(.active) { background: var(--bg-table); }
     .pag-btn.active { background: var(--blue-500); color: #fff; }
     .pag-btn:disabled { opacity: .35; cursor: default; }
     .pag-ellipsis { width: 28px; text-align: center; font-size: 13px; color: var(--grey-400); }
@@ -335,17 +346,17 @@
     <table id="usersTable">
       <thead>
         <tr>
-          <th><div class="th-inner">Korisnik <svg class="sort-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15z"/></svg></div></th>
-          <th><div class="th-inner">Datum kreiranja <svg class="sort-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15z"/></svg></div></th>
-          <th><div class="th-inner">Email korisnika <svg class="sort-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15z"/></svg></div></th>
-          <th><div class="th-inner">Tip korisnika <svg class="sort-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15z"/></svg></div></th>
+          <th><div class="th-inner"><span class="th-label">Korisnik</span><span class="sort-grp"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg></span></div></th>
+          <th><div class="th-inner"><span class="th-label">Datum kreiranja</span><span class="sort-grp"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg></span></div></th>
+          <th><div class="th-inner"><span class="th-label">Email korisnika</span><span class="sort-grp"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg></span></div></th>
+          <th><div class="th-inner"><span class="th-label">Tip korisnika</span><span class="sort-grp"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg></span></div></th>
           <th style="width:48px;"></th>
           <th style="width:48px;"></th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td><div class="avatar-cell"><div class="av" style="background:#1a82ae">JW</div>John Williams</div></td>
+          <td><div class="avatar-cell"><div class="av">JW</div>John Williams</div></td>
           <td>15.04.2026.</td>
           <td>john.williams@zubak.hr</td>
           <td><span class="badge b-admin">Partner Admin</span></td>
@@ -353,7 +364,7 @@
           <td><button class="action-btn" onclick="openModal('deleteUserModal')" title="Obriši"><svg width="16" height="16" viewBox="0 0 24 24" fill="#888686"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button></td>
         </tr>
         <tr>
-          <td><div class="avatar-cell"><div class="av" style="background:#0d5475">MS</div>Mary Smith</div></td>
+          <td><div class="avatar-cell"><div class="av">MS</div>Mary Smith</div></td>
           <td>17.04.2026.</td>
           <td>sarah.connor@future.com</td>
           <td><span class="badge b-financijski">Financijski korisnik</span></td>
@@ -361,7 +372,7 @@
           <td><button class="action-btn" onclick="openModal('deleteUserModal')" title="Obriši"><svg width="16" height="16" viewBox="0 0 24 24" fill="#888686"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button></td>
         </tr>
         <tr>
-          <td><div class="avatar-cell"><div class="av" style="background:#4a90d9">AB</div>Alice Brown</div></td>
+          <td><div class="avatar-cell"><div class="av">AB</div>Alice Brown</div></td>
           <td>19.04.2026.</td>
           <td>mike.jones@techworld.io</td>
           <td><span class="badge b-standard">Standard korisnik</span></td>
@@ -369,7 +380,7 @@
           <td><button class="action-btn" onclick="openModal('deleteUserModal')" title="Obriši"><svg width="16" height="16" viewBox="0 0 24 24" fill="#888686"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button></td>
         </tr>
         <tr>
-          <td><div class="avatar-cell"><div class="av" style="background:#7b5ea7">CK</div>Charlie King</div></td>
+          <td><div class="avatar-cell"><div class="av">CK</div>Charlie King</div></td>
           <td>21.04.2026.</td>
           <td>lisa.smith@designhub.net</td>
           <td><span class="badge b-financijski">Financijski korisnik</span></td>
@@ -377,7 +388,7 @@
           <td><button class="action-btn" onclick="openModal('deleteUserModal')" title="Obriši"><svg width="16" height="16" viewBox="0 0 24 24" fill="#888686"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button></td>
         </tr>
         <tr>
-          <td><div class="avatar-cell"><div class="av" style="background:#d97706">DT</div>Diana Turner</div></td>
+          <td><div class="avatar-cell"><div class="av">DT</div>Diana Turner</div></td>
           <td>23.04.2026.</td>
           <td>emily.davis@creativeminds.org</td>
           <td><span class="badge b-standard">Standard korisnik</span></td>
@@ -385,7 +396,7 @@
           <td><button class="action-btn" onclick="openModal('deleteUserModal')" title="Obriši"><svg width="16" height="16" viewBox="0 0 24 24" fill="#888686"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button></td>
         </tr>
         <tr>
-          <td><div class="avatar-cell"><div class="av" style="background:#16a34a">EP</div>Ethan Park</div></td>
+          <td><div class="avatar-cell"><div class="av">EP</div>Ethan Park</div></td>
           <td>25.04.2026.</td>
           <td>david.brown@artisticways.co</td>
           <td><span class="badge b-admin">Partner Admin</span></td>
@@ -393,7 +404,7 @@
           <td><button class="action-btn" onclick="openModal('deleteUserModal')" title="Obriši"><svg width="16" height="16" viewBox="0 0 24 24" fill="#888686"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button></td>
         </tr>
         <tr>
-          <td><div class="avatar-cell"><div class="av" style="background:#c0392b">FG</div>Fiona Green</div></td>
+          <td><div class="avatar-cell"><div class="av">FG</div>Fiona Green</div></td>
           <td>27.04.2026.</td>
           <td>james.wilson@innovationlab.biz</td>
           <td><span class="badge b-standard">Standard korisnik</span></td>
@@ -401,7 +412,7 @@
           <td><button class="action-btn" onclick="openModal('deleteUserModal')" title="Obriši"><svg width="16" height="16" viewBox="0 0 24 24" fill="#888686"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button></td>
         </tr>
         <tr>
-          <td><div class="avatar-cell"><div class="av" style="background:#2980b9">HJ</div>Henry Johnson</div></td>
+          <td><div class="avatar-cell"><div class="av">HJ</div>Henry Johnson</div></td>
           <td>29.04.2026.</td>
           <td>clara.lee@productiveteam.com</td>
           <td><span class="badge b-financijski">Financijski korisnik</span></td>
@@ -409,7 +420,7 @@
           <td><button class="action-btn" onclick="openModal('deleteUserModal')" title="Obriši"><svg width="16" height="16" viewBox="0 0 24 24" fill="#888686"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button></td>
         </tr>
         <tr>
-          <td><div class="avatar-cell"><div class="av" style="background:#8e44ad">LM</div>Lisa Miller</div></td>
+          <td><div class="avatar-cell"><div class="av">LM</div>Lisa Miller</div></td>
           <td>01.05.2026.</td>
           <td>robert.martinez@growthsolutions.us</td>
           <td><span class="badge b-standard">Standard korisnik</span></td>
@@ -417,7 +428,7 @@
           <td><button class="action-btn" onclick="openModal('deleteUserModal')" title="Obriši"><svg width="16" height="16" viewBox="0 0 24 24" fill="#888686"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button></td>
         </tr>
         <tr>
-          <td><div class="avatar-cell"><div class="av" style="background:#27ae60">QR</div>Quincy Roberts</div></td>
+          <td><div class="avatar-cell"><div class="av">QR</div>Quincy Roberts</div></td>
           <td>03.05.2026.</td>
           <td>nina.kim@nextgenapps.info</td>
           <td><span class="badge b-financijski">Financijski korisnik</span></td>

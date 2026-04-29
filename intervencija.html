@@ -169,13 +169,13 @@
     /* ─── DOC / CALL TABLE ─── */
     .dp-table-section-title { font-size: 16px; font-weight: 600; color: var(--grey-800); margin: 24px 0 16px; }
     .dp-table-wrap { border: 1px solid var(--grey-50); border-radius: 4px; overflow: hidden; }
-    .dp-table { width: 100%; border-collapse: collapse; }
+    .dp-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
     .dp-table thead tr { background: var(--bg-table); border-bottom: 1px solid var(--grey-50); }
-    .dp-table thead th { padding: 0 12px; height: 40px; font-size: 10px; font-weight: 600; color: var(--grey-400); letter-spacing: .5px; text-transform: uppercase; text-align: left; }
-    .dp-table tbody tr { border-bottom: 1px solid var(--grey-50); }
+    .dp-table thead th { padding: 0 8px; height: 40px; font-size: 10px; font-weight: 600; color: var(--grey-400); letter-spacing: .5px; text-transform: uppercase; text-align: left; white-space: nowrap; overflow: hidden; position: relative; user-select: none; }
+    .dp-table tbody tr { border-bottom: 1px solid var(--grey-50); transition: background .1s; }
     .dp-table tbody tr:last-child { border-bottom: none; }
     .dp-table tbody tr:hover { background: #f5fbfe; cursor: pointer; }
-    .dp-table tbody td { padding: 12px; font-size: 14px; color: var(--grey-800); }
+    .dp-table tbody td { padding: 12px 8px; font-size: 14px; font-weight: 400; color: var(--grey-800); line-height: 20px; vertical-align: middle; white-space: nowrap; }
 
     /* ─── UPLOAD ZONE ─── */
     .ul-zone {

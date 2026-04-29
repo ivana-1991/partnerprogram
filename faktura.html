@@ -174,21 +174,34 @@
     .if-val-bold { font-size: 14px; font-weight: 700; color: var(--grey-800); }
 
     /* ─── SPEC TABLE (Specifikacije tab) ─── */
-    .table-wrap { border: 1px solid #e8e8e8; border-radius: 4px; overflow: hidden; background: #fff; margin-bottom: 24px; }
-    table { width: 100%; border-collapse: collapse; }
-    thead tr { background: var(--bg-table); }
+    .table-wrap { border: 1px solid var(--grey-50); border-radius: 4px; overflow: hidden; background: #fff; margin-bottom: 24px; }
+    table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+    thead tr { background: var(--bg-table); border-bottom: 1px solid var(--grey-50); }
     thead th {
-      padding: 0 16px; height: 40px; font-size: 11px; font-weight: 700;
-      color: var(--grey-400); text-transform: uppercase; letter-spacing: .4px;
-      text-align: left; border-bottom: 1px solid #e8e8e8; white-space: nowrap;
+      padding: 0 8px; height: 40px; font-size: 10px; font-weight: 600;
+      color: var(--grey-400); text-transform: uppercase; letter-spacing: .5px;
+      text-align: left; white-space: nowrap; user-select: none; overflow: hidden;
+      position: relative;
     }
-    .th-inner { display: flex; align-items: center; gap: 4px; }
+    .th-inner { display: flex; align-items: center; gap: 4px; height: 100%; overflow: hidden; }
+    .th-label { flex: 1; overflow: hidden; text-overflow: ellipsis; }
+    .sort-grp { display: flex; align-items: center; gap: 1px; opacity: .45; cursor: pointer; padding: 2px 4px; border-radius: 2px; flex-shrink: 0; transition: opacity .15s; }
+    .sort-grp:hover, .sort-grp.active { opacity: 1; background: rgba(0,0,0,.06); }
     .sort-icon { opacity: .45; flex-shrink: 0; }
-    tbody tr { border-bottom: 1px solid #f0f0f0; }
+    tbody tr { border-bottom: 1px solid var(--grey-50); cursor: pointer; transition: background .1s; }
     tbody tr:last-child { border-bottom: none; }
-    tbody td { padding: 0 16px; height: 56px; font-size: 14px; color: var(--grey-800); vertical-align: middle; text-align: left; }
-    .avatar-cell { display: flex; align-items: center; gap: 10px; }
-    .av { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #fff; flex-shrink: 0; }
+    tbody tr:hover { background: #f5fbfe; }
+    tbody td { padding: 12px 8px; font-size: 14px; font-weight: 400; color: var(--grey-800); line-height: 20px; vertical-align: middle; text-align: left; white-space: nowrap; }
+    .avatar-cell { display: flex; align-items: center; gap: 8px; }
+    .avatar {
+      height: 24px; min-width: 24px; padding: 4px 2px;
+      border-radius: 300px; border: 1px solid var(--grey-100);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; font-weight: 600; color: var(--grey-600);
+      background: #fff; flex-shrink: 0; line-height: 16px;
+      text-transform: uppercase;
+    }
+    .av { height: 24px; min-width: 24px; padding: 4px 2px; border-radius: 300px; border: 1px solid var(--grey-100); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; color: var(--grey-600); background: #fff; flex-shrink: 0; line-height: 16px; text-transform: uppercase; }
 
     /* Edit button in spec table */
     .edit-btn {
@@ -198,15 +211,16 @@
     .edit-btn:hover { background: #f4f4f4; }
 
     /* ─── PAGINATION ─── */
-    .pagination { display: flex; align-items: center; padding: 12px 16px; border-top: 1px solid #e8e8e8; background: #fff; }
+    .pagination { display: flex; align-items: center; padding: 12px 16px; border-top: 1px solid var(--grey-50); background: #fff; }
     .pag-info { font-size: 13px; color: var(--grey-400); flex: 1; }
     .pag-pages { display: flex; align-items: center; gap: 2px; }
     .pag-btn {
-      width: 28px; height: 28px; border: none; background: none; cursor: pointer;
-      border-radius: 4px; font-size: 13px; font-weight: 500; color: var(--grey-500);
+      width: 32px; height: 32px; border: none; background: none; cursor: pointer;
+      border-radius: 4px; font-size: 13px; font-weight: 500; color: var(--grey-700);
       display: flex; align-items: center; justify-content: center; font-family: 'Inter',sans-serif;
+      transition: background .1s;
     }
-    .pag-btn:hover { background: var(--bg-table); }
+    .pag-btn:hover:not(:disabled):not(.active) { background: var(--bg-table); }
     .pag-btn.active { background: var(--blue-500); color: #fff; }
     .pag-btn:disabled { opacity: .35; cursor: default; }
     .pag-ellipsis { width: 28px; text-align: center; font-size: 13px; color: var(--grey-400); }
@@ -527,11 +541,11 @@
           <table>
             <thead>
               <tr>
-                <th><div class="th-inner">Naziv specifikacije <svg class="sort-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15z"/></svg></div></th>
-                <th><div class="th-inner">Datum uploada <svg class="sort-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15z"/></svg></div></th>
-                <th><div class="th-inner">Korisnik <svg class="sort-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15z"/></svg></div></th>
-                <th><div class="th-inner">Status <svg class="sort-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15z"/></svg></div></th>
-                <th><div class="th-inner">Datum osporavanja <svg class="sort-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 5.83L15.17 9l1.41-1.41L12 3 7.41 7.59 8.83 9zm0 12.34L8.83 15l-1.41 1.41L12 21l4.59-4.59L15.17 15z"/></svg></div></th>
+                <th><div class="th-inner"><span class="th-label">Naziv specifikacije</span><span class="sort-grp"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg></span></div></th>
+                <th><div class="th-inner"><span class="th-label">Datum uploada</span><span class="sort-grp"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg></span></div></th>
+                <th><div class="th-inner"><span class="th-label">Korisnik</span><span class="sort-grp"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg></span></div></th>
+                <th><div class="th-inner"><span class="th-label">Status</span><span class="sort-grp"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg></span></div></th>
+                <th><div class="th-inner"><span class="th-label">Datum osporavanja</span><span class="sort-grp"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 15l5 5 5-5M7 9l5-5 5 5"/></svg></span></div></th>
                 <th style="width:48px;"></th>
               </tr>
             </thead>
@@ -539,7 +553,7 @@
               <tr>
                 <td>Lorem_Ipsum.xlsx</td>
                 <td>15.04.2026.</td>
-                <td><div class="avatar-cell"><div class="av" style="background:#3182ce">JW</div>John Williams</div></td>
+                <td><div class="avatar-cell"><div class="av">JW</div>John Williams</div></td>
                 <td><span class="badge b-osporena">Osporena</span></td>
                 <td>17.04.2026.</td>
                 <td><button class="edit-btn" onclick="openStatusModal(this)">
@@ -549,7 +563,7 @@
               <tr>
                 <td>Design_Notes.xlsx</td>
                 <td>17.04.2026.</td>
-                <td><div class="avatar-cell"><div class="av" style="background:#38a169">MS</div>Mary Smith</div></td>
+                <td><div class="avatar-cell"><div class="av">MS</div>Mary Smith</div></td>
                 <td><span class="badge b-odobrena">Odobrena</span></td>
                 <td>–</td>
                 <td><button class="edit-btn" onclick="openStatusModal(this)">
@@ -559,7 +573,7 @@
               <tr>
                 <td>Project_Brief.xlsx</td>
                 <td>19.04.2026.</td>
-                <td><div class="avatar-cell"><div class="av" style="background:#805ad5">AB</div>Alice Brown</div></td>
+                <td><div class="avatar-cell"><div class="av">AB</div>Alice Brown</div></td>
                 <td><span class="badge b-osporena">Osporena</span></td>
                 <td>19.04.2026.</td>
                 <td><button class="edit-btn" onclick="openStatusModal(this)">
@@ -569,7 +583,7 @@
               <tr>
                 <td>User_Research.xlsx</td>
                 <td>21.04.2026.</td>
-                <td><div class="avatar-cell"><div class="av" style="background:#d69e2e">CK</div>Charlie King</div></td>
+                <td><div class="avatar-cell"><div class="av">CK</div>Charlie King</div></td>
                 <td><span class="badge b-odobrena">Odobrena</span></td>
                 <td>–</td>
                 <td><button class="edit-btn" onclick="openStatusModal(this)">
@@ -579,7 +593,7 @@
               <tr>
                 <td>Wireframe_Sketch.xlsx</td>
                 <td>23.04.2026.</td>
-                <td><div class="avatar-cell"><div class="av" style="background:#319795">DT</div>Diana Turner</div></td>
+                <td><div class="avatar-cell"><div class="av">DT</div>Diana Turner</div></td>
                 <td><span class="badge b-osporena">Osporena</span></td>
                 <td>23.04.2026.</td>
                 <td><button class="edit-btn" onclick="openStatusModal(this)">
@@ -589,7 +603,7 @@
               <tr>
                 <td>Style_Guide.xlsx</td>
                 <td>25.04.2026.</td>
-                <td><div class="avatar-cell"><div class="av" style="background:#dd6b20">EP</div>Ethan Park</div></td>
+                <td><div class="avatar-cell"><div class="av">EP</div>Ethan Park</div></td>
                 <td><span class="badge b-odobrena">Odobrena</span></td>
                 <td>–</td>
                 <td><button class="edit-btn" onclick="openStatusModal(this)">
@@ -599,7 +613,7 @@
               <tr>
                 <td>Feedback_Analysis.xlsx</td>
                 <td>27.04.2026.</td>
-                <td><div class="avatar-cell"><div class="av" style="background:#e53e3e">FG</div>Fiona Green</div></td>
+                <td><div class="avatar-cell"><div class="av">FG</div>Fiona Green</div></td>
                 <td><span class="badge b-osporena">Osporena</span></td>
                 <td>27.04.2026.</td>
                 <td><button class="edit-btn" onclick="openStatusModal(this)">
@@ -609,7 +623,7 @@
               <tr>
                 <td>Prototype.xlsx</td>
                 <td>29.04.2026.</td>
-                <td><div class="avatar-cell"><div class="av" style="background:#2b6cb0">HJ</div>Henry Johnson</div></td>
+                <td><div class="avatar-cell"><div class="av">HJ</div>Henry Johnson</div></td>
                 <td><span class="badge b-odobrena">Odobrena</span></td>
                 <td>–</td>
                 <td><button class="edit-btn" onclick="openStatusModal(this)">
@@ -619,7 +633,7 @@
               <tr>
                 <td>Presentation_Slides.xlsx</td>
                 <td>01.05.2026.</td>
-                <td><div class="avatar-cell"><div class="av" style="background:#9b2c2c">LM</div>Lisa Miller</div></td>
+                <td><div class="avatar-cell"><div class="av">LM</div>Lisa Miller</div></td>
                 <td><span class="badge b-osporena">Osporena</span></td>
                 <td>01.05.2026.</td>
                 <td><button class="edit-btn" onclick="openStatusModal(this)">
@@ -629,7 +643,7 @@
               <tr>
                 <td>Competitive_Analysis.xlsx</td>
                 <td>03.05.2026.</td>
-                <td><div class="avatar-cell"><div class="av" style="background:#276749">QR</div>Quincy Roberts</div></td>
+                <td><div class="avatar-cell"><div class="av">QR</div>Quincy Roberts</div></td>
                 <td><span class="badge b-odobrena">Odobrena</span></td>
                 <td>–</td>
                 <td><button class="edit-btn" onclick="openStatusModal(this)">
@@ -673,9 +687,9 @@
           <table>
             <thead>
               <tr>
-                <th><div class="th-inner">Naziv dokumenta</div></th>
-                <th><div class="th-inner">Korisnik</div></th>
-                <th><div class="th-inner">Datum unosa</div></th>
+                <th><div class="th-inner"><span class="th-label">Naziv dokumenta</span></div></th>
+                <th><div class="th-inner"><span class="th-label">Korisnik</span></div></th>
+                <th><div class="th-inner"><span class="th-label">Datum unosa</span></div></th>
                 <th style="width:48px;"></th>
               </tr>
             </thead>
@@ -685,7 +699,7 @@
                   <span class="doc-new-indicator">&#x2193;</span>
                   <span class="doc-filename-bold">Lorem_Ipsum.doc</span>
                 </td>
-                <td><div class="avatar-cell"><div class="av" style="background:#3182ce">JW</div>John Williams</div></td>
+                <td><div class="avatar-cell"><div class="av">JW</div>John Williams</div></td>
                 <td>15.04.2026.</td>
                 <td><button class="doc-dl-btn">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="#888686"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
@@ -696,7 +710,7 @@
                   <span class="doc-new-indicator">&#x2193;</span>
                   <span class="doc-filename-bold">Design_Notes.pdf</span>
                 </td>
-                <td><div class="avatar-cell"><div class="av" style="background:#38a169">MS</div>Mary Smith</div></td>
+                <td><div class="avatar-cell"><div class="av">MS</div>Mary Smith</div></td>
                 <td>17.04.2026.</td>
                 <td><button class="doc-dl-btn">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="#888686"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
@@ -704,7 +718,7 @@
               </tr>
               <tr>
                 <td>Project_Brief.docx</td>
-                <td><div class="avatar-cell"><div class="av" style="background:#805ad5">AB</div>Alice Brown</div></td>
+                <td><div class="avatar-cell"><div class="av">AB</div>Alice Brown</div></td>
                 <td>19.04.2026.</td>
                 <td><button class="doc-dl-btn">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="#888686"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
@@ -712,7 +726,7 @@
               </tr>
               <tr>
                 <td>User_Research.xlsx</td>
-                <td><div class="avatar-cell"><div class="av" style="background:#d69e2e">CK</div>Charlie King</div></td>
+                <td><div class="avatar-cell"><div class="av">CK</div>Charlie King</div></td>
                 <td>21.04.2026.</td>
                 <td><button class="doc-dl-btn">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="#888686"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
@@ -720,7 +734,7 @@
               </tr>
               <tr>
                 <td>Wireframe_Sketch.png</td>
-                <td><div class="avatar-cell"><div class="av" style="background:#319795">DT</div>Diana Turner</div></td>
+                <td><div class="avatar-cell"><div class="av">DT</div>Diana Turner</div></td>
                 <td>23.04.2026.</td>
                 <td><button class="doc-dl-btn">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="#888686"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
@@ -728,7 +742,7 @@
               </tr>
               <tr>
                 <td>Style_Guide.ai</td>
-                <td><div class="avatar-cell"><div class="av" style="background:#dd6b20">EP</div>Ethan Park</div></td>
+                <td><div class="avatar-cell"><div class="av">EP</div>Ethan Park</div></td>
                 <td>25.04.2026.</td>
                 <td><button class="doc-dl-btn">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="#888686"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
@@ -736,7 +750,7 @@
               </tr>
               <tr>
                 <td>Feedback_Analysis.doc</td>
-                <td><div class="avatar-cell"><div class="av" style="background:#e53e3e">FG</div>Fiona Green</div></td>
+                <td><div class="avatar-cell"><div class="av">FG</div>Fiona Green</div></td>
                 <td>27.04.2026.</td>
                 <td><button class="doc-dl-btn">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="#888686"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
@@ -744,7 +758,7 @@
               </tr>
               <tr>
                 <td>Prototype.mov</td>
-                <td><div class="avatar-cell"><div class="av" style="background:#2b6cb0">HJ</div>Henry Johnson</div></td>
+                <td><div class="avatar-cell"><div class="av">HJ</div>Henry Johnson</div></td>
                 <td>29.04.2026.</td>
                 <td><button class="doc-dl-btn">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="#888686"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
@@ -752,7 +766,7 @@
               </tr>
               <tr>
                 <td>Presentation_Slides.pptx</td>
-                <td><div class="avatar-cell"><div class="av" style="background:#9b2c2c">LM</div>Lisa Miller</div></td>
+                <td><div class="avatar-cell"><div class="av">LM</div>Lisa Miller</div></td>
                 <td>01.05.2026.</td>
                 <td><button class="doc-dl-btn">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="#888686"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
@@ -760,7 +774,7 @@
               </tr>
               <tr>
                 <td>Competitive_Analysis.pdf</td>
-                <td><div class="avatar-cell"><div class="av" style="background:#276749">QR</div>Quincy Roberts</div></td>
+                <td><div class="avatar-cell"><div class="av">QR</div>Quincy Roberts</div></td>
                 <td>03.05.2026.</td>
                 <td><button class="doc-dl-btn">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="#888686"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
