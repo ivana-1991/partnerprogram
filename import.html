@@ -167,63 +167,51 @@
     .list-header { display: flex; align-items: center; margin-bottom: 20px; gap: 12px; flex-wrap: wrap; }
     .list-header h1 { font-size: 24px; font-weight: 700; color: var(--grey-800); flex-shrink: 0; }
     .filter-row { display: flex; align-items: center; gap: 10px; flex: 1; flex-wrap: wrap; }
-    .datepicker-wrap { position: relative; display: inline-flex; align-items: center; }
-    .datepicker-input {
-      height: 40px; width: 240px; border: 1px solid #c4c4c4; border-radius: 4px;
-      padding-left: 36px; padding-right: 28px; font-family: 'Inter',sans-serif; font-size: 14px; color: var(--grey-800);
-      outline: none; cursor: pointer; background: #fff; caret-color: transparent;
-    }
-    .datepicker-input:focus, .datepicker-input.dp-open { border-color: var(--blue-500); }
-    .datepicker-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--grey-400); }
-    .dp-clear {
-      position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
-      width: 16px; height: 16px; border: none; background: none; padding: 0;
-      cursor: pointer; color: var(--grey-300); display: none; align-items: center; justify-content: center;
-      border-radius: 50%; font-size: 14px; line-height: 1;
-    }
-    .dp-clear:hover { color: var(--grey-600); }
-    .dp-clear.visible { display: flex; }
+    /* ─── FILTER FIELD (floating-label style) ─── */
+    .field-wrap { position: relative; height: 40px; min-width: 200px; max-width: 240px; }
+    .field-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); pointer-events: none; display: flex; align-items: center; color: var(--grey-300); }
+    .field-float { display: none; position: absolute; top: -8px; left: 8px; background: #fff; padding: 0 4px; font-size: 11px; font-weight: 500; color: var(--blue-500); line-height: 1; white-space: nowrap; }
+    .field-base { height: 40px; border: 1px solid var(--grey-50); border-radius: 4px; padding: 0 12px 0 34px; font-family: 'Inter', sans-serif; font-size: 14px; color: var(--grey-800); background: #fff; outline: none; width: 100%; transition: border-color .15s; cursor: pointer; display: flex; align-items: center; user-select: none; }
+    .field-base:focus, .field-base.open { border-color: var(--blue-500); }
+    .field-base.has-value { border-color: var(--blue-500); }
+    .field-base.has-value ~ .field-float, .field-base:focus ~ .field-float, .field-base.open ~ .field-float { display: block; }
+    .field-placeholder { color: var(--grey-300); font-size: 14px; }
+    .dpp-trigger { cursor: pointer; transition: border-color .15s, background .15s; }
+    .dpp-trigger:hover { background: #f5fbfe; border-color: var(--blue-500); }
 
     /* ─── DATE PICKER POPUP ─── */
-    .dp-popup {
-      display: none; position: absolute; top: calc(100% + 6px); left: 0;
-      background: #fff; border: 1px solid var(--grey-50); border-radius: 8px;
-      box-shadow: 0 8px 24px rgba(0,0,0,.12); z-index: 400; padding: 12px;
-      width: 224px;
-    }
-    .dp-popup.open { display: block; }
-    .dp-head { display: flex; align-items: center; margin-bottom: 8px; }
-    .dp-nav {
-      width: 28px; height: 28px; border: none; background: none; cursor: pointer;
-      border-radius: 4px; display: flex; align-items: center; justify-content: center;
-      color: var(--grey-500); flex-shrink: 0;
-    }
-    .dp-nav:hover { background: var(--bg-table); }
-    .dp-month-title {
-      flex: 1; text-align: center; font: 600 13px/1 'Inter',sans-serif;
-      color: var(--grey-700); cursor: pointer; padding: 4px;
-      border-radius: 4px;
-    }
-    .dp-month-title:hover { background: var(--bg-table); }
-    .dp-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; }
-    .dp-dh {
-      height: 24px; display: flex; align-items: center; justify-content: center;
-      font: 700 9px/1 'Inter',sans-serif; color: var(--grey-300); text-transform: uppercase;
-    }
-    .dp-day {
-      height: 28px; display: flex; align-items: center; justify-content: center;
-      font: 400 12px/1 'Inter',sans-serif; color: var(--grey-700);
-      border-radius: 4px; cursor: pointer; transition: background .1s;
-    }
-    .dp-day:hover:not(.dp-out):not(.dp-sel) { background: var(--bg-table); }
-    .dp-day.dp-out { color: var(--grey-100); cursor: default; }
-    .dp-day.dp-today { outline: 1.5px solid var(--blue-300); outline-offset: -1.5px; }
-    .dp-day.dp-sel { background: var(--blue-500); color: #fff; border-radius: 4px; }
-    .dp-footer { display: flex; justify-content: flex-end; gap: 6px; margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--grey-50); }
-    .dp-btn-cancel { padding: 4px 10px; background: none; border: none; font: 500 12px 'Inter',sans-serif; color: var(--grey-400); cursor: pointer; border-radius: 4px; }
-    .dp-btn-cancel:hover { background: var(--bg-table); }
-    .dp-btn-ok { padding: 4px 10px; background: var(--blue-500); color: #fff; border: none; font: 600 12px 'Inter',sans-serif; cursor: pointer; border-radius: 4px; }
-    .dp-btn-ok:hover { background: var(--blue-600); }
+    .dpp-backdrop { display: none; position: fixed; inset: 0; z-index: 490; }
+    .dpp-backdrop.open { display: block; }
+    .dpp-popup { display: none; position: fixed; z-index: 491; width: 360px; background: #fff; border: 1px solid var(--grey-50); border-radius: 16px; box-shadow: 0 4px 4px rgba(0,0,0,.25); font-family: 'Inter', sans-serif; overflow: hidden; }
+    .dpp-popup.open { display: block; }
+    .dpp-header { display: flex; align-items: center; justify-content: space-between; height: 64px; padding: 0 4px; }
+    .dpp-month-wrap { display: flex; align-items: center; position: relative; }
+    .dpp-year-wrap  { display: flex; align-items: center; }
+    .dpp-nav { width: 48px; height: 48px; border: none; background: none; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border-radius: 50%; color: var(--grey-500); transition: background .1s; }
+    .dpp-nav:hover { background: var(--bg-table); }
+    .dpp-mon-btn, .dpp-yr-btn { border: none; background: none; cursor: pointer; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; color: var(--grey-800); display: flex; align-items: center; gap: 8px; padding: 10px 4px 10px 8px; border-radius: 100px; transition: background .1s; white-space: nowrap; }
+    .dpp-mon-btn:hover, .dpp-yr-btn:hover { background: var(--bg-table); }
+    .dpp-mon-btn.open { background: var(--bg-dropdown); color: var(--blue-500); }
+    .dpp-weekdays { display: grid; grid-template-columns: repeat(7,1fr); padding: 0 12px; }
+    .dpp-wd { height: 48px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 600; color: var(--grey-800); }
+    .dpp-days { display: grid; grid-template-columns: repeat(7,1fr); padding: 0 12px 4px; }
+    .dpp-d { height: 48px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; color: var(--grey-800); position: relative; }
+    .dpp-out { color: var(--grey-400); opacity: .38; cursor: default; pointer-events: none; }
+    .dpp-dn { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative; z-index: 1; flex-shrink: 0; transition: background .1s; }
+    .dpp-d:hover:not(.dpp-out):not(.dpp-sel) > .dpp-dn { background: var(--bg-table); }
+    .dpp-today > .dpp-dn { border: 1px solid var(--blue-500); color: var(--blue-600); }
+    .dpp-sel > .dpp-dn { background: var(--blue-500); color: #fff; font-weight: 600; }
+    .dpp-footer { display: flex; align-items: center; justify-content: flex-end; gap: 4px; padding: 4px 12px 12px; border-top: 1px solid var(--grey-50); }
+    .dpp-cancel-btn, .dpp-ok-btn { border: none; background: none; cursor: pointer; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; padding: 10px 16px; border-radius: 100px; transition: background .1s; }
+    .dpp-cancel-btn { color: var(--grey-600); }
+    .dpp-ok-btn { color: var(--blue-500); }
+    .dpp-cancel-btn:hover, .dpp-ok-btn:hover { background: var(--bg-dropdown); }
+    .dpp-mon-list { position: absolute; top: 48px; left: 48px; width: 148px; background: #fff; border: 1px solid var(--grey-50); border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,.12); overflow-y: auto; max-height: 228px; z-index: 10; display: none; }
+    .dpp-mon-list.open { display: block; }
+    .dpp-mon-opt { padding: 10px 16px; font-size: 14px; color: var(--grey-700); cursor: pointer; font-weight: 500; transition: background .1s; }
+    .dpp-mon-opt:hover { background: var(--bg-table); }
+    .dpp-mon-opt.sel { background: var(--bg-dropdown); color: var(--blue-500); font-weight: 600; }
+
     .right-actions { margin-left: auto; display: flex; gap: 8px; }
 
     /* ─── DETAIL VIEW ─── */
@@ -394,6 +382,33 @@
 </head>
 <body>
 
+<!-- DATE PICKER POPUP -->
+<div class="dpp-backdrop" id="dppBackdrop"></div>
+<div class="dpp-popup" id="dppPopup">
+  <div class="dpp-header">
+    <div class="dpp-month-wrap">
+      <button class="dpp-nav" id="dppPrevMon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" fill="currentColor"/></svg></button>
+      <button class="dpp-mon-btn" id="dppMonBtn"><span id="dppMonLabel">Tra</span><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg></button>
+      <button class="dpp-nav" id="dppNextMon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" fill="currentColor"/></svg></button>
+      <div class="dpp-mon-list" id="dppMonList"></div>
+    </div>
+    <div class="dpp-year-wrap">
+      <button class="dpp-nav" id="dppPrevYr"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" fill="currentColor"/></svg></button>
+      <button class="dpp-yr-btn" id="dppYrBtn"><span id="dppYrLabel">2026</span><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg></button>
+      <button class="dpp-nav" id="dppNextYr"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" fill="currentColor"/></svg></button>
+    </div>
+  </div>
+  <div class="dpp-weekdays">
+    <div class="dpp-wd">P</div><div class="dpp-wd">U</div><div class="dpp-wd">S</div>
+    <div class="dpp-wd">Č</div><div class="dpp-wd">P</div><div class="dpp-wd">S</div><div class="dpp-wd">N</div>
+  </div>
+  <div class="dpp-days" id="dppDays"></div>
+  <div class="dpp-footer">
+    <button class="dpp-cancel-btn" id="dppCancel">Odustani</button>
+    <button class="dpp-ok-btn" id="dppOk">OK</button>
+  </div>
+</div>
+
 <!-- NAV -->
 <nav class="nav">
   <div class="nav-left">
@@ -479,24 +494,16 @@
     <div class="list-header">
       <h1>Import</h1>
       <div class="filter-row">
-        <div class="datepicker-wrap" id="dpWrap">
-          <svg class="datepicker-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zM9 14H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>
-          <input type="text" class="datepicker-input" id="dpInput" placeholder="Odabir datuma" readonly>
-          <button class="dp-clear" id="dpClear" title="Ukloni datum">×</button>
-          <div class="dp-popup" id="dpPopup">
-            <div class="dp-head">
-              <button class="dp-nav" id="dpPrev">&#8249;</button>
-              <div class="dp-month-title" id="dpTitle"></div>
-              <button class="dp-nav" id="dpNext">&#8250;</button>
-            </div>
-            <div class="dp-grid" id="dpGrid"></div>
-            <div class="dp-footer">
-              <button class="dp-btn-cancel" id="dpCancel">Odustani</button>
-              <button class="dp-btn-ok" id="dpOk">Odaberi</button>
-            </div>
+        <div class="field-wrap">
+          <span class="field-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z" fill="#888686"/></svg>
+          </span>
+          <div class="field-base dpp-trigger" id="dateFromTrigger" tabindex="0" role="button">
+            <span class="field-placeholder" id="dateFromText">Odabir datuma</span>
           </div>
+          <span class="field-float">Odabir datuma</span>
         </div>
-        <button class="btn-primary">Dohvati</button>
+        <button class="btn-primary" id="dohvatiBtn">Dohvati</button>
         <div class="right-actions">
           <button class="btn-secondary" onclick="openImportModal()">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 5l-1.42 1.42-1.59-1.59V16h-1.98V6.83l-1.59 1.59L8 5l4-4 4 4zm4 5v11c0 1.1-.9 2-2 2H6c-1.11 0-2-.9-2-2V10c0-1.11.89-2 2-2h3v2H6v11h12V10h-3V8h3c1.1 0 2 .89 2 2z"/></svg>
@@ -1028,159 +1035,123 @@ function cancelUpload() {
   goToStep(1);
 }
 
-// ─── DATE PICKER ───────────────────────────────────────────────────
+// ─── DATE PICKER (same as financije.html) ──────────────────────────
 (function() {
-  const input   = document.getElementById('dpInput');
-  const popup   = document.getElementById('dpPopup');
-  const title   = document.getElementById('dpTitle');
-  const grid    = document.getElementById('dpGrid');
-  const prevBtn = document.getElementById('dpPrev');
-  const nextBtn = document.getElementById('dpNext');
-  const okBtn   = document.getElementById('dpOk');
-  const cancelBtn = document.getElementById('dpCancel');
-  const clearBtn  = document.getElementById('dpClear');
+  const MONTHS_SHORT = ['Sij','Velj','Ožu','Tra','Svi','Lip','Srp','Kol','Ruj','Lis','Stu','Pro'];
+  const MONTHS_FULL  = ['Siječanj','Veljača','Ožujak','Travanj','Svibanj','Lipanj',
+                        'Srpanj','Kolovoz','Rujan','Listopad','Studeni','Prosinac'];
 
-  const MONTHS_HR = ['Siječanj','Veljača','Ožujak','Travanj','Svibanj','Lipanj',
-                     'Srpanj','Kolovoz','Rujan','Listopad','Studeni','Prosinac'];
-  const DAYS_HR   = ['Po','Ut','Sr','Če','Pe','Su','Ne'];
+  const popup    = document.getElementById('dppPopup');
+  const backdrop = document.getElementById('dppBackdrop');
+  const daysEl   = document.getElementById('dppDays');
+  const monLabel = document.getElementById('dppMonLabel');
+  const yrLabel  = document.getElementById('dppYrLabel');
+  const monList  = document.getElementById('dppMonList');
 
-  const today = new Date();
-  let viewYear  = today.getFullYear();
-  let viewMonth = today.getMonth(); // 0-indexed
-  let selectedDate = null;   // Date object
-  let tempDate     = null;   // while popup is open
+  const trigger = { el: document.getElementById('dateFromTrigger'), txt: document.getElementById('dateFromText'), flt: document.querySelector('#dateFromTrigger ~ .field-float') };
 
-  function formatDate(d) {
-    const dd = String(d.getDate()).padStart(2,'0');
-    const mm = String(d.getMonth()+1).padStart(2,'0');
-    return `${dd}.${mm}.${d.getFullYear()}.`;
-  }
+  let curYear, curMonth, selDate = null;
 
-  function renderCalendar() {
-    title.textContent = `${MONTHS_HR[viewMonth]} ${viewYear}`;
-    grid.innerHTML = '';
+  function formatHR(d) { return d.getDate() + '.' + (d.getMonth()+1) + '.' + d.getFullYear() + '.'; }
 
-    // Day headers
-    DAYS_HR.forEach(d => {
-      const el = document.createElement('div');
-      el.className = 'dp-dh';
-      el.textContent = d;
-      grid.appendChild(el);
+  function renderGrid() {
+    monLabel.textContent = MONTHS_SHORT[curMonth];
+    yrLabel.textContent  = curYear;
+    const today      = new Date();
+    const firstDay   = new Date(curYear, curMonth, 1);
+    const startOff   = (firstDay.getDay() + 6) % 7;
+    const daysInMon  = new Date(curYear, curMonth + 1, 0).getDate();
+    const daysInPrev = new Date(curYear, curMonth, 0).getDate();
+    const total      = Math.ceil((startOff + daysInMon) / 7) * 7;
+    let html = '';
+    for (let i = 0; i < total; i++) {
+      let d, m, y, out = false;
+      if (i < startOff)                  { d = daysInPrev - startOff + i + 1; m = curMonth - 1; y = curYear; if (m < 0) { m = 11; y--; } out = true; }
+      else if (i >= startOff + daysInMon){ d = i - startOff - daysInMon + 1; m = curMonth + 1; y = curYear; if (m > 11) { m = 0; y++; } out = true; }
+      else                               { d = i - startOff + 1; m = curMonth; y = curYear; }
+      const td = new Date(y, m, d);
+      const isTod = td.toDateString() === today.toDateString();
+      const isSel = selDate && td.toDateString() === selDate.toDateString();
+      let cls = 'dpp-d' + (out ? ' dpp-out' : '') + (isTod && !isSel ? ' dpp-today' : '') + (isSel ? ' dpp-sel' : '');
+      html += `<div class="${cls}" data-y="${y}" data-m="${m}" data-d="${d}"><span class="dpp-dn">${d}</span></div>`;
+    }
+    daysEl.innerHTML = html;
+    daysEl.querySelectorAll('.dpp-d:not(.dpp-out)').forEach(el => {
+      el.addEventListener('click', () => { selDate = new Date(+el.dataset.y, +el.dataset.m, +el.dataset.d); renderGrid(); });
     });
-
-    // First day of month (0=Sun → convert to Mon-based)
-    const first = new Date(viewYear, viewMonth, 1);
-    let startDow = first.getDay(); // 0=Sun
-    startDow = startDow === 0 ? 6 : startDow - 1; // Mon=0
-
-    // Days in month
-    const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
-    // Days in prev month
-    const daysInPrev  = new Date(viewYear, viewMonth, 0).getDate();
-
-    const totalCells = Math.ceil((startDow + daysInMonth) / 7) * 7;
-
-    for (let i = 0; i < totalCells; i++) {
-      const el = document.createElement('div');
-      el.className = 'dp-day';
-      let dayNum, cellDate;
-
-      if (i < startDow) {
-        // prev month
-        dayNum = daysInPrev - startDow + i + 1;
-        cellDate = new Date(viewYear, viewMonth - 1, dayNum);
-        el.classList.add('dp-out');
-        el.textContent = dayNum;
-      } else if (i >= startDow + daysInMonth) {
-        // next month
-        dayNum = i - startDow - daysInMonth + 1;
-        cellDate = new Date(viewYear, viewMonth + 1, dayNum);
-        el.classList.add('dp-out');
-        el.textContent = dayNum;
-      } else {
-        dayNum = i - startDow + 1;
-        cellDate = new Date(viewYear, viewMonth, dayNum);
-        el.textContent = dayNum;
-
-        // today
-        if (cellDate.toDateString() === today.toDateString()) el.classList.add('dp-today');
-        // selected/temp
-        const cmpDate = tempDate || selectedDate;
-        if (cmpDate && cellDate.toDateString() === cmpDate.toDateString()) el.classList.add('dp-sel');
-
-        el.addEventListener('click', () => {
-          tempDate = cellDate;
-          renderCalendar();
-        });
-      }
-      grid.appendChild(el);
-    }
+    monList.querySelectorAll('.dpp-mon-opt').forEach((el,i) => el.classList.toggle('sel', i === curMonth));
   }
 
-  function openPopup() {
-    tempDate = selectedDate ? new Date(selectedDate) : null;
-    if (selectedDate) { viewYear = selectedDate.getFullYear(); viewMonth = selectedDate.getMonth(); }
-    renderCalendar();
+  function buildMonList() {
+    monList.innerHTML = MONTHS_FULL.map((n,i) =>
+      `<div class="dpp-mon-opt${i===curMonth?' sel':''}" data-m="${i}">${n}</div>`).join('');
+    monList.querySelectorAll('.dpp-mon-opt').forEach(el =>
+      el.addEventListener('click', e => { e.stopPropagation(); curMonth = +el.dataset.m; renderGrid(); closeMonList(); }));
+  }
+  function openMonList()  { buildMonList(); monList.classList.add('open'); document.getElementById('dppMonBtn').classList.add('open'); }
+  function closeMonList() { monList.classList.remove('open'); document.getElementById('dppMonBtn').classList.remove('open'); }
+
+  function openPicker() {
+    const now = new Date();
+    curYear  = now.getFullYear();
+    curMonth = now.getMonth();
+    selDate  = null;
+    renderGrid();
+    const rect = trigger.el.getBoundingClientRect();
+    let left = Math.min(rect.left, window.innerWidth - 380);
+    popup.style.left = left + 'px';
+    const spaceBelow = window.innerHeight - rect.bottom;
+    if (spaceBelow >= 420) { popup.style.top = (rect.bottom + 6) + 'px'; popup.style.bottom = 'auto'; }
+    else                   { popup.style.bottom = (window.innerHeight - rect.top + 6) + 'px'; popup.style.top = 'auto'; }
     popup.classList.add('open');
-    input.classList.add('dp-open');
+    backdrop.classList.add('open');
+    trigger.el.classList.add('open');
   }
 
-  function closePopup() {
-    popup.classList.remove('open');
-    input.classList.remove('dp-open');
-    tempDate = null;
-  }
-
-  function applySelection() {
-    if (tempDate) {
-      selectedDate = tempDate;
-      input.value = formatDate(selectedDate);
-      clearBtn.classList.add('visible');
+  function closePicker(save) {
+    popup.classList.remove('open'); backdrop.classList.remove('open'); closeMonList();
+    trigger.el.classList.remove('open');
+    if (save && selDate) {
+      const label = formatHR(selDate);
+      trigger.txt.textContent = label;
+      trigger.txt.style.color = 'var(--grey-800)';
+      trigger.el.classList.add('has-value');
+      if (trigger.flt) trigger.flt.style.display = 'block';
+      filterTableByDate(selDate);
     }
-    closePopup();
-    filterTable();
   }
 
-  function filterTable() {
+  function filterTableByDate(date) {
     const rows = document.querySelectorAll('#listTable tbody tr');
-    if (!selectedDate) {
-      rows.forEach(r => r.style.display = '');
-      return;
-    }
-    const sel = formatDate(selectedDate); // DD.MM.YYYY.
+    if (!date) { rows.forEach(r => r.style.display = ''); return; }
+    const sel = date.getDate() + '.' + (date.getMonth()+1) + '.' + date.getFullYear() + '.'; // D.M.YYYY.
+    // Also match formatted like "15.04.2026."
+    const selPadded = String(date.getDate()).padStart(2,'0') + '.' + String(date.getMonth()+1).padStart(2,'0') + '.' + date.getFullYear() + '.';
     rows.forEach(r => {
       const dateTd = r.querySelectorAll('td')[1];
-      const match = dateTd && dateTd.textContent.trim() === sel;
-      r.style.display = match ? '' : 'none';
+      const txt = dateTd ? dateTd.textContent.trim() : '';
+      r.style.display = (txt === sel || txt === selPadded) ? '' : 'none';
     });
   }
 
-  // "Dohvati" button
-  document.querySelector('.btn-primary.dohvati-btn') &&
-    document.querySelector('.btn-primary.dohvati-btn').addEventListener('click', filterTable);
+  document.getElementById('dppPrevMon').addEventListener('click', () => { curMonth--; if (curMonth < 0) { curMonth = 11; curYear--; } renderGrid(); });
+  document.getElementById('dppNextMon').addEventListener('click', () => { curMonth++; if (curMonth > 11) { curMonth = 0; curYear++; } renderGrid(); });
+  document.getElementById('dppPrevYr').addEventListener('click',  () => { curYear--; renderGrid(); });
+  document.getElementById('dppNextYr').addEventListener('click',  () => { curYear++; renderGrid(); });
+  document.getElementById('dppMonBtn').addEventListener('click', e => { e.stopPropagation(); monList.classList.contains('open') ? closeMonList() : openMonList(); });
+  document.getElementById('dppCancel').addEventListener('click', () => closePicker(false));
+  document.getElementById('dppOk').addEventListener('click',     () => closePicker(true));
+  backdrop.addEventListener('click', () => closePicker(false));
+  popup.addEventListener('click', e => e.stopPropagation());
 
-  // Wire up events
-  input.addEventListener('click', e => { e.stopPropagation(); popup.classList.contains('open') ? closePopup() : openPopup(); });
-  prevBtn.addEventListener('click', e => { e.stopPropagation(); viewMonth--; if(viewMonth<0){viewMonth=11;viewYear--;} renderCalendar(); });
-  nextBtn.addEventListener('click', e => { e.stopPropagation(); viewMonth++; if(viewMonth>11){viewMonth=0;viewYear++;} renderCalendar(); });
-  okBtn.addEventListener('click', e => { e.stopPropagation(); applySelection(); });
-  cancelBtn.addEventListener('click', e => { e.stopPropagation(); closePopup(); });
-  clearBtn.addEventListener('click', e => {
-    e.stopPropagation();
-    selectedDate = null; tempDate = null;
-    input.value = '';
-    clearBtn.classList.remove('visible');
-    filterTable();
+  trigger.el.addEventListener('click', () => {
+    if (popup.classList.contains('open')) { closePicker(false); return; }
+    openPicker();
   });
 
-  // "Dohvati" primary button — apply filter
-  const dohvatiBtn = document.querySelector('#listView .btn-primary');
-  if (dohvatiBtn) dohvatiBtn.addEventListener('click', filterTable);
-
-  // Close on outside click
-  document.addEventListener('click', e => {
-    if (!document.getElementById('dpWrap').contains(e.target)) closePopup();
-  });
+  // Dohvati button
+  const dohvatiBtn = document.getElementById('dohvatiBtn');
+  if (dohvatiBtn) dohvatiBtn.addEventListener('click', () => filterTableByDate(selDate));
 })();
 
 // Table features: drag reorder columns + resize
