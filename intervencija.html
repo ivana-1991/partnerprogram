@@ -172,6 +172,11 @@
     .dp-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
     .dp-table thead tr { background: var(--bg-table); border-bottom: 1px solid var(--grey-50); }
     .dp-table thead th { padding: 0 8px; height: 40px; font-size: 10px; font-weight: 600; color: var(--grey-400); letter-spacing: .5px; text-transform: uppercase; text-align: left; white-space: nowrap; overflow: hidden; position: relative; user-select: none; }
+    .th-inner { display: flex; align-items: center; gap: 4px; height: 100%; overflow: hidden; }
+    .th-label { flex: 1; overflow: hidden; text-overflow: ellipsis; }
+    .sort-grp { display: flex; align-items: center; gap: 1px; opacity: .45; cursor: pointer; padding: 2px 4px; border-radius: 2px; flex-shrink: 0; transition: opacity .15s; }
+    .sort-grp:hover, .sort-grp.active { opacity: 1; background: rgba(0,0,0,.06); }
+    .sort-arrow { display: block; flex-shrink: 0; transition: transform .2s; }
     .dp-table tbody tr { border-bottom: 1px solid var(--grey-50); transition: background .1s; }
     .dp-table tbody tr:last-child { border-bottom: none; }
     .dp-table tbody tr:hover { background: #f5fbfe; cursor: pointer; }
@@ -629,7 +634,11 @@
         <div class="dp-table-section-title">Dokumenti</div>
         <div class="dp-table-wrap">
           <table class="dp-table">
-            <thead><tr><th>Naziv dokumenta</th><th>Korisnik</th><th>Datum unosa</th></tr></thead>
+            <thead><tr>
+              <th style="width:320px;min-width:60px" draggable="true"><div class="th-inner"><span class="th-label">Naziv dokumenta</span><span class="sort-grp"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:block;flex-shrink:0"><path d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg><svg class="sort-arrow" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"/></svg></span></div><div class="col-resize-handle"></div></th>
+              <th style="width:220px;min-width:60px" draggable="true"><div class="th-inner"><span class="th-label">Korisnik</span><span class="sort-grp"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:block;flex-shrink:0"><path d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg><svg class="sort-arrow" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"/></svg></span></div><div class="col-resize-handle"></div></th>
+              <th style="width:160px;min-width:60px" draggable="true"><div class="th-inner"><span class="th-label">Datum unosa</span><span class="sort-grp"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:block;flex-shrink:0"><path d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg><svg class="sort-arrow" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"/></svg></span></div><div class="col-resize-handle"></div></th>
+            </tr></thead>
             <tbody>
               <tr><td>Lorem_Ipsum.doc</td><td><div style="display:flex;align-items:center;gap:8px"><div class="chat-av" style="background:#cce9f5;color:#0d5475">JW</div>John Williams</div></td><td>15.04.2026.</td></tr>
               <tr><td>Design_Notes.pdf</td><td><div style="display:flex;align-items:center;gap:8px"><div class="chat-av" style="background:#e0ded6;color:#3a3020">MS</div>Mary Smith</div></td><td>17.04.2026.</td></tr>
@@ -661,7 +670,11 @@
       <div class="dp-panel" id="panel-pozivi">
         <div class="dp-table-wrap">
           <table class="dp-table">
-            <thead><tr><th>Vrijeme poziva</th><th>Broj</th><th>Trajanje poziva</th></tr></thead>
+            <thead><tr>
+              <th style="width:320px;min-width:60px" draggable="true"><div class="th-inner"><span class="th-label">Vrijeme poziva</span><span class="sort-grp"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:block;flex-shrink:0"><path d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg><svg class="sort-arrow" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"/></svg></span></div><div class="col-resize-handle"></div></th>
+              <th style="width:560px;min-width:60px" draggable="true"><div class="th-inner"><span class="th-label">Broj</span><span class="sort-grp"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:block;flex-shrink:0"><path d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg><svg class="sort-arrow" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"/></svg></span></div><div class="col-resize-handle"></div></th>
+              <th style="width:512px;min-width:60px" draggable="true"><div class="th-inner"><span class="th-label">Trajanje poziva</span><span class="sort-grp"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:block;flex-shrink:0"><path d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg><svg class="sort-arrow" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"/></svg></span></div><div class="col-resize-handle"></div></th>
+            </tr></thead>
             <tbody>
               <tr><td>15.04.2026.</td><td>+385 99 1712344</td><td>01:23</td></tr>
               <tr><td>17.04.2026.</td><td>+385 99 1712345</td><td>02:45</td></tr>
