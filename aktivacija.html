@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1024, initial-scale=1">
+  <title>Aktivacija računa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue-800: #083c55; --blue-700: #0d5475; --blue-600: #136c93;
+      --blue-500: #1a82ae; --blue-400: #2299c8;
+      --grey-800: #1e1d1d; --grey-700: #2e2d2d; --grey-600: #403f3f;
+      --grey-500: #545252; --grey-400: #696767; --grey-300: #888686;
+      --grey-200: #a8a6a6; --grey-100: #bfbdbd; --grey-50: #d6d4d4;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--grey-800);
+      background: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ─── NAV ─── */
+    .nav {
+      height: 64px;
+      border-bottom: 1px solid var(--grey-50);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      background: #fff;
+      flex-shrink: 0;
+    }
+    .nav-logo { display: flex; align-items: center; cursor: pointer; }
+
+    /* Language dropdown */
+    .lang-wrap { position: relative; }
+    .lang-btn {
+      display: flex; align-items: center; gap: 7px;
+      height: 40px; padding: 0 12px;
+      border: 1px solid var(--grey-50); border-radius: 4px;
+      background: #fff; cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px; font-weight: 500;
+      color: var(--grey-700);
+      transition: border-color .15s;
+    }
+    .lang-btn:hover { border-color: var(--blue-400); }
+    .lang-menu {
+      display: none;
+      position: absolute; top: calc(100% + 4px); right: 0;
+      background: #fff;
+      border: 1px solid var(--grey-50);
+      border-radius: 6px;
+      box-shadow: 0 4px 16px rgba(0,0,0,.12);
+      min-width: 122px;
+      z-index: 200;
+      overflow: hidden;
+    }
+    .lang-menu.open { display: block; }
+    .lang-item {
+      padding: 0 16px;
+      height: 48px;
+      display: flex; align-items: center;
+      font-size: 14px; cursor: pointer;
+      color: var(--grey-700);
+      transition: background .1s;
+    }
+    .lang-item:hover { background: #f5f5f5; }
+    .lang-item.active { color: var(--blue-500); font-weight: 600; }
+
+    /* ─── MAIN ─── */
+    .main {
+      flex: 1;
+      padding: 40px 24px 60px;
+      max-width: 1440px;
+      width: 100%;
+    }
+
+    .page-title {
+      font-size: 28px; font-weight: 700;
+      color: var(--grey-800);
+      margin-bottom: 32px;
+      line-height: 1.2;
+    }
+
+    /* ─── STEP 1 ─── */
+    #step1 { display: block; }
+    #step2 { display: none; }
+
+    /* Search bar */
+    .search-row {
+      display: flex; align-items: center; gap: 24px;
+      margin-bottom: 40px;
+    }
+    .search-wrap { position: relative; width: 330px; }
+    .search-icon {
+      position: absolute; left: 10px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--grey-400); display: flex;
+      pointer-events: none;
+    }
+    .search-input {
+      width: 100%; height: 40px;
+      border: 1px solid var(--grey-50); border-radius: 4px;
+      padding: 0 12px 0 34px;
+      font-size: 14px; font-family: 'Inter', sans-serif;
+      color: var(--grey-800); background: #fff; outline: none;
+      transition: border-color .15s;
+    }
+    .search-input::placeholder { color: var(--grey-400); }
+    .search-input:focus { border-color: var(--blue-400); }
+
+    .btn-primary {
+      height: 40px; padding: 0 20px;
+      background: var(--blue-500); color: #fff; border: none;
+      border-radius: 4px; font-family: 'Inter', sans-serif;
+      font-size: 14px; font-weight: 600; cursor: pointer;
+      transition: background .15s; white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .btn-primary:hover { background: var(--blue-600); }
+
+    /* Guide */
+    .guide-title {
+      font-size: 15px; font-weight: 600;
+      color: var(--grey-800);
+      margin-bottom: 6px;
+    }
+    .guide-desc {
+      font-size: 13px; color: var(--grey-500);
+      margin-bottom: 20px;
+      max-width: 539px;
+      line-height: 1.5;
+    }
+
+    /* Receipt mockup */
+    .receipt {
+      width: 275px;
+      border: 2px dashed var(--grey-100);
+      border-radius: 4px;
+      padding: 16px 12px;
+      background: #fff;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 9.5px;
+      color: var(--grey-600);
+      line-height: 1.6;
+    }
+    .receipt-qr {
+      display: block; margin: 0 auto 10px;
+    }
+    .receipt-hr { border: none; border-top: 1px dashed var(--grey-200); margin: 7px 0; }
+    .receipt-flag {
+      text-align: center; font-size: 18px; margin: 3px 0;
+    }
+    .receipt-highlight {
+      display: inline-block;
+      border: 1.5px solid #e53935;
+      padding: 0 3px;
+      border-radius: 2px;
+      color: var(--grey-800);
+      font-weight: 700;
+    }
+
+    /* ─── STEP 2 ─── */
+    /* Search field top (filled, no button) */
+    .step2-search-row { margin-bottom: 36px; }
+    .fl-group { position: relative; }
+    .fl-input {
+      width: 100%; height: 40px;
+      border: 1px solid var(--grey-200); border-radius: 4px;
+      padding: 0 12px 0 34px;
+      font-size: 14px; font-family: 'Inter', sans-serif;
+      color: var(--grey-800); background: #fff; outline: none;
+      transition: border-color .15s;
+    }
+    .fl-input:focus { border-color: var(--blue-500); }
+
+    /* Form sections */
+    .form-section { margin-bottom: 32px; }
+    .form-section-label {
+      font-size: 10px; font-weight: 600;
+      letter-spacing: .09em;
+      color: var(--grey-400);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 330px 330px;
+      gap: 24px;
+    }
+    .form-grid.single {
+      grid-template-columns: 330px;
+    }
+
+    /* Outlined floating-label inputs */
+    .outlined-group {
+      position: relative;
+      width: 330px;
+    }
+    .outlined-input {
+      width: 100%; height: 40px;
+      border: 1px solid var(--grey-200); border-radius: 4px;
+      padding: 12px 12px 0;
+      font-size: 14px; font-family: 'Inter', sans-serif;
+      color: var(--grey-800); background: #fff; outline: none;
+      transition: border-color .15s;
+    }
+    .outlined-input:focus { border-color: var(--blue-500); }
+    .outlined-input:focus + .outlined-label { color: var(--blue-500); }
+    .outlined-label {
+      position: absolute;
+      left: 9px; top: -7px;
+      background: #fff; padding: 0 3px;
+      font-size: 11px; color: var(--grey-400);
+      pointer-events: none;
+      line-height: 1.4;
+      white-space: nowrap;
+    }
+
+    /* ─── FOOTER ─── */
+    .footer {
+      border-top: 1px solid var(--grey-50);
+      height: 68px;
+      display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      flex-shrink: 0;
+    }
+    .footer-left {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .footer-copy {
+      font-size: 12px; color: var(--grey-500);
+    }
+    .footer-link {
+      font-size: 12px; color: var(--grey-500);
+      text-decoration: underline; cursor: pointer;
+      background: none; border: none;
+      font-family: 'Inter', sans-serif;
+    }
+    .footer-link:hover { color: var(--grey-700); }
+
+    /* ─── TOAST ─── */
+    .toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #1b5e35; color: #fff;
+      border-radius: 6px; padding: 12px 24px;
+      font-size: 14px; font-weight: 500;
+      box-shadow: 0 4px 16px rgba(0,0,0,.18);
+      opacity: 0; transition: opacity .25s, transform .25s;
+      pointer-events: none; z-index: 999;
+      white-space: nowrap;
+    }
+    .toast.show {
+      opacity: 1; transform: translateX(-50%) translateY(0);
+    }
+
+    /* Loading spinner on btn */
+    .btn-primary.loading {
+      color: transparent; pointer-events: none; position: relative;
+    }
+    .btn-primary.loading::after {
+      content: ''; position: absolute;
+      width: 15px; height: 15px;
+      border: 2px solid rgba(255,255,255,.35);
+      border-top-color: #fff; border-radius: 50%;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      animation: spin .7s linear infinite;
+    }
+    @keyframes spin { to { transform: translate(-50%,-50%) rotate(360deg); } }
+
+    /* Error state */
+    .search-input.error { border-color: #e53935; }
+    .err-msg {
+      font-size: 12px; color: #e53935;
+      margin-top: 5px; display: none;
+    }
+    .err-msg.show { display: block; }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav class="nav">
+  <div class="nav-logo">
+    <!-- Holdina logo -->
+    <svg width="126" height="24" viewBox="0 0 192 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M50.309 11.1144C50.4083 10.5599 50.4662 9.35164 49.1421 9.35164C48.3427 9.39716 47.6318 9.88213 47.2966 10.6096C46.6767 11.7508 46.2224 12.974 45.9476 14.2427C45.8814 14.6316 45.6414 15.9806 47.1062 15.9806C48.5711 15.9806 49.1256 14.6896 49.8456 12.6703C50.0318 12.1704 50.1865 11.659 50.309 11.1392M46.6097 18.5875C44.0111 18.5875 41.8759 16.9323 42.4718 13.5061C43.0676 10.0799 45.7407 6.70337 49.7214 6.70337C52.5683 6.70337 54.3228 8.65647 53.7849 11.7268C53.1393 15.4096 50.2842 18.5875 46.6097 18.5875Z" fill="#FF1100"/>
+      <path d="M58.3945 11.677H59.6855C60.1655 11.7209 60.648 11.6257 61.0758 11.4039C61.4276 11.1888 61.6758 10.8387 61.7627 10.4357C61.9448 9.38462 60.6703 9.38462 60.3807 9.38462H59.1807L58.3945 11.677ZM62.5986 18.2977H59.2055L58.9489 14.0688H57.5834L56.0855 18.3557H52.7751L56.7393 7.00945H61.7545C62.6673 6.91014 63.5867 7.13276 64.3531 7.63841C65.0979 8.30545 65.4174 9.33166 65.1807 10.3032C64.992 11.3617 64.3978 12.3068 63.5255 12.935C63.1092 13.223 62.6516 13.4456 62.1683 13.597L62.5986 18.2977Z" fill="#FF1100"/>
+      <path d="M70.8083 13.4233L69.1531 18.3226H65.6855L67.44 13.2412L65.8428 7.00952H69.5173L70.138 10.0302C70.2158 10.3008 70.2679 10.5781 70.2952 10.8578L71.0152 10.0302L73.5973 7.00952H76.7338L70.8083 13.4233Z" fill="#FF1100"/>
+      <path d="M80.8386 12.4634L82.6097 18.331H78.9683L78.1986 15.451C78.0828 15.029 78.0745 14.9958 77.9669 14.6234L77.338 15.3186L74.6897 18.3227H71.6028L77.1476 12.2814L75.4924 7.00137H79.1421L79.7711 9.29378C79.8563 9.5644 79.92 9.84081 79.9614 10.1214C80.1352 9.93102 80.8552 9.13654 81.0042 8.98757L82.8414 6.96826H85.9283L80.8386 12.4634Z" fill="#FF1100"/>
+      <path d="M87.7242 7.36535C87.8094 7.16425 88.0031 7.02935 88.2207 7.01777H93.0455C93.0546 7.01694 93.0629 7.01611 93.072 7.01611C93.2036 7.01611 93.312 7.12453 93.312 7.25611C93.312 7.29418 93.3029 7.33142 93.2855 7.36535L91.5642 11.9998C91.4773 12.1993 91.2853 12.3342 91.0676 12.3474H86.2345C86.2254 12.3483 86.2171 12.3491 86.208 12.3491C86.0764 12.3491 85.968 12.2407 85.968 12.1091C85.968 12.071 85.9771 12.0338 85.9945 11.9998L87.7242 7.36535Z" fill="#FF1100"/>
+      <path d="M89.7103 13.3571C89.7939 13.1543 89.9883 13.0186 90.2068 13.0095H95.0316C95.0407 13.0086 95.049 13.0078 95.0581 13.0078C95.1897 13.0078 95.2981 13.1162 95.2981 13.2478C95.2981 13.2859 95.289 13.3231 95.2716 13.3571L93.5585 17.9915C93.4708 18.1943 93.2739 18.3292 93.0537 18.3391H88.2289C88.2198 18.34 88.2115 18.3408 88.2024 18.3408C88.0708 18.3408 87.9624 18.2324 87.9624 18.1008C87.9624 18.0627 87.9715 18.0255 87.9889 17.9915L89.7103 13.3571Z" fill="#FF1100"/>
+      <path d="M103.125 14.0688V9.01221L99.8731 14.0688H103.125ZM103.034 18.3722V15.6412H98.8965L97.142 18.3722H95.1724L102.621 7.06738H105.17L105.277 18.3722H103.034Z" fill="#696767"/>
+      <path d="M115.034 9.86468C114.942 9.34992 114.601 8.91295 114.124 8.69778C113.799 8.54054 113.442 8.45861 113.081 8.45778C112.045 8.34275 111.069 9.00151 110.789 10.0054C110.665 10.7005 111.095 11.0895 112.097 11.3792C113.992 11.9419 114.405 12.0578 114.993 12.6123C115.545 13.1874 115.773 14.0026 115.597 14.7805C115.465 15.5088 114.546 18.5792 110.334 18.5792C106.974 18.5792 106.519 16.4771 106.37 15.7654L108.364 15.1033C108.48 15.6081 108.77 16.8826 110.789 16.8826C112.61 16.8826 113.272 15.8481 113.421 15.1364C113.57 14.4247 113.048 14.0357 112.378 13.8288L110.615 13.2909C109.217 12.8523 108.348 11.884 108.629 10.2867C108.977 8.31709 110.748 6.76123 113.429 6.76123C115.912 6.76123 116.739 8.06882 117.029 9.18606L115.034 9.86468Z" fill="#696767"/>
+      <path d="M126.116 18.2977L130.014 6.99292H132.149L128.226 18.2977H126.116Z" fill="#696767"/>
+      <path d="M124.908 9.93084C124.813 9.41691 124.473 8.97994 123.997 8.76394C123.672 8.6067 123.315 8.52477 122.955 8.52394C121.918 8.40891 120.943 9.06767 120.662 10.0715C120.538 10.7667 120.968 11.1558 121.97 11.4453C123.865 12.0081 124.279 12.1239 124.866 12.6784C125.417 13.2544 125.641 14.0704 125.462 14.8467C125.338 15.575 124.411 18.6453 120.199 18.6453C116.839 18.6453 116.384 16.5433 116.235 15.8315L118.229 15.1695C118.345 15.6743 118.635 16.9488 120.654 16.9488C122.475 16.9488 123.137 15.9143 123.286 15.2026C123.435 14.4908 122.913 14.1019 122.243 13.895L120.48 13.357C119.082 12.9184 118.213 11.9502 118.494 10.3529C118.842 8.38325 120.613 6.82739 123.302 6.82739C125.785 6.82739 126.613 8.13498 126.902 9.25222L124.908 9.93084Z" fill="#696767"/>
+      <path d="M179.586 11.0068C179.586 10.2951 179.752 8.39165 177.724 8.39165C176.706 8.39165 175.904 8.87992 175.117 10.0468C174.374 11.2907 173.843 12.6504 173.545 14.0689C173.106 16.5516 174.646 16.833 175.25 16.833C176.715 16.833 177.857 15.4261 178.378 14.5158L179.926 15.211C178.643 17.313 176.971 18.5875 174.786 18.5875C172.105 18.5875 170.938 16.4854 171.476 13.622C172.064 10.262 174.604 6.70337 178.097 6.70337C180.728 6.70337 181.771 8.35854 181.548 10.6675L179.586 11.0068Z" fill="#696767"/>
+      <path d="M139.465 9.93099C139.371 9.41706 139.03 8.98009 138.555 8.76409C138.229 8.60685 137.873 8.52492 137.512 8.52409C136.476 8.40906 135.5 9.06782 135.219 10.0717C135.095 10.7669 135.526 11.1558 136.527 11.4455C138.422 12.0082 138.836 12.1241 139.423 12.6786C139.994 13.2629 140.223 14.1037 140.028 14.8965C139.903 15.6248 138.977 18.6951 134.764 18.6951C131.404 18.6951 130.949 16.5931 130.8 15.8813L132.795 15.2193C132.91 15.7241 133.2 16.9986 135.219 16.9986C137.04 16.9986 137.702 15.9641 137.851 15.2524C138 14.5406 137.479 14.1517 136.808 13.9448L135.046 13.4069C133.647 12.9682 132.778 12 133.059 10.4027C133.407 8.43306 135.178 6.8772 137.868 6.8772C140.35 6.8772 141.178 8.18478 141.468 9.30202L139.465 9.93099Z" fill="#696767"/>
+      <path d="M147.658 8.77223L144.356 18.2977H142.237L145.539 8.77223H142.626L143.239 6.99292H151.184L150.563 8.77223H147.658Z" fill="#696767"/>
+      <path d="M155.884 13.9943V8.97085L152.64 13.9943H155.884ZM155.793 18.2977V15.5667H151.655L149.901 18.2977H147.956L155.404 6.99292H157.953L158.069 18.2977H155.793Z" fill="#696767"/>
+      <path d="M166.246 18.2977L163.837 9.80671L160.899 18.2977H159.244L163.167 6.99292H165.286L167.479 14.7557L170.177 6.99292H171.807L167.901 18.2977H166.246Z" fill="#696767"/>
+      <path d="M180.563 18.2977L184.486 6.99292H191.735L191.106 8.77223H185.909L184.891 11.7102H189.194L188.623 13.3819H184.32L183.236 16.5184H188.64L188.011 18.2977H180.563Z" fill="#696767"/>
+      <path d="M22.1298 18.8358L21.9312 11.5696L25.4898 7.29102L27.8567 18.0248L22.1298 18.8358Z" fill="#FF1100"/>
+      <path d="M31.2498 4.1543L32.1104 12.5295L32.4829 8.2343L31.2498 4.1543Z" fill="#FF1100"/>
+      <path d="M32.1105 12.5295L27.8484 18.0577L28.6429 18.7943L35.3049 11.4453L32.1105 12.5295Z" fill="#FF1100"/>
+      <path d="M33.7739 14.8384L34.2291 15.9143L36.9436 15.666L35.305 11.4453L33.7739 14.8384Z" fill="#FF1100"/>
+      <path d="M22.0056 11.4619L13.887 18.5047L15.509 11.5943L22.0056 11.4619Z" fill="#FF1100"/>
+      <path d="M33.1035 3.12819C25.8207 1.60543 19.2166 5.16405 19.2166 5.16405C27.9724 2.59025 31.2497 4.13784 31.2497 4.13784L33.1035 3.12819Z" fill="#FF1100"/>
+      <path d="M10.4441 13.5557L8.08545 17.8012L13.8868 18.5046L10.4441 13.5557Z" fill="#FF1100"/>
+      <mask id="nm0" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="25" y="4" width="8" height="15"><path d="M31.2497 4.1626L32.1104 12.5295L27.8484 18.0578L25.4897 7.29915L31.2497 4.1626Z" fill="white"/></mask>
+      <g mask="url(#nm0)"><path d="M25.5655 3.46428L24.0229 17.8979L32.038 18.7545L33.5805 4.32084L25.5655 3.46428Z" fill="#FF1100"/></g>
+      <mask id="nm1" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="31" y="3" width="7" height="6"><path d="M32.4829 8.23438L37.5477 7.24955L37.7132 5.69369L33.0704 3.12817L31.2498 4.15438L32.4829 8.23438Z" fill="white"/></mask>
+      <g mask="url(#nm1)"><path d="M35.2968 0.00198832L28.7815 5.0376L33.6703 11.363L40.1857 6.32741L35.2968 0.00198832Z" fill="#FF1100"/></g>
+      <mask id="nm2" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="28" y="11" width="8" height="8"><path d="M35.3049 11.4453L28.6428 18.7943L33.7739 14.8384L35.3049 11.4453Z" fill="white"/></mask>
+      <g mask="url(#nm2)"><path d="M29.322 9.42351L26.4033 18.0464L34.6186 20.8271L37.5373 12.2042L29.322 9.42351Z" fill="#FF1100"/></g>
+      <mask id="nm3" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="32" y="15" width="5" height="5"><path d="M36.9434 15.666L34.2289 15.9143L32.6482 17.0067L32.8385 19.7377L36.9434 15.666Z" fill="white"/></mask>
+      <g mask="url(#nm3)"><path d="M32.6526 15.4891L32.4822 19.7312L36.9393 19.9102L37.1097 15.6681L32.6526 15.4891Z" fill="#FF1100"/></g>
+      <mask id="nm4" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="13" y="11" width="10" height="8"><path d="M22.0056 11.4619L13.887 18.5047L22.1297 18.8357L22.0056 11.4619Z" fill="white"/></mask>
+      <g mask="url(#nm4)"><path d="M13.9832 10.5846L13.1108 18.7478L22.0311 19.7011L22.9035 11.5379L13.9832 10.5846Z" fill="#FF1100"/></g>
+      <mask id="nm5" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="10" y="11" width="6" height="8"><path d="M10.4441 13.5559L13.8869 18.5048L15.5089 11.5945L10.4441 13.5559Z" fill="white"/></mask>
+      <g mask="url(#nm5)"><path d="M10.7411 10.3995L8.80762 18.0969L15.2048 19.7038L17.1382 12.0063L10.7411 10.3995Z" fill="#FF1100"/></g>
+      <mask id="nm6" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="5" y="17" width="9" height="5"><path d="M13.8869 18.5047L9.21108 21.2109L5.1228 18.6785L8.08556 17.8013L13.8869 18.5047Z" fill="white"/></mask>
+      <g mask="url(#nm6)"><path d="M5.13736 17.4465L4.98657 21.2007L13.876 21.5577L14.0267 17.8035L5.13736 17.4465Z" fill="#FF1100"/></g>
+      <mask id="nm7" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="5" y="18" width="5" height="4"><path d="M5.1228 18.6785L5.66073 20.6564L9.21108 21.2109L5.1228 18.6785Z" fill="white"/></mask>
+      <g mask="url(#nm7)"><path d="M5.12732 18.5079L5.01904 21.2036L9.19499 21.3713L9.30326 18.6756L5.12732 18.5079Z" fill="#FF1100"/></g>
+      <mask id="nm8" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="18" width="6" height="6"><path d="M5.12279 18.6785L0.173828 22.7833L1.6221 23.1061L5.66072 20.6564L5.12279 18.6785Z" fill="white"/></mask>
+      <g mask="url(#nm8)"><path d="M0.201666 18.4496L0.015625 23.1006L5.67631 23.327L5.86236 18.676L0.201666 18.4496Z" fill="#FF1100"/></g>
+    </svg>
+  </div>
+
+  <!-- Language selector -->
+  <div class="lang-wrap">
+    <button class="lang-btn" id="langBtn" type="button">
+      <!-- Globe icon -->
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+      </svg>
+      <span id="langLabel">HR</span>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="lang-menu" id="langMenu">
+      <div class="lang-item active" data-lang="HR">HR – Hrvatski</div>
+      <div class="lang-item" data-lang="BS">BS – Bosanski</div>
+      <div class="lang-item" data-lang="EN">EN – English</div>
+      <div class="lang-item" data-lang="DE">DE – Deutsch</div>
+      <div class="lang-item" data-lang="SR">SR – Srpski</div>
+    </div>
+  </div>
+</nav>
+
+<!-- ─── MAIN ─── -->
+<main class="main">
+
+  <!-- ══════════ STEP 1 ══════════ -->
+  <div id="step1">
+    <h1 class="page-title">Aktivacija računa</h1>
+
+    <!-- Search row -->
+    <div class="search-row">
+      <div>
+        <div style="display:flex;align-items:center;gap:24px">
+          <div class="search-wrap">
+            <span class="search-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+            </span>
+            <input class="search-input" id="accountInput" type="text" placeholder="Unesi broj računa" autocomplete="off">
+          </div>
+          <button class="btn-primary" id="pretraziBtn" type="button">Pretraži</button>
+        </div>
+        <div class="err-msg" id="searchErr">Molimo unesite broj računa.</div>
+      </div>
+    </div>
+
+    <!-- Guide -->
+    <p class="guide-title">Kako pronaći broj?</p>
+    <p class="guide-desc">Označeni broj (npr.120349) je onaj koji upisujete u polje za pretragu. Nalazi se na dnu računa.</p>
+
+    <!-- Receipt mockup -->
+    <div class="receipt">
+      <!-- QR code SVG -->
+      <svg class="receipt-qr" width="70" height="70" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+        <!-- Top-left finder pattern -->
+        <rect x="0" y="0" width="7" height="7" fill="#000"/>
+        <rect x="1" y="1" width="5" height="5" fill="#fff"/>
+        <rect x="2" y="2" width="3" height="3" fill="#000"/>
+        <!-- Top-right finder pattern -->
+        <rect x="14" y="0" width="7" height="7" fill="#000"/>
+        <rect x="15" y="1" width="5" height="5" fill="#fff"/>
+        <rect x="16" y="2" width="3" height="3" fill="#000"/>
+        <!-- Bottom-left finder pattern -->
+        <rect x="0" y="14" width="7" height="7" fill="#000"/>
+        <rect x="1" y="15" width="5" height="5" fill="#fff"/>
+        <rect x="2" y="16" width="3" height="3" fill="#000"/>
+        <!-- Data modules -->
+        <rect x="9" y="0" width="1" height="1" fill="#000"/>
+        <rect x="11" y="0" width="2" height="1" fill="#000"/>
+        <rect x="8" y="1" width="2" height="1" fill="#000"/>
+        <rect x="12" y="1" width="1" height="1" fill="#000"/>
+        <rect x="9" y="2" width="3" height="1" fill="#000"/>
+        <rect x="13" y="2" width="1" height="1" fill="#000"/>
+        <rect x="8" y="3" width="1" height="1" fill="#000"/>
+        <rect x="11" y="3" width="2" height="1" fill="#000"/>
+        <rect x="9" y="4" width="1" height="2" fill="#000"/>
+        <rect x="12" y="4" width="2" height="1" fill="#000"/>
+        <rect x="8" y="6" width="3" height="1" fill="#000"/>
+        <rect x="13" y="6" width="1" height="1" fill="#000"/>
+        <rect x="7" y="7" width="1" height="3" fill="#000"/>
+        <rect x="9" y="8" width="2" height="1" fill="#000"/>
+        <rect x="12" y="7" width="1" height="2" fill="#000"/>
+        <rect x="14" y="8" width="3" height="1" fill="#000"/>
+        <rect x="18" y="7" width="2" height="2" fill="#000"/>
+        <rect x="7" y="9" width="5" height="1" fill="#000"/>
+        <rect x="14" y="9" width="2" height="2" fill="#000"/>
+        <rect x="17" y="10" width="4" height="1" fill="#000"/>
+        <rect x="7" y="11" width="2" height="1" fill="#000"/>
+        <rect x="10" y="11" width="3" height="1" fill="#000"/>
+        <rect x="15" y="11" width="2" height="2" fill="#000"/>
+        <rect x="19" y="11" width="2" height="1" fill="#000"/>
+        <rect x="7" y="12" width="1" height="2" fill="#000"/>
+        <rect x="9" y="12" width="2" height="2" fill="#000"/>
+        <rect x="13" y="12" width="1" height="2" fill="#000"/>
+        <rect x="18" y="12" width="2" height="2" fill="#000"/>
+        <rect x="7" y="14" width="4" height="1" fill="#000"/>
+        <rect x="13" y="14" width="1" height="1" fill="#000"/>
+        <rect x="16" y="14" width="2" height="1" fill="#000"/>
+        <rect x="8" y="15" width="1" height="2" fill="#000"/>
+        <rect x="11" y="15" width="2" height="1" fill="#000"/>
+        <rect x="14" y="15" width="1" height="2" fill="#000"/>
+        <rect x="17" y="15" width="1" height="3" fill="#000"/>
+        <rect x="19" y="15" width="2" height="1" fill="#000"/>
+        <rect x="9" y="16" width="2" height="2" fill="#000"/>
+        <rect x="13" y="17" width="1" height="2" fill="#000"/>
+        <rect x="15" y="16" width="1" height="2" fill="#000"/>
+        <rect x="18" y="17" width="2" height="2" fill="#000"/>
+        <rect x="7" y="18" width="2" height="2" fill="#000"/>
+        <rect x="11" y="19" width="3" height="1" fill="#000"/>
+        <rect x="16" y="19" width="1" height="1" fill="#000"/>
+        <rect x="20" y="19" width="1" height="1" fill="#000"/>
+      </svg>
+
+      <hr class="receipt-hr">
+
+      <!-- Bosnia symbol (simplified) -->
+      <div style="text-align:center;font-size:13px;letter-spacing:2px;margin:3px 0;color:#555">▲ △ △</div>
+
+      <hr class="receipt-hr">
+
+      <div>99bebf9c809926b9e5bea55cd05fa1a</div>
+      <div style="margin-top:3px">1001 ALI HODŽIĆ</div>
+      <div>(Broj računa kase: <span class="receipt-highlight">120349</span>)</div>
+      <div style="margin-top:8px">Sretan put i ugodnu vožnju želi</div>
+      <div style="text-align:center">Vam INABC</div>
+      <div style="text-align:center">www.ina.ba</div>
+    </div>
+  </div>
+
+  <!-- ══════════ STEP 2 ══════════ -->
+  <div id="step2">
+    <h1 class="page-title">Aktivacija računa</h1>
+
+    <!-- Account number field (pre-filled, no button) -->
+    <div class="step2-search-row">
+      <div class="search-wrap">
+        <span class="search-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </span>
+        <input class="search-input" id="accountDisplay" type="text" placeholder="Unesi broj računa" autocomplete="off">
+      </div>
+    </div>
+
+    <!-- INFORMACIJE O PAKETU -->
+    <div class="form-section">
+      <p class="form-section-label">Informacije o paketu</p>
+      <div class="form-grid single">
+        <div class="outlined-group">
+          <input class="outlined-input" id="oznakaDrzave" type="text" value="HoldINA Roadside Assistance BiH">
+          <span class="outlined-label">Oznaka države</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- OSOBNE INFORMACIJE -->
+    <div class="form-section">
+      <p class="form-section-label">Osobne informacije</p>
+      <div class="form-grid">
+        <div class="outlined-group">
+          <input class="outlined-input" id="imePrezime" type="text" value="Ivan Horvat">
+          <span class="outlined-label">Ime i prezime</span>
+        </div>
+        <div class="outlined-group">
+          <input class="outlined-input" id="brojTelefona" type="text" value="099 1234 567">
+          <span class="outlined-label">Broj telefona</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- INFORMACIJE O VOZILU -->
+    <div class="form-section">
+      <p class="form-section-label">Informacije o vozilu</p>
+      <div class="form-grid" style="row-gap:24px">
+        <div class="outlined-group">
+          <input class="outlined-input" id="markaVozila" type="text" value="Audi">
+          <span class="outlined-label">Marka vozila</span>
+        </div>
+        <div class="outlined-group">
+          <input class="outlined-input" id="modelVozila" type="text" value="A4">
+          <span class="outlined-label">Model vozila</span>
+        </div>
+        <div class="outlined-group">
+          <input class="outlined-input" id="regOznaka" type="text" value="123456">
+          <span class="outlined-label">Registracijska oznaka</span>
+        </div>
+        <div class="outlined-group">
+          <input class="outlined-input" id="brojSasije" type="text" value="1234567890">
+          <span class="outlined-label">Broj šasije</span>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-primary" id="spremiBtn" type="button">Spremi izmjene</button>
+  </div>
+
+</main>
+
+<!-- ─── FOOTER ─── -->
+<footer class="footer">
+  <div class="footer-left">
+    <!-- ORYX icon (small) -->
+    <svg width="38" height="22" viewBox="5 1 36 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M22.1298 18.8358L21.9312 11.5696L25.4898 7.29102L27.8567 18.0248L22.1298 18.8358Z" fill="#FF1100"/>
+      <path d="M31.2498 4.1543L32.1104 12.5295L32.4829 8.2343L31.2498 4.1543Z" fill="#FF1100"/>
+      <path d="M32.1105 12.5295L27.8484 18.0577L28.6429 18.7943L35.3049 11.4453L32.1105 12.5295Z" fill="#FF1100"/>
+      <path d="M33.7739 14.8384L34.2291 15.9143L36.9436 15.666L35.305 11.4453L33.7739 14.8384Z" fill="#FF1100"/>
+      <path d="M22.0056 11.4619L13.887 18.5047L15.509 11.5943L22.0056 11.4619Z" fill="#FF1100"/>
+      <path d="M33.1035 3.12819C25.8207 1.60543 19.2166 5.16405 19.2166 5.16405C27.9724 2.59025 31.2497 4.13784 31.2497 4.13784L33.1035 3.12819Z" fill="#FF1100"/>
+      <path d="M10.4441 13.5557L8.08545 17.8012L13.8868 18.5046L10.4441 13.5557Z" fill="#FF1100"/>
+      <mask id="fm0" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="25" y="4" width="8" height="15"><path d="M31.2497 4.1626L32.1104 12.5295L27.8484 18.0578L25.4897 7.29915L31.2497 4.1626Z" fill="white"/></mask>
+      <g mask="url(#fm0)"><path d="M25.5655 3.46428L24.0229 17.8979L32.038 18.7545L33.5805 4.32084L25.5655 3.46428Z" fill="#FF1100"/></g>
+      <mask id="fm1" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="31" y="3" width="7" height="6"><path d="M32.4829 8.23438L37.5477 7.24955L37.7132 5.69369L33.0704 3.12817L31.2498 4.15438L32.4829 8.23438Z" fill="white"/></mask>
+      <g mask="url(#fm1)"><path d="M35.2968 0.00198832L28.7815 5.0376L33.6703 11.363L40.1857 6.32741L35.2968 0.00198832Z" fill="#FF1100"/></g>
+      <mask id="fm2" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="28" y="11" width="8" height="8"><path d="M35.3049 11.4453L28.6428 18.7943L33.7739 14.8384L35.3049 11.4453Z" fill="white"/></mask>
+      <g mask="url(#fm2)"><path d="M29.322 9.42351L26.4033 18.0464L34.6186 20.8271L37.5373 12.2042L29.322 9.42351Z" fill="#FF1100"/></g>
+      <mask id="fm3" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="32" y="15" width="5" height="5"><path d="M36.9434 15.666L34.2289 15.9143L32.6482 17.0067L32.8385 19.7377L36.9434 15.666Z" fill="white"/></mask>
+      <g mask="url(#fm3)"><path d="M32.6526 15.4891L32.4822 19.7312L36.9393 19.9102L37.1097 15.6681L32.6526 15.4891Z" fill="#FF1100"/></g>
+      <mask id="fm4" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="13" y="11" width="10" height="8"><path d="M22.0056 11.4619L13.887 18.5047L22.1297 18.8357L22.0056 11.4619Z" fill="white"/></mask>
+      <g mask="url(#fm4)"><path d="M13.9832 10.5846L13.1108 18.7478L22.0311 19.7011L22.9035 11.5379L13.9832 10.5846Z" fill="#FF1100"/></g>
+      <mask id="fm5" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="10" y="11" width="6" height="8"><path d="M10.4441 13.5559L13.8869 18.5048L15.5089 11.5945L10.4441 13.5559Z" fill="white"/></mask>
+      <g mask="url(#fm5)"><path d="M10.7411 10.3995L8.80762 18.0969L15.2048 19.7038L17.1382 12.0063L10.7411 10.3995Z" fill="#FF1100"/></g>
+      <mask id="fm6" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="5" y="17" width="9" height="5"><path d="M13.8869 18.5047L9.21108 21.2109L5.1228 18.6785L8.08556 17.8013L13.8869 18.5047Z" fill="white"/></mask>
+      <g mask="url(#fm6)"><path d="M5.13736 17.4465L4.98657 21.2007L13.876 21.5577L14.0267 17.8035L5.13736 17.4465Z" fill="#FF1100"/></g>
+      <mask id="fm7" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="5" y="18" width="5" height="4"><path d="M5.1228 18.6785L5.66073 20.6564L9.21108 21.2109L5.1228 18.6785Z" fill="white"/></mask>
+      <g mask="url(#fm7)"><path d="M5.12732 18.5079L5.01904 21.2036L9.19499 21.3713L9.30326 18.6756L5.12732 18.5079Z" fill="#FF1100"/></g>
+      <mask id="fm8" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="18" width="6" height="6"><path d="M5.12279 18.6785L0.173828 22.7833L1.6221 23.1061L5.66072 20.6564L5.12279 18.6785Z" fill="white"/></mask>
+      <g mask="url(#fm8)"><path d="M0.201666 18.4496L0.015625 23.1006L5.67631 23.327L5.86236 18.676L0.201666 18.4496Z" fill="#FF1100"/></g>
+    </svg>
+    <span class="footer-copy">© ORYX Grupa BH d.o.o. Sarajevo</span>
+  </div>
+  <button class="footer-link" type="button">Izjava o zaštiti privatnosti</button>
+</footer>
+
+<!-- Toast -->
+<div class="toast" id="toast">Izmjene su uspješno spremljene.</div>
+
+<script>
+  /* ─── Language dropdown ─── */
+  const langBtn  = document.getElementById('langBtn');
+  const langMenu = document.getElementById('langMenu');
+  const langLabel = document.getElementById('langLabel');
+
+  langBtn.addEventListener('click', () => langMenu.classList.toggle('open'));
+
+  document.querySelectorAll('.lang-item').forEach(item => {
+    item.addEventListener('click', () => {
+      document.querySelectorAll('.lang-item').forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
+      langLabel.textContent = item.dataset.lang;
+      langMenu.classList.remove('open');
+    });
+  });
+
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.lang-wrap')) langMenu.classList.remove('open');
+  });
+
+  /* ─── Step switching ─── */
+  const step1 = document.getElementById('step1');
+  const step2 = document.getElementById('step2');
+  const accountInput   = document.getElementById('accountInput');
+  const accountDisplay = document.getElementById('accountDisplay');
+  const pretraziBtn    = document.getElementById('pretraziBtn');
+  const searchErr      = document.getElementById('searchErr');
+
+  function showStep2(number) {
+    accountDisplay.value = number;
+    step1.style.display = 'none';
+    step2.style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function doSearch() {
+    const val = accountInput.value.trim();
+    if (!val) {
+      accountInput.classList.add('error');
+      searchErr.classList.add('show');
+      return;
+    }
+    accountInput.classList.remove('error');
+    searchErr.classList.remove('show');
+
+    pretraziBtn.classList.add('loading');
+    setTimeout(() => {
+      pretraziBtn.classList.remove('loading');
+      showStep2(val);
+    }, 800);
+  }
+
+  pretraziBtn.addEventListener('click', doSearch);
+  accountInput.addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
+  accountInput.addEventListener('input', () => {
+    accountInput.classList.remove('error');
+    searchErr.classList.remove('show');
+  });
+
+  /* Click on account number in Step 2 → back to Step 1 */
+  accountDisplay.addEventListener('click', () => {
+    step2.style.display = 'none';
+    step1.style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  accountDisplay.style.cursor = 'pointer';
+  accountDisplay.title = 'Klikni za novu pretragu';
+
+  /* ─── Save form ─── */
+  const spremiBtn = document.getElementById('spremiBtn');
+  const toast     = document.getElementById('toast');
+
+  spremiBtn.addEventListener('click', () => {
+    spremiBtn.classList.add('loading');
+    setTimeout(() => {
+      spremiBtn.classList.remove('loading');
+      showToast('Izmjene su uspješno spremljene.');
+    }, 800);
+  });
+
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+  }
+
+  /* ─── Footer privacy link ─── */
+  document.querySelector('.footer-link').addEventListener('click', () => {
+    showToast('Izjava o zaštiti privatnosti nije dostupna.');
+  });
+</script>
+</body>
+</html>
