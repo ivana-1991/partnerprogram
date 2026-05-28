@@ -2,7 +2,7 @@
 <html lang="hr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=1024, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Aktivacija računa</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -96,9 +96,9 @@
     #step2 { display: none; }
 
     /* Search bar */
-    .search-row {
+    .search-row { margin-bottom: 40px; }
+    .search-controls {
       display: flex; align-items: center; gap: 24px;
-      margin-bottom: 40px;
     }
     .search-wrap { position: relative; width: 330px; }
     .search-icon {
@@ -287,6 +287,66 @@
       margin-top: 5px; display: none;
     }
     .err-msg.show { display: block; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 640px) {
+      /* Nav */
+      .nav { padding: 0 16px; }
+
+      /* Main */
+      .main { padding: 28px 24px 48px; }
+
+      /* Title – centre on mobile (matches Figma) */
+      .page-title {
+        font-size: 24px;
+        text-align: center;
+        margin-bottom: 24px;
+      }
+
+      /* Step 1 – search stacks vertically */
+      .search-controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+      }
+      .search-wrap { width: 100% !important; }
+      .search-row .btn-primary { width: 100%; }
+
+      /* Guide text – centre */
+      .guide-title { text-align: center; }
+      .guide-desc  { text-align: center; max-width: 100%; }
+
+      /* Receipt – centre and fill width */
+      .receipt {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+      }
+
+      /* Step 2 – account field full width */
+      .step2-search-row .search-wrap { width: 100% !important; }
+
+      /* Form – single column, full width */
+      .form-grid,
+      .form-grid.single {
+        grid-template-columns: 1fr;
+      }
+      .outlined-group { width: 100%; }
+
+      /* Save button full width */
+      #spremiBtn { width: 100%; }
+
+      /* Footer – stack vertically, centre */
+      .footer {
+        height: auto;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 16px;
+        gap: 10px;
+        text-align: center;
+      }
+      .footer-left { justify-content: center; }
+    }
   </style>
 </head>
 <body>
@@ -371,7 +431,7 @@
     <!-- Search row -->
     <div class="search-row">
       <div>
-        <div style="display:flex;align-items:center;gap:24px">
+        <div class="search-controls">
           <div class="search-wrap">
             <span class="search-icon">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
