@@ -243,15 +243,17 @@
       justify-content: space-between;
       padding: 0 24px;
       flex-shrink: 0;
+      background: #fff;
     }
     .footer-left {
-      display: flex; align-items: center; gap: 12px;
+      display: flex; align-items: center; gap: 16px;
     }
+    .footer-left img { display: block; }
     .footer-copy {
-      font-size: 12px; color: var(--grey-500);
+      font-size: 13px; color: var(--grey-500);
     }
     .footer-link {
-      font-size: 12px; color: var(--grey-500);
+      font-size: 13px; color: var(--grey-500);
       text-decoration: underline; cursor: pointer;
       background: none; border: none;
       font-family: 'Inter', sans-serif;
@@ -397,7 +399,7 @@
         gap: 10px;
         text-align: center;
       }
-      .footer-left { justify-content: center; }
+      .footer-left { justify-content: center; flex-wrap: wrap; }
     }
   </style>
 </head>
@@ -611,7 +613,7 @@
 <!-- ─── FOOTER ─── -->
 <footer class="footer">
   <div class="footer-left">
-    <span class="logo-hold" style="font-size:14px">HOLD</span><span class="logo-ina" style="font-size:14px">INA</span>
+    <img src="oryx_logo.png" alt="ORYX" width="38" height="20">
     <span class="footer-copy">© ORYX Grupa BH d.o.o. Sarajevo</span>
   </div>
   <button class="footer-link" type="button">Izjava o zaštiti privatnosti</button>
