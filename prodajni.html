@@ -348,6 +348,21 @@
       .checkout-grid { grid-template-columns: 1fr; }
       .container { padding: 28px 20px 48px; }
       .site-nav, .site-footer { padding-left: 20px; padding-right: 20px; }
+
+      /* Action buttons pinned to bottom — always visible */
+      body { padding-bottom: 72px; }
+      .actions-bar, .co-actions {
+        position: fixed; left: 0; right: 0; bottom: 0;
+        margin: 0; z-index: 80;
+        background: #fff;
+        padding: 12px 20px;
+        border-top: 1px solid var(--border);
+        box-shadow: 0 -2px 12px rgba(0,0,0,.08);
+        gap: 12px;
+      }
+      .btn-next { width: 100%; justify-content: center; }
+      .co-actions .btn-back { justify-content: center; white-space: nowrap; padding: 0 14px; }
+      .co-actions .btn-buy  { flex: 1; justify-content: center; }
     }
     @media (max-width: 640px) {
       .grid-2 { grid-template-columns: 1fr; }
@@ -356,8 +371,9 @@
       .footer-inner { grid-template-columns: 1fr; }
       .container { padding: 24px 16px 40px; }
       .co-card { padding: 24px 20px; }
-      .toast { right: 12px; bottom: 16px; width: calc(100vw - 24px); }
+      .toast { right: 12px; bottom: 84px; width: calc(100vw - 24px); }
       .hero h1 { font-size: 22px; }
+      .actions-bar, .co-actions { padding: 12px 16px; }
     }
   </style>
 </head>
