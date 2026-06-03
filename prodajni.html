@@ -785,10 +785,12 @@
   document.getElementById('toastClose').addEventListener('click', () => {
     clearTimeout(toastTimer); toast.classList.remove('show');
   });
+  /* ── "Više o paketu" → Odyssey package page ── */
+  const ODYSSEY_URL = 'https://odyssey-public.zubakgrupa.hr/clients/ws/ECC2024/5a0ab5f32004301444c9da709eb86047';
   document.querySelectorAll('.card-link').forEach(btn => {
     btn.addEventListener('click', e => {
       e.stopPropagation();
-      showToast('Informacija', 'Detalji o paketu trenutno nisu dostupni.', 'error');
+      window.open(ODYSSEY_URL, '_blank', 'noopener');
     });
   });
 </script>
