@@ -261,14 +261,10 @@
     }
     .s-name { font-size: 14px; font-weight: 600; color: var(--grey-800); }
     .s-price { font-size: 14px; font-weight: 600; color: var(--grey-800); white-space: nowrap; }
-    .s-link {
-      font-size: 13px; color: var(--grey-800);
-      text-decoration: underline; cursor: pointer;
-      background: none; border: none; padding: 0;
-      font-family: 'Inter', sans-serif;
-      display: inline-block;
+    .s-terms {
+      font-size: 13px; color: var(--grey-500);
+      display: inline-block; margin-top: 2px;
     }
-    .s-link:hover { color: var(--grey-500); }
     .summary-total {
       display: flex; justify-content: space-between; align-items: baseline;
       padding: 16px 0 4px; gap: 8px; border-top: 1px solid #e5e7eb; margin-top: 8px;
@@ -439,6 +435,7 @@
     }
     .pkg-link:hover { color: var(--blue-600); }
     .pkg-link.block { display: block; margin: 6px 0; }
+    .pkg-terms { font-size: 12.5px; color: var(--grey-500); line-height: 1.5; margin: 14px 0 4px; }
 
     /* ─── RESPONSIVE ─── */
     @media (max-width: 960px) {
@@ -881,7 +878,7 @@
           <tr class="pkg-total"><td>Godišnja naknada</td><td id="pkgFee">19,91 EUR</td></tr>
         </tbody>
       </table>
-      <a class="pkg-link" href="https://odyssey-public.zubakgrupa.hr/clients/ws/ECC2024/5a0ab5f32004301444c9da709eb86047" target="_blank" rel="noopener">Opći uvjeti i pogodnosti proizvoda Pomoć na cesti ORYX Asistencije paket Premium</a>
+      <p class="pkg-terms">Opći uvjeti i pogodnosti proizvoda Pomoć na cesti ORYX Asistencije paket Premium</p>
 
       <h3 class="pkg-h3">Putni Anđeo</h3>
       <p class="pkg-desc">Aplikacija Putni Anđeo pretvara pametan telefon u "sigurnosni uređaj" koji u slučaju prometne nezgode omogućuje brzo informiranje i skraćuje vrijeme izlaska hitnih službi na intervenciju.</p>
@@ -956,7 +953,7 @@
         </div>
       </div>
 
-      <a class="pkg-link" href="https://odyssey-public.zubakgrupa.hr/clients/ws/ECC2024/5a0ab5f32004301444c9da709eb86047" target="_blank" rel="noopener">Opći uvjeti i pravila korištenja aplikacije Putni Anđeo</a>
+      <p class="pkg-terms">Opći uvjeti i pravila korištenja aplikacije Putni Anđeo</p>
     </div>
   </div>
 </div>
@@ -1028,7 +1025,7 @@
           <span class="s-name">${i.name}</span>
           <span class="s-price">${fmt(i.price)} EUR/GOD</span>
         </div>
-        <a class="s-link" href="${ODYSSEY_URL}" target="_blank" rel="noopener">Opći uvjeti</a>
+        <span class="s-terms">Opći uvjeti</span>
       </div>`).join('');
     document.getElementById('summaryTotal').textContent = fmt(total) + ' EUR/GOD';
   }
