@@ -345,6 +345,101 @@
     }
     .t-close:hover { opacity: 1; }
 
+    /* ─── PACKAGE MODAL ─── */
+    .pkg-overlay {
+      position: fixed; inset: 0; z-index: 500;
+      background: rgba(20,25,35,.55);
+      display: none; align-items: flex-start; justify-content: center;
+      padding: 32px 16px;
+      overflow-y: auto;
+    }
+    .pkg-overlay.open { display: flex; }
+    .pkg-modal {
+      background: #fff;
+      width: 100%; max-width: 860px;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.30);
+      margin: auto;
+      overflow: hidden;
+      animation: pkgIn .2s ease;
+    }
+    @keyframes pkgIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+    .pkg-head {
+      position: sticky; top: 0; z-index: 2;
+      background: #fff;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px;
+      padding: 20px 28px;
+      border-bottom: 1px solid var(--border);
+    }
+    .pkg-head h2 {
+      font-size: 18px; font-weight: 700;
+      letter-spacing: .02em; color: var(--grey-800);
+      text-transform: uppercase;
+    }
+    .pkg-close {
+      flex-shrink: 0;
+      width: 34px; height: 34px; border-radius: 6px;
+      border: none; background: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--grey-500); font-size: 22px; line-height: 1;
+      transition: background .15s, color .15s;
+    }
+    .pkg-close:hover { background: #f2f2f2; color: var(--grey-800); }
+
+    .pkg-body { padding: 24px 28px 28px; }
+    .pkg-desc { font-size: 13.5px; color: var(--grey-700); line-height: 1.65; margin-bottom: 20px; }
+    .pkg-h3 { font-size: 17px; font-weight: 700; color: var(--grey-800); margin: 26px 0 16px; }
+    .pkg-h4 { font-size: 13px; font-weight: 700; color: var(--grey-800); margin: 20px 0 10px; }
+
+    /* Icon grid */
+    .pkg-icons {
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: 12px; margin-bottom: 8px;
+    }
+    .pkg-ico {
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center; gap: 10px;
+    }
+    .pkg-ico-art {
+      width: 72px; height: 56px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--red);
+    }
+    .pkg-ico-art svg { width: 100%; height: 100%; }
+    .pkg-ico-name { font-size: 12px; font-weight: 600; color: var(--grey-800); line-height: 1.3; }
+    .pkg-ico-desc { font-size: 11px; color: var(--grey-500); line-height: 1.45; }
+
+    /* Limits table */
+    .pkg-table {
+      width: 100%; border-collapse: collapse;
+      margin: 4px 0 6px; font-size: 13px;
+      border: 1px solid var(--border);
+    }
+    .pkg-table th {
+      background: #cc1f1f; color: #fff;
+      font-size: 11px; font-weight: 700; letter-spacing: .04em;
+      text-transform: uppercase;
+      padding: 12px 16px; text-align: left;
+    }
+    .pkg-table th:last-child { text-align: left; }
+    .pkg-table td { padding: 10px 16px; color: var(--grey-700); border-top: 1px solid var(--border); }
+    .pkg-table tbody tr:nth-child(odd) { background: #f6f6f6; }
+    .pkg-table .pkg-total td {
+      background: #cc1f1f; color: #fff; font-weight: 700;
+      font-size: 13.5px; border-top: none;
+    }
+
+    /* Modal links */
+    .pkg-link {
+      display: inline-block; margin: 14px 0 4px;
+      font-size: 13px; color: var(--blue-500);
+      text-decoration: underline; line-height: 1.5;
+    }
+    .pkg-link:hover { color: var(--blue-600); }
+    .pkg-link.block { display: block; margin: 6px 0; }
+
     /* ─── RESPONSIVE ─── */
     @media (max-width: 960px) {
       .grid-4 { grid-template-columns: repeat(2, 1fr); }
@@ -366,6 +461,9 @@
       .btn-next { width: 100%; justify-content: center; }
       .co-actions .btn-back { justify-content: center; white-space: nowrap; padding: 0 14px; }
       .co-actions .btn-buy  { flex: 1; justify-content: center; }
+
+      /* Modal icons → 3 columns on tablet */
+      .pkg-icons { grid-template-columns: repeat(3, 1fr); gap: 16px; }
     }
     @media (max-width: 640px) {
       .grid-2 { grid-template-columns: 1fr; }
@@ -377,6 +475,15 @@
       .toast { right: 12px; bottom: 84px; width: calc(100vw - 24px); }
       .hero h1 { font-size: 22px; }
       .actions-bar, .co-actions { padding: 12px 16px; }
+
+      /* Modal on mobile */
+      .pkg-overlay { padding: 0; }
+      .pkg-modal { border-radius: 0; min-height: 100%; max-width: 100%; }
+      .pkg-head { padding: 16px 18px; }
+      .pkg-head h2 { font-size: 15px; }
+      .pkg-body { padding: 18px 18px 32px; }
+      .pkg-icons { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+      .pkg-table th, .pkg-table td { padding: 9px 12px; font-size: 12px; }
     }
   </style>
 </head>
@@ -417,7 +524,7 @@
           <span class="card-price">19,91 EUR</span>
           <span class="card-period">Godišnje</span>
         </div>
-        <a class="card-link" href="https://odyssey-public.zubakgrupa.hr/clients/ws/ECC2024/5a0ab5f32004301444c9da709eb86047" target="_blank" rel="noopener">Više o paketu</a>
+        <button class="card-link" type="button">Više o paketu</button>
       </div>
     </div>
 
@@ -432,7 +539,7 @@
           <span class="card-price">14,60 EUR</span>
           <span class="card-period">Godišnje</span>
         </div>
-        <a class="card-link" href="https://odyssey-public.zubakgrupa.hr/clients/ws/ECC2024/5a0ab5f32004301444c9da709eb86047" target="_blank" rel="noopener">Više o paketu</a>
+        <button class="card-link" type="button">Više o paketu</button>
       </div>
     </div>
 
@@ -453,7 +560,7 @@
           <span class="card-price">10,62 EUR</span>
           <span class="card-period">Godišnje</span>
         </div>
-        <a class="card-link" href="https://odyssey-public.zubakgrupa.hr/clients/ws/ECC2024/5a0ab5f32004301444c9da709eb86047" target="_blank" rel="noopener">Više o paketu</a>
+        <button class="card-link" type="button">Više o paketu</button>
       </div>
     </div>
 
@@ -467,7 +574,7 @@
           <span class="card-price">11,95 EUR</span>
           <span class="card-period">Godišnje</span>
         </div>
-        <a class="card-link" href="https://odyssey-public.zubakgrupa.hr/clients/ws/ECC2024/5a0ab5f32004301444c9da709eb86047" target="_blank" rel="noopener">Više o paketu</a>
+        <button class="card-link" type="button">Više o paketu</button>
       </div>
     </div>
 
@@ -481,7 +588,7 @@
           <span class="card-price">22,56 EUR</span>
           <span class="card-period">Godišnje</span>
         </div>
-        <a class="card-link" href="https://odyssey-public.zubakgrupa.hr/clients/ws/ECC2024/5a0ab5f32004301444c9da709eb86047" target="_blank" rel="noopener">Više o paketu</a>
+        <button class="card-link" type="button">Više o paketu</button>
       </div>
     </div>
 
@@ -495,7 +602,7 @@
           <span class="card-price">11,95 EUR</span>
           <span class="card-period">Godišnje</span>
         </div>
-        <a class="card-link" href="https://odyssey-public.zubakgrupa.hr/clients/ws/ECC2024/5a0ab5f32004301444c9da709eb86047" target="_blank" rel="noopener">Više o paketu</a>
+        <button class="card-link" type="button">Više o paketu</button>
       </div>
     </div>
 
@@ -509,7 +616,7 @@
           <span class="card-price">11,695 EUR</span>
           <span class="card-period">Godišnje</span>
         </div>
-        <a class="card-link" href="https://odyssey-public.zubakgrupa.hr/clients/ws/ECC2024/5a0ab5f32004301444c9da709eb86047" target="_blank" rel="noopener">Više o paketu</a>
+        <button class="card-link" type="button">Više o paketu</button>
       </div>
     </div>
 
@@ -524,7 +631,7 @@
           <span class="card-price">23,23 EUR</span>
           <span class="card-period">Godišnje</span>
         </div>
-        <a class="card-link" href="https://odyssey-public.zubakgrupa.hr/clients/ws/ECC2024/5a0ab5f32004301444c9da709eb86047" target="_blank" rel="noopener">Više o paketu</a>
+        <button class="card-link" type="button">Više o paketu</button>
       </div>
     </div>
 
@@ -539,7 +646,7 @@
           <span class="card-price">33,18 EUR</span>
           <span class="card-period">Godišnje</span>
         </div>
-        <a class="card-link" href="https://odyssey-public.zubakgrupa.hr/clients/ws/ECC2024/5a0ab5f32004301444c9da709eb86047" target="_blank" rel="noopener">Više o paketu</a>
+        <button class="card-link" type="button">Više o paketu</button>
       </div>
     </div>
 
@@ -681,6 +788,179 @@
   </div>
 </footer>
 
+<!-- ─── PACKAGE DETAIL MODAL ─── -->
+<div class="pkg-overlay" id="pkgModal" role="dialog" aria-modal="true">
+  <div class="pkg-modal">
+    <div class="pkg-head">
+      <h2 id="pkgTitle">Pomoć na cesti – Premium</h2>
+      <button class="pkg-close" id="pkgClose" type="button" aria-label="Zatvori">&#x2715;</button>
+    </div>
+    <div class="pkg-body">
+      <p class="pkg-desc">Pomoć na cesti ORYX Asistencije nudi najširi paket pomoći u slučaju nezgode i kvara, pa čak i onog kojeg izazovete sami poput probušene gume, krivo utočenog goriva ili ispražnjenog akumulatora, a u njenu efikasnost uvjerile su se stotine tisuća korisnika.</p>
+
+      <h3 class="pkg-h3">Pokriveni događaji</h3>
+      <div class="pkg-icons">
+        <div class="pkg-ico">
+          <span class="pkg-ico-art">
+            <svg viewBox="0 0 64 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 34h40l-5-12a4 4 0 0 0-3.7-2.5H19.6A4 4 0 0 0 16 22l-8 12z" fill="#cc1f1f"/>
+              <rect x="6" y="33" width="44" height="7" rx="2" fill="#cc1f1f"/>
+              <circle cx="17" cy="41" r="4.5" fill="#222"/><circle cx="41" cy="41" r="4.5" fill="#222"/>
+              <path d="M50 10l3 3-6 6-3-3 6-6z" fill="#cc1f1f"/><rect x="52" y="8" width="6" height="4" rx="1" transform="rotate(45 52 8)" fill="#cc1f1f"/>
+            </svg>
+          </span>
+          <span class="pkg-ico-name">Kvar vozila</span>
+        </div>
+        <div class="pkg-ico">
+          <span class="pkg-ico-art">
+            <svg viewBox="0 0 64 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="34" y="6" width="22" height="36" rx="3" fill="#cc1f1f"/>
+              <rect x="37" y="11" width="16" height="24" rx="1" fill="#fff"/>
+              <path d="M6 36h26l-4-10a3.5 3.5 0 0 0-3.2-2.2H15A3.5 3.5 0 0 0 11.6 26L6 36z" fill="#cc1f1f"/>
+              <circle cx="14" cy="40" r="4" fill="#222"/><circle cx="28" cy="40" r="4" fill="#222"/>
+              <path d="M45 16l-2.5 5h3l-2.5 5" stroke="#cc1f1f" stroke-width="1.6" fill="none"/>
+            </svg>
+          </span>
+          <span class="pkg-ico-name">Prometna nezgoda</span>
+        </div>
+        <div class="pkg-ico">
+          <span class="pkg-ico-art">
+            <svg viewBox="0 0 64 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="16" cy="12" r="6" fill="#cc1f1f"/>
+              <path d="M10 22c0-3 12-3 12 0v6H10v-6z" fill="#cc1f1f"/>
+              <path d="M30 36h26l-4-10a3.5 3.5 0 0 0-3.2-2.2H39A3.5 3.5 0 0 0 35.6 26L30 36z" fill="#cc1f1f"/>
+              <circle cx="38" cy="40" r="4" fill="#222"/><circle cx="52" cy="40" r="4" fill="#222"/>
+              <path d="M22 16c4 1 6 4 8 6" stroke="#cc1f1f" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span class="pkg-ico-name">Nemarno rukovanje</span>
+        </div>
+        <div class="pkg-ico">
+          <span class="pkg-ico-art">
+            <svg viewBox="0 0 64 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="20" cy="16" r="8" fill="#cc1f1f"/>
+              <g stroke="#cc1f1f" stroke-width="2" stroke-linecap="round">
+                <path d="M20 3v4M20 25v4M7 16h4M29 16h4M11 7l3 3M26 7l-3 3"/>
+              </g>
+              <path d="M30 38c2-5 7-7 12-7s10 2 12 7c-3 2-7 3-12 3s-9-1-12-3z" fill="#9fb6c4"/>
+            </svg>
+          </span>
+          <span class="pkg-ico-name">Vanjski utjecaji</span>
+        </div>
+        <div class="pkg-ico">
+          <span class="pkg-ico-art">
+            <svg viewBox="0 0 64 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M32 6l24 38H8L32 6z" fill="#cc1f1f"/>
+              <rect x="30" y="20" width="4" height="13" rx="2" fill="#fff"/>
+              <circle cx="32" cy="38" r="2.4" fill="#fff"/>
+            </svg>
+          </span>
+          <span class="pkg-ico-name">Krađa vozila</span>
+        </div>
+      </div>
+
+      <p class="pkg-desc" style="margin-top:22px">Pomoć na cesti glasi na korisnika kartice koji može koristiti pogodnosti proizvoda Pomoći na cesti ukoliko se u trenutku nezgode nalazio u predmetnom vozilu, bez obzira je li ili nije vlasnik vozila, te je li vozač ili putnik u vozilu.</p>
+
+      <h3 class="pkg-h3" id="pkgTableTitle">Paket Pomoći na cesti - Premium</h3>
+      <table class="pkg-table">
+        <thead>
+          <tr><th>Naziv usluge</th><th>Limit</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Teritorijalno pokriće</td><td>Republika Hrvatska i Europa</td></tr>
+          <tr><td>Kontakt centar</td><td>0-24 h, 365 dana u godini</td></tr>
+          <tr><td>Pomoć (popravak vozila) na licu mjesta</td><td>375,00 €</td></tr>
+          <tr><td>Prijevoz (šlepanje) vozila</td><td>505,00 €</td></tr>
+          <tr><td>Prijevoz vozila u slučaju krađe (višekratno)</td><td>505,00 €</td></tr>
+          <tr><td>Dostava vozila nakon popravka</td><td>50,00 €</td></tr>
+          <tr><td>Zamjensko vozilo (jednokratno)</td><td>2 dana, do 70,00 €</td></tr>
+          <tr><td>Alternativni prijevoz</td><td>do 40,00 € po osobi</td></tr>
+          <tr><td>Smještaj</td><td>1 dan, do 70,00 € noć/po osobi</td></tr>
+          <tr><td>Čuvanje vozila</td><td>5 dana</td></tr>
+          <tr><td>Putni Anđeo</td><td>Neograničeno</td></tr>
+          <tr class="pkg-total"><td>Godišnja naknada</td><td id="pkgFee">19,91 EUR</td></tr>
+        </tbody>
+      </table>
+      <a class="pkg-link" href="https://odyssey-public.zubakgrupa.hr/clients/ws/ECC2024/5a0ab5f32004301444c9da709eb86047" target="_blank" rel="noopener">Opći uvjeti i pogodnosti proizvoda Pomoć na cesti ORYX Asistencije paket Premium</a>
+
+      <h3 class="pkg-h3">Putni Anđeo</h3>
+      <p class="pkg-desc">Aplikacija Putni Anđeo pretvara pametan telefon u "sigurnosni uređaj" koji u slučaju prometne nezgode omogućuje brzo informiranje i skraćuje vrijeme izlaska hitnih službi na intervenciju.</p>
+
+      <h4 class="pkg-h4">Podržani operativni sustavi</h4>
+      <a class="pkg-link block" href="https://apps.apple.com/" target="_blank" rel="noopener">iOS – kliknite za preuzimanje</a>
+      <a class="pkg-link block" href="https://play.google.com/" target="_blank" rel="noopener">Android – kliknite za preuzimanje</a>
+
+      <h4 class="pkg-h4">Što je uključeno u aplikaciju Putni Anđeo?</h4>
+      <div class="pkg-icons">
+        <div class="pkg-ico">
+          <span class="pkg-ico-art">
+            <svg viewBox="0 0 64 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="32" cy="20" r="11" fill="#cc1f1f"/>
+              <path d="M16 50c0-9 7-14 16-14s16 5 16 14H16z" fill="#cc1f1f"/>
+              <path d="M18 22a14 14 0 0 1 28 0" stroke="#cc1f1f" stroke-width="3" fill="none"/>
+              <rect x="14" y="20" width="7" height="11" rx="3" fill="#cc1f1f"/><rect x="43" y="20" width="7" height="11" rx="3" fill="#cc1f1f"/>
+            </svg>
+          </span>
+          <span class="pkg-ico-name">Kontakt centar</span>
+          <span class="pkg-ico-desc">Kontakt centar 0-24h, 365 dana u godini</span>
+        </div>
+        <div class="pkg-ico">
+          <span class="pkg-ico-art">
+            <svg viewBox="0 0 64 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="36" y="8" width="20" height="34" rx="3" fill="#cc1f1f"/>
+              <rect x="39" y="13" width="14" height="22" rx="1" fill="#fff"/>
+              <path d="M6 40h24l-4-9a3 3 0 0 0-2.8-1.9H13A3 3 0 0 0 10.2 31L6 40z" fill="#cc1f1f"/>
+              <circle cx="13" cy="43" r="3.5" fill="#222"/><circle cx="26" cy="43" r="3.5" fill="#222"/>
+              <path d="M46 17l-2 5h3l-2 5" stroke="#cc1f1f" stroke-width="1.5" fill="none"/>
+            </svg>
+          </span>
+          <span class="pkg-ico-name">E-call</span>
+          <span class="pkg-ico-desc">Prepoznaje prometnu nezgodu, automatski alarmira Call centar te organizira intervenciju hitnih službi</span>
+        </div>
+        <div class="pkg-ico">
+          <span class="pkg-ico-art">
+            <svg viewBox="0 0 64 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="16" cy="14" r="7" fill="#cc1f1f"/>
+              <path d="M9 24c0-3.5 14-3.5 14 0v7H9v-7z" fill="#cc1f1f"/>
+              <path d="M32 42h24l-4-9a3 3 0 0 0-2.8-1.9H38.8A3 3 0 0 0 36 33l-4 9z" fill="#cc1f1f"/>
+              <circle cx="40" cy="45" r="3.5" fill="#222"/><circle cx="52" cy="45" r="3.5" fill="#222"/>
+              <path d="M23 18c4 1 7 4 9 7" stroke="#cc1f1f" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span class="pkg-ico-name">B-call</span>
+          <span class="pkg-ico-desc">Omogućava vozaču da u slučaju kvara na vozilu jednim klikom pozove Pomoć na cesti</span>
+        </div>
+        <div class="pkg-ico">
+          <span class="pkg-ico-art">
+            <svg viewBox="0 0 64 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M32 10l24 38H8L32 10z" fill="#cc1f1f"/>
+              <rect x="30" y="24" width="4" height="13" rx="2" fill="#fff"/>
+              <circle cx="32" cy="42" r="2.4" fill="#fff"/>
+            </svg>
+          </span>
+          <span class="pkg-ico-name">Upozorenja</span>
+          <span class="pkg-ico-desc">Za brzu vožnju, preveliku buku u vozilu, te u slučaju neprekidne vožnje duže od 2h</span>
+        </div>
+        <div class="pkg-ico">
+          <span class="pkg-ico-art">
+            <svg viewBox="0 0 64 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="20" y="6" width="24" height="40" rx="4" fill="#cc1f1f"/>
+              <rect x="24" y="12" width="16" height="26" rx="1" fill="#fff"/>
+              <circle cx="32" cy="42" r="2.2" fill="#fff"/>
+              <circle cx="50" cy="14" r="5" fill="#cc1f1f"/><circle cx="50" cy="40" r="5" fill="#cc1f1f"/><circle cx="14" cy="27" r="5" fill="#cc1f1f"/>
+              <path d="M46 17l-28 8M46 37l-28-8" stroke="#cc1f1f" stroke-width="2"/>
+            </svg>
+          </span>
+          <span class="pkg-ico-name">Podijeli vožnju</span>
+          <span class="pkg-ico-desc">Dijeljenje vožnje s najbližima putem Facebooka, e-maila, SMS-a, WhatsAppa, Vibera i drugih aplikacija</span>
+        </div>
+      </div>
+
+      <a class="pkg-link" href="https://odyssey-public.zubakgrupa.hr/clients/ws/ECC2024/5a0ab5f32004301444c9da709eb86047" target="_blank" rel="noopener">Opći uvjeti i pravila korištenja aplikacije Putni Anđeo</a>
+    </div>
+  </div>
+</div>
+
 <!-- Toast -->
 <div class="toast" id="toast" role="alert">
   <span class="t-icon" id="toastIcon"></span>
@@ -791,11 +1071,33 @@
   document.getElementById('toastClose').addEventListener('click', () => {
     clearTimeout(toastTimer); toast.classList.remove('show');
   });
-  /* "Više o paketu" links are real <a> anchors → Odyssey; just stop the
-     card-body toggle from firing when the link itself is clicked. */
-  document.querySelectorAll('.card-link').forEach(a => {
-    a.addEventListener('click', e => e.stopPropagation());
+  /* ── "Više o paketu" → package detail modal ── */
+  const pkgModal      = document.getElementById('pkgModal');
+  const pkgTitle      = document.getElementById('pkgTitle');
+  const pkgTableTitle = document.getElementById('pkgTableTitle');
+  const pkgFee        = document.getElementById('pkgFee');
+
+  document.querySelectorAll('.card-link').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const card  = btn.closest('.card');
+      const name  = card.dataset.name;
+      const price = parseFloat(card.dataset.price);
+      pkgTitle.textContent      = name;
+      pkgTableTitle.textContent = 'Paket ' + name;
+      pkgFee.textContent        = price.toFixed(2).replace('.', ',') + ' EUR';
+      pkgModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
   });
+
+  function closePkgModal() {
+    pkgModal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('pkgClose').addEventListener('click', closePkgModal);
+  pkgModal.addEventListener('click', e => { if (e.target === pkgModal) closePkgModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && pkgModal.classList.contains('open')) closePkgModal(); });
 </script>
 </body>
 </html>
