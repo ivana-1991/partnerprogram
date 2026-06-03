@@ -125,13 +125,14 @@
     }
 
     .card-link {
-      font-size: 13px; color: var(--grey-700);
+      font-size: 13px; color: var(--blue-500);
       text-decoration: underline; background: none;
       border: none; cursor: pointer; padding: 0;
       font-family: 'Inter', sans-serif; text-align: left;
       margin-top: 4px; align-self: flex-start;
+      display: inline-block;
     }
-    .card-link:hover { color: var(--blue-500); }
+    .card-link:hover { color: var(--blue-600); }
 
     /* ─── ACTIONS ─── */
     .actions-bar { display: flex; justify-content: flex-end; margin-top: 4px; }
@@ -261,11 +262,13 @@
     .s-name { font-size: 14px; font-weight: 600; color: var(--grey-800); }
     .s-price { font-size: 14px; font-weight: 600; color: var(--grey-800); white-space: nowrap; }
     .s-link {
-      font-size: 13px; color: var(--grey-700);
+      font-size: 13px; color: var(--blue-500);
       text-decoration: underline; cursor: pointer;
       background: none; border: none; padding: 0;
       font-family: 'Inter', sans-serif;
+      display: inline-block;
     }
+    .s-link:hover { color: var(--blue-600); }
     .summary-total {
       display: flex; justify-content: space-between; align-items: baseline;
       padding: 16px 0 4px; gap: 8px; border-top: 1px solid #e5e7eb; margin-top: 8px;
@@ -414,7 +417,7 @@
           <span class="card-price">19,91 EUR</span>
           <span class="card-period">Godišnje</span>
         </div>
-        <button class="card-link" type="button">Više o paketu</button>
+        <a class="card-link" href="https://odyssey-public.zubakgrupa.hr/clients/ws/ECC2024/5a0ab5f32004301444c9da709eb86047" target="_blank" rel="noopener">Više o paketu</a>
       </div>
     </div>
 
@@ -429,7 +432,7 @@
           <span class="card-price">14,60 EUR</span>
           <span class="card-period">Godišnje</span>
         </div>
-        <button class="card-link" type="button">Više o paketu</button>
+        <a class="card-link" href="https://odyssey-public.zubakgrupa.hr/clients/ws/ECC2024/5a0ab5f32004301444c9da709eb86047" target="_blank" rel="noopener">Više o paketu</a>
       </div>
     </div>
 
@@ -450,7 +453,7 @@
           <span class="card-price">10,62 EUR</span>
           <span class="card-period">Godišnje</span>
         </div>
-        <button class="card-link" type="button">Više o paketu</button>
+        <a class="card-link" href="https://odyssey-public.zubakgrupa.hr/clients/ws/ECC2024/5a0ab5f32004301444c9da709eb86047" target="_blank" rel="noopener">Više o paketu</a>
       </div>
     </div>
 
@@ -464,7 +467,7 @@
           <span class="card-price">11,95 EUR</span>
           <span class="card-period">Godišnje</span>
         </div>
-        <button class="card-link" type="button">Više o paketu</button>
+        <a class="card-link" href="https://odyssey-public.zubakgrupa.hr/clients/ws/ECC2024/5a0ab5f32004301444c9da709eb86047" target="_blank" rel="noopener">Više o paketu</a>
       </div>
     </div>
 
@@ -478,7 +481,7 @@
           <span class="card-price">22,56 EUR</span>
           <span class="card-period">Godišnje</span>
         </div>
-        <button class="card-link" type="button">Više o paketu</button>
+        <a class="card-link" href="https://odyssey-public.zubakgrupa.hr/clients/ws/ECC2024/5a0ab5f32004301444c9da709eb86047" target="_blank" rel="noopener">Više o paketu</a>
       </div>
     </div>
 
@@ -492,7 +495,7 @@
           <span class="card-price">11,95 EUR</span>
           <span class="card-period">Godišnje</span>
         </div>
-        <button class="card-link" type="button">Više o paketu</button>
+        <a class="card-link" href="https://odyssey-public.zubakgrupa.hr/clients/ws/ECC2024/5a0ab5f32004301444c9da709eb86047" target="_blank" rel="noopener">Više o paketu</a>
       </div>
     </div>
 
@@ -506,7 +509,7 @@
           <span class="card-price">11,695 EUR</span>
           <span class="card-period">Godišnje</span>
         </div>
-        <button class="card-link" type="button">Više o paketu</button>
+        <a class="card-link" href="https://odyssey-public.zubakgrupa.hr/clients/ws/ECC2024/5a0ab5f32004301444c9da709eb86047" target="_blank" rel="noopener">Više o paketu</a>
       </div>
     </div>
 
@@ -521,7 +524,7 @@
           <span class="card-price">23,23 EUR</span>
           <span class="card-period">Godišnje</span>
         </div>
-        <button class="card-link" type="button">Više o paketu</button>
+        <a class="card-link" href="https://odyssey-public.zubakgrupa.hr/clients/ws/ECC2024/5a0ab5f32004301444c9da709eb86047" target="_blank" rel="noopener">Više o paketu</a>
       </div>
     </div>
 
@@ -536,7 +539,7 @@
           <span class="card-price">33,18 EUR</span>
           <span class="card-period">Godišnje</span>
         </div>
-        <button class="card-link" type="button">Više o paketu</button>
+        <a class="card-link" href="https://odyssey-public.zubakgrupa.hr/clients/ws/ECC2024/5a0ab5f32004301444c9da709eb86047" target="_blank" rel="noopener">Više o paketu</a>
       </div>
     </div>
 
@@ -689,6 +692,9 @@
 </div>
 
 <script>
+  /* ── Odyssey package / terms URL ── */
+  const ODYSSEY_URL = 'https://odyssey-public.zubakgrupa.hr/clients/ws/ECC2024/5a0ab5f32004301444c9da709eb86047';
+
   /* ── Pre-selected packages ── */
   const selected = new Map([
     ['pnc-premium',  { name: 'Pomoć na cesti – Premium', price: 19.91 }],
@@ -742,7 +748,7 @@
           <span class="s-name">${i.name}</span>
           <span class="s-price">${fmt(i.price)} EUR/GOD</span>
         </div>
-        <button class="s-link" type="button">Opći uvjeti</button>
+        <a class="s-link" href="${ODYSSEY_URL}" target="_blank" rel="noopener">Opći uvjeti</a>
       </div>`).join('');
     document.getElementById('summaryTotal').textContent = fmt(total) + ' EUR/GOD';
   }
@@ -785,13 +791,10 @@
   document.getElementById('toastClose').addEventListener('click', () => {
     clearTimeout(toastTimer); toast.classList.remove('show');
   });
-  /* ── "Više o paketu" → Odyssey package page ── */
-  const ODYSSEY_URL = 'https://odyssey-public.zubakgrupa.hr/clients/ws/ECC2024/5a0ab5f32004301444c9da709eb86047';
-  document.querySelectorAll('.card-link').forEach(btn => {
-    btn.addEventListener('click', e => {
-      e.stopPropagation();
-      window.open(ODYSSEY_URL, '_blank', 'noopener');
-    });
+  /* "Više o paketu" links are real <a> anchors → Odyssey; just stop the
+     card-body toggle from firing when the link itself is clicked. */
+  document.querySelectorAll('.card-link').forEach(a => {
+    a.addEventListener('click', e => e.stopPropagation());
   });
 </script>
 </body>
