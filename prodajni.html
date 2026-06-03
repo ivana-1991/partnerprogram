@@ -37,16 +37,8 @@
       padding: 0 32px;
       flex-shrink: 0;
     }
-    .oryx-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
-    .oryx-wordmark { display: flex; flex-direction: column; line-height: 1.15; }
-    .oryx-wordmark .oryx-top {
-      font-size: 15px; font-weight: 800; letter-spacing: .08em;
-      color: var(--red);
-    }
-    .oryx-wordmark .oryx-bot {
-      font-size: 10px; font-weight: 600; letter-spacing: .22em;
-      color: var(--grey-400); text-transform: uppercase;
-    }
+    .oryx-logo { display: flex; align-items: center; text-decoration: none; }
+    .oryx-logo img { display: block; height: 26px; width: auto; }
 
     /* ─── STEPS ─── */
     main { flex: 1; }
@@ -374,29 +366,7 @@
 <!-- ─── HEADER ─── -->
 <header class="site-nav">
   <a class="oryx-logo" href="#">
-    <svg width="32" height="20" viewBox="5 1 36 22" fill="none">
-      <path d="M22.1298 18.8358L21.9312 11.5696L25.4898 7.29102L27.8567 18.0248L22.1298 18.8358Z" fill="#e53935"/>
-      <path d="M31.2498 4.1543L32.1104 12.5295L32.4829 8.2343L31.2498 4.1543Z" fill="#e53935"/>
-      <path d="M32.1105 12.5295L27.8484 18.0577L28.6429 18.7943L35.3049 11.4453L32.1105 12.5295Z" fill="#e53935"/>
-      <path d="M33.7739 14.8384L34.2291 15.9143L36.9436 15.666L35.305 11.4453L33.7739 14.8384Z" fill="#e53935"/>
-      <path d="M22.0056 11.4619L13.887 18.5047L15.509 11.5943L22.0056 11.4619Z" fill="#e53935"/>
-      <path d="M33.1035 3.12819C25.8207 1.60543 19.2166 5.16405 19.2166 5.16405C27.9724 2.59025 31.2497 4.13784 31.2497 4.13784L33.1035 3.12819Z" fill="#e53935"/>
-      <path d="M10.4441 13.5557L8.08545 17.8012L13.8868 18.5046L10.4441 13.5557Z" fill="#e53935"/>
-      <mask id="h0" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="25" y="4" width="8" height="15"><path d="M31.2497 4.1626L32.1104 12.5295L27.8484 18.0578L25.4897 7.29915L31.2497 4.1626Z" fill="white"/></mask>
-      <g mask="url(#h0)"><path d="M25.5655 3.46428L24.0229 17.8979L32.038 18.7545L33.5805 4.32084L25.5655 3.46428Z" fill="#e53935"/></g>
-      <mask id="h1" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="31" y="3" width="7" height="6"><path d="M32.4829 8.23438L37.5477 7.24955L37.7132 5.69369L33.0704 3.12817L31.2498 4.15438L32.4829 8.23438Z" fill="white"/></mask>
-      <g mask="url(#h1)"><path d="M35.2968 0.00198832L28.7815 5.0376L33.6703 11.363L40.1857 6.32741L35.2968 0.00198832Z" fill="#e53935"/></g>
-      <mask id="h2" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="28" y="11" width="8" height="8"><path d="M35.3049 11.4453L28.6428 18.7943L33.7739 14.8384L35.3049 11.4453Z" fill="white"/></mask>
-      <g mask="url(#h2)"><path d="M29.322 9.42351L26.4033 18.0464L34.6186 20.8271L37.5373 12.2042L29.322 9.42351Z" fill="#e53935"/></g>
-      <mask id="h3" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="32" y="15" width="5" height="5"><path d="M36.9434 15.666L34.2289 15.9143L32.6482 17.0067L32.8385 19.7377L36.9434 15.666Z" fill="white"/></mask>
-      <g mask="url(#h3)"><path d="M32.6526 15.4891L32.4822 19.7312L36.9393 19.9102L37.1097 15.6681L32.6526 15.4891Z" fill="#e53935"/></g>
-      <mask id="h4" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="13" y="11" width="10" height="8"><path d="M22.0056 11.4619L13.887 18.5047L22.1297 18.8357L22.0056 11.4619Z" fill="white"/></mask>
-      <g mask="url(#h4)"><path d="M13.9832 10.5846L13.1108 18.7478L22.0311 19.7011L22.9035 11.5379L13.9832 10.5846Z" fill="#e53935"/></g>
-    </svg>
-    <div class="oryx-wordmark">
-      <span class="oryx-top">ORYX'S</span>
-      <span class="oryx-bot">ASSISTANCE</span>
-    </div>
+    <img src="img/oryx_logo.png" alt="ORYX'S Assistance">
   </a>
 </header>
 
