@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Odabir paketa – ORYX Assistance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue-600: #136c93; --blue-500: #1a82ae; --blue-400: #2299c8; --blue-50: #e8f5fb;
+      --red:    #e53935;
+      --green:  #16a34a; --green-50: #f0fdf4;
+      --grey-800: #1e1d1d; --grey-700: #2e2d2d; --grey-600: #403f3f;
+      --grey-500: #545252; --grey-400: #696767; --grey-300: #888686;
+      --grey-200: #a8a6a6; --grey-100: #bfbdbd; --grey-50: #d6d4d4;
+      --bg: #f4f6f8;
+      --card-border: #e5e7eb;
+      --radius: 8px;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--grey-800);
+      background: var(--bg);
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+    }
+
+    /* ─── HEADER ─── */
+    .site-nav {
+      background: #fff;
+      border-bottom: 1px solid var(--grey-50);
+      height: 56px;
+      display: flex; align-items: center;
+      padding: 0 24px;
+      flex-shrink: 0;
+    }
+    .oryx-logo {
+      display: flex; align-items: center; gap: 8px;
+      text-decoration: none;
+    }
+    .oryx-name {
+      display: flex; flex-direction: column; line-height: 1.1;
+    }
+    .oryx-name .top {
+      font-size: 13px; font-weight: 700; letter-spacing: .12em;
+      color: #cc1f1f;
+    }
+    .oryx-name .bot {
+      font-size: 9px; font-weight: 600; letter-spacing: .22em;
+      color: var(--grey-500); text-transform: uppercase;
+    }
+
+    /* ─── MAIN ─── */
+    main { flex: 1; }
+
+    .container {
+      max-width: 1100px; margin: 0 auto;
+      padding: 32px 24px 60px;
+    }
+
+    /* ─── STEPS ─── */
+    #step2 { display: none; }
+
+    /* ─── HERO ─── */
+    .hero { margin-bottom: 28px; }
+    .hero h1 {
+      font-size: 26px; font-weight: 700;
+      color: var(--grey-800); margin-bottom: 10px;
+    }
+    .hero p {
+      font-size: 13px; color: var(--grey-500);
+      line-height: 1.6; max-width: 680px;
+    }
+    .hero-meta {
+      margin-top: 6px; font-size: 12px;
+      color: var(--grey-400);
+    }
+
+    /* ─── SECTION LABEL ─── */
+    .section-label {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: var(--grey-500); margin-bottom: 14px;
+    }
+
+    /* ─── CARD GRIDS ─── */
+    .cards-current {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .cards-extra {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    /* ─── PRODUCT CARD ─── */
+    .card {
+      background: #fff;
+      border: 1.5px solid var(--card-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: border-color .15s, box-shadow .15s;
+      cursor: pointer;
+    }
+    .card:hover { border-color: var(--blue-400); box-shadow: 0 2px 12px rgba(26,130,174,.10); }
+    .card.selected {
+      border-color: var(--blue-500);
+      box-shadow: 0 0 0 3px rgba(26,130,174,.12);
+    }
+
+    /* Illustration */
+    .card-img {
+      width: 100%; height: 130px;
+      background: #f4f6f8;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; overflow: hidden;
+      position: relative;
+    }
+    .card-img svg { width: 90px; height: 90px; opacity: .85; }
+
+    /* Card body */
+    .card-body { padding: 12px 14px 14px; flex: 1; display: flex; flex-direction: column; }
+    .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+    .card-name { font-size: 14px; font-weight: 600; color: var(--grey-800); line-height: 1.3; }
+
+    /* Badges */
+    .badge {
+      font-size: 9px; font-weight: 700; letter-spacing: .07em;
+      text-transform: uppercase; padding: 2px 7px; border-radius: 20px;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .badge-premium { background: #dcfce7; color: #15803d; }
+    .badge-basic    { background: #dbeafe; color: #1d4ed8; }
+    .badge-plus     { background: #fef9c3; color: #854d0e; }
+    .badge-multi    { background: #f3e8ff; color: #7e22ce; }
+
+    /* Price */
+    .card-price {
+      font-size: 15px; font-weight: 700; color: var(--grey-800);
+      margin-bottom: 10px;
+    }
+    .card-price span { font-size: 12px; font-weight: 400; color: var(--grey-400); }
+
+    /* Card footer */
+    .card-foot {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: auto; gap: 8px;
+    }
+    .link-more {
+      font-size: 12px; color: var(--blue-500);
+      text-decoration: underline; background: none; border: none;
+      cursor: pointer; font-family: 'Inter', sans-serif; padding: 0;
+    }
+    .link-more:hover { color: var(--blue-600); }
+
+    .btn-select {
+      height: 30px; padding: 0 14px;
+      font-size: 12px; font-weight: 600;
+      border-radius: 4px; cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: background .15s, color .15s, border-color .15s;
+      white-space: nowrap;
+    }
+    .btn-select.unselected {
+      background: #fff; color: var(--blue-500);
+      border: 1.5px solid var(--blue-400);
+    }
+    .btn-select.unselected:hover { background: var(--blue-50); }
+    .btn-select.selected-btn {
+      background: var(--blue-500); color: #fff;
+      border: 1.5px solid var(--blue-500);
+    }
+    .btn-select.selected-btn:hover { background: var(--blue-600); }
+
+    /* ─── ACTIONS BAR ─── */
+    .actions-bar {
+      display: flex; justify-content: flex-end;
+      margin-top: 8px;
+    }
+    .btn-next {
+      height: 42px; padding: 0 24px;
+      background: var(--blue-500); color: #fff;
+      border: none; border-radius: 4px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px; font-weight: 600;
+      cursor: pointer; display: flex; align-items: center; gap: 8px;
+      transition: background .15s;
+    }
+    .btn-next:hover { background: var(--blue-600); }
+    .btn-next:disabled { opacity: .45; cursor: not-allowed; }
+
+    /* ─── CHECKOUT LAYOUT ─── */
+    .checkout-wrap {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .checkout-card {
+      background: #fff;
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 28px 28px 24px;
+    }
+    .checkout-card h2 {
+      font-size: 20px; font-weight: 700;
+      color: var(--grey-800); margin-bottom: 24px;
+    }
+
+    /* Summary panel */
+    .summary-items { margin-bottom: 20px; }
+    .summary-row {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; padding: 10px 0;
+      border-bottom: 1px solid #f0f0f0;
+      gap: 12px;
+    }
+    .summary-row:last-child { border-bottom: none; }
+    .summary-item-name { font-size: 14px; font-weight: 600; color: var(--grey-800); }
+    .summary-item-link { display: block; font-size: 12px; color: var(--blue-500); text-decoration: underline; cursor: pointer; margin-top: 2px; }
+    .summary-item-price { font-size: 14px; font-weight: 600; color: var(--grey-700); white-space: nowrap; }
+    .summary-total-row {
+      display: flex; justify-content: space-between;
+      padding: 14px 0 4px;
+    }
+    .summary-total-label { font-size: 15px; font-weight: 700; }
+    .summary-total-price { font-size: 15px; font-weight: 700; color: var(--blue-500); }
+
+    /* ─── CHECKOUT FORM ─── */
+    .form-fields { display: flex; flex-direction: column; gap: 20px; margin-bottom: 20px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-row.single { grid-template-columns: 1fr; }
+
+    /* Outlined floating-label inputs */
+    .fl-group { position: relative; }
+    .fl-input, .fl-select {
+      width: 100%; height: 44px;
+      border: 1px solid #d0d5dd; border-radius: 6px;
+      padding: 14px 12px 2px;
+      font-size: 14px; font-family: 'Inter', sans-serif;
+      color: var(--grey-800); background: #fff; outline: none;
+      transition: border-color .15s;
+      appearance: none;
+    }
+    .fl-input:focus, .fl-select:focus { border-color: var(--blue-500); }
+    .fl-label {
+      position: absolute; left: 9px; top: -7px;
+      background: #fff; padding: 0 3px;
+      font-size: 11px; color: var(--grey-400);
+      pointer-events: none; line-height: 1.4;
+    }
+    .fl-select-wrap { position: relative; }
+    .fl-select-wrap::after {
+      content: '';
+      position: absolute; right: 12px; top: 50%;
+      transform: translateY(-50%);
+      width: 0; height: 0;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 5px solid var(--grey-400);
+      pointer-events: none;
+    }
+
+    /* Checkboxes */
+    .check-group { display: flex; flex-direction: column; gap: 12px; margin-bottom: 4px; }
+    .check-row { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; }
+    .check-row input[type="checkbox"] {
+      width: 16px; height: 16px; flex-shrink: 0;
+      margin-top: 2px; accent-color: var(--blue-500); cursor: pointer;
+    }
+    .check-label { font-size: 13px; color: var(--grey-700); line-height: 1.5; }
+    .check-label ul { margin: 4px 0 0 16px; }
+    .check-label ul li { font-size: 12px; color: var(--grey-500); margin-bottom: 2px; }
+
+    /* Checkout buttons */
+    .checkout-actions {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      margin-top: 24px; gap: 12px;
+    }
+    .btn-back {
+      height: 42px; padding: 0 20px;
+      background: #fff; color: var(--grey-700);
+      border: 1.5px solid var(--card-border);
+      border-radius: 4px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px; font-weight: 600;
+      cursor: pointer; display: flex; align-items: center; gap: 7px;
+      transition: border-color .15s;
+    }
+    .btn-back:hover { border-color: var(--grey-300); }
+    .btn-buy {
+      height: 42px; padding: 0 28px;
+      background: var(--blue-500); color: #fff;
+      border: none; border-radius: 4px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px; font-weight: 600;
+      cursor: pointer; display: flex; align-items: center; gap: 8px;
+      transition: background .15s;
+      position: relative;
+    }
+    .btn-buy:hover { background: var(--blue-600); }
+    .btn-buy.loading { color: transparent; pointer-events: none; }
+    .btn-buy.loading::after {
+      content: ''; position: absolute;
+      width: 16px; height: 16px;
+      border: 2px solid rgba(255,255,255,.35);
+      border-top-color: #fff; border-radius: 50%;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      animation: spin .7s linear infinite;
+    }
+    @keyframes spin { to { transform: translate(-50%,-50%) rotate(360deg); } }
+
+    /* ─── FOOTER ─── */
+    .site-footer {
+      background: #fff;
+      border-top: 1px solid var(--grey-50);
+      padding: 20px 24px;
+      flex-shrink: 0;
+    }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center; gap: 16px;
+    }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+    .footer-links a, .footer-copy {
+      font-size: 12px; color: var(--grey-400);
+      text-decoration: none;
+    }
+    .footer-links a:hover { color: var(--grey-600); text-decoration: underline; }
+    .footer-copy { font-size: 12px; color: var(--grey-400); }
+
+    .footer-right { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+    .payment-badges { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    .pay-badge {
+      height: 22px; padding: 0 8px;
+      border: 1px solid #dde1e7; border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 9px; font-weight: 700; letter-spacing: .04em;
+      background: #fff;
+    }
+    .pay-visa   { color: #1a1f71; }
+    .pay-mc     { color: #eb001b; }
+    .pay-amex   { color: #007bc1; }
+    .pay-diners { color: #004a97; }
+    .pay-maestro{ color: #0099cc; }
+    .pay-secure { color: #00822b; font-size: 8px; }
+
+    /* ─── TOAST ─── */
+    .toast {
+      position: fixed; bottom: 28px; right: 28px;
+      width: 400px; max-width: calc(100vw - 40px);
+      background: #fff; border: 1px solid; border-radius: 8px;
+      padding: 14px 16px; display: flex; align-items: flex-start; gap: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.10);
+      opacity: 0; transform: translateY(10px);
+      transition: opacity .25s, transform .25s;
+      pointer-events: none; z-index: 999;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .toast.success { border-color: #22c55e; background: #f0fdf4; }
+    .toast.success .toast-icon { color: #16a34a; }
+    .toast.success .toast-title { color: #15803d; }
+    .toast.success .toast-desc { color: #16a34a; }
+    .toast.error { border-color: #ef4444; background: #fff5f5; }
+    .toast.error .toast-icon { color: #dc2626; }
+    .toast.error .toast-title { color: #dc2626; }
+    .toast.error .toast-desc { color: #ef4444; }
+    .toast-icon { flex-shrink: 0; display: flex; padding-top: 1px; }
+    .toast-body { flex: 1; }
+    .toast-title { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
+    .toast-desc  { font-size: 13px; line-height: 1.5; }
+    .toast-close {
+      background: none; border: none; cursor: pointer;
+      font-size: 18px; opacity: .5; transition: opacity .15s;
+      font-family: 'Inter', sans-serif; padding: 0; line-height: 1;
+    }
+    .toast-close:hover { opacity: 1; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .cards-extra { grid-template-columns: repeat(2, 1fr); }
+      .checkout-wrap { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .cards-current { grid-template-columns: 1fr; }
+      .cards-extra   { grid-template-columns: 1fr; }
+      .form-row      { grid-template-columns: 1fr; }
+      .container     { padding: 20px 16px 48px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── HEADER ─── -->
+<header class="site-nav">
+  <a class="oryx-logo" href="#">
+    <!-- ORYX animal icon -->
+    <svg width="30" height="18" viewBox="5 1 36 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M22.1298 18.8358L21.9312 11.5696L25.4898 7.29102L27.8567 18.0248L22.1298 18.8358Z" fill="#e53935"/>
+      <path d="M31.2498 4.1543L32.1104 12.5295L32.4829 8.2343L31.2498 4.1543Z" fill="#e53935"/>
+      <path d="M32.1105 12.5295L27.8484 18.0577L28.6429 18.7943L35.3049 11.4453L32.1105 12.5295Z" fill="#e53935"/>
+      <path d="M33.7739 14.8384L34.2291 15.9143L36.9436 15.666L35.305 11.4453L33.7739 14.8384Z" fill="#e53935"/>
+      <path d="M22.0056 11.4619L13.887 18.5047L15.509 11.5943L22.0056 11.4619Z" fill="#e53935"/>
+      <path d="M33.1035 3.12819C25.8207 1.60543 19.2166 5.16405 19.2166 5.16405C27.9724 2.59025 31.2497 4.13784 31.2497 4.13784L33.1035 3.12819Z" fill="#e53935"/>
+      <path d="M10.4441 13.5557L8.08545 17.8012L13.8868 18.5046L10.4441 13.5557Z" fill="#e53935"/>
+      <mask id="pm0" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="25" y="4" width="8" height="15"><path d="M31.2497 4.1626L32.1104 12.5295L27.8484 18.0578L25.4897 7.29915L31.2497 4.1626Z" fill="white"/></mask>
+      <g mask="url(#pm0)"><path d="M25.5655 3.46428L24.0229 17.8979L32.038 18.7545L33.5805 4.32084L25.5655 3.46428Z" fill="#e53935"/></g>
+      <mask id="pm1" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="31" y="3" width="7" height="6"><path d="M32.4829 8.23438L37.5477 7.24955L37.7132 5.69369L33.0704 3.12817L31.2498 4.15438L32.4829 8.23438Z" fill="white"/></mask>
+      <g mask="url(#pm1)"><path d="M35.2968 0.00198832L28.7815 5.0376L33.6703 11.363L40.1857 6.32741L35.2968 0.00198832Z" fill="#e53935"/></g>
+      <mask id="pm2" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="28" y="11" width="8" height="8"><path d="M35.3049 11.4453L28.6428 18.7943L33.7739 14.8384L35.3049 11.4453Z" fill="white"/></mask>
+      <g mask="url(#pm2)"><path d="M29.322 9.42351L26.4033 18.0464L34.6186 20.8271L37.5373 12.2042L29.322 9.42351Z" fill="#e53935"/></g>
+      <mask id="pm3" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="32" y="15" width="5" height="5"><path d="M36.9434 15.666L34.2289 15.9143L32.6482 17.0067L32.8385 19.7377L36.9434 15.666Z" fill="white"/></mask>
+      <g mask="url(#pm3)"><path d="M32.6526 15.4891L32.4822 19.7312L36.9393 19.9102L37.1097 15.6681L32.6526 15.4891Z" fill="#e53935"/></g>
+      <mask id="pm4" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="13" y="11" width="10" height="8"><path d="M22.0056 11.4619L13.887 18.5047L22.1297 18.8357L22.0056 11.4619Z" fill="white"/></mask>
+      <g mask="url(#pm4)"><path d="M13.9832 10.5846L13.1108 18.7478L22.0311 19.7011L22.9035 11.5379L13.9832 10.5846Z" fill="#e53935"/></g>
+      <mask id="pm5" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="10" y="11" width="6" height="8"><path d="M10.4441 13.5559L13.8869 18.5048L15.5089 11.5945L10.4441 13.5559Z" fill="white"/></mask>
+      <g mask="url(#pm5)"><path d="M10.7411 10.3995L8.80762 18.0969L15.2048 19.7038L17.1382 12.0063L10.7411 10.3995Z" fill="#e53935"/></g>
+    </svg>
+    <div class="oryx-name">
+      <span class="top">ORYX'S</span>
+      <span class="bot">ASSISTANCE</span>
+    </div>
+  </a>
+</header>
+
+<!-- ─── MAIN ─── -->
+<main>
+
+<!-- ══════════ STEP 1: Product selection ══════════ -->
+<div id="step1">
+  <div class="container">
+
+    <!-- Hero -->
+    <div class="hero">
+      <h1>Pametan odabir, Katarina!</h1>
+      <p>Sada Vas dijeli samo jedan korak do nastavka korištenja svih pogodnosti koje ste imali unutar vašeg ASIST+ članstva.<br>
+      U nastavku potvrdite Vaše trenutačne pakete ili nadogradite postojeće s novima. Odaberite pakete koji Vam najviše odgovaraju, kliknite "Nastavite na plaćanje" i Vaša obnova će biti gotova za samo nekoliko trenutaka!</p>
+      <p class="hero-meta">Vaša prodajna mreža ORYX | Slatina</p>
+    </div>
+
+    <!-- Current memberships -->
+    <p class="section-label">Vaša trenutna ASIST+ članstva:</p>
+    <div class="cards-current">
+
+      <div class="card selected" data-id="pnc-premium" data-name="Pomoć na cesti – Premium" data-price="19,91">
+        <div class="card-img">
+          <!-- Van + person illustration -->
+          <svg viewBox="0 0 120 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8" y="35" width="72" height="36" rx="4" fill="#e8edf2"/>
+            <rect x="8" y="35" width="26" height="36" rx="4" fill="#d0d8e4"/>
+            <rect x="12" y="39" width="18" height="14" rx="2" fill="#a8c4d4"/>
+            <circle cx="22" cy="76" r="8" fill="#555"/>
+            <circle cx="22" cy="76" r="4" fill="#bbb"/>
+            <circle cx="64" cy="76" r="8" fill="#555"/>
+            <circle cx="64" cy="76" r="4" fill="#bbb"/>
+            <rect x="8" y="62" width="72" height="9" fill="#d0d8e4"/>
+            <!-- Red stripe -->
+            <rect x="8" y="48" width="72" height="5" fill="#e53935"/>
+            <!-- Person -->
+            <circle cx="96" cy="38" r="7" fill="#f4c8a0"/>
+            <rect x="90" y="47" width="12" height="22" rx="3" fill="#e53935"/>
+            <rect x="88" y="50" width="5" height="14" rx="2" fill="#e53935"/>
+            <rect x="97" y="50" width="5" height="14" rx="2" fill="#e53935"/>
+            <rect x="91" y="67" width="5" height="12" rx="2" fill="#555"/>
+            <rect x="97" y="67" width="5" height="12" rx="2" fill="#555"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-name">Pomoć na cesti</span>
+            <span class="badge badge-premium">Premium</span>
+          </div>
+          <div class="card-price">19,91 EUR <span>/god</span></div>
+          <div class="card-foot">
+            <button class="link-more" type="button">Više o paketu</button>
+            <button class="btn-select selected-btn" type="button">Odabrano</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-id="medins-basic" data-name="Medins" data-price="14,60">
+        <div class="card-img">
+          <!-- Ambulance illustration -->
+          <svg viewBox="0 0 120 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="38" width="75" height="34" rx="4" fill="#e8edf2"/>
+            <rect x="10" y="38" width="22" height="34" rx="3" fill="#d0d8e4"/>
+            <rect x="13" y="42" width="14" height="12" rx="2" fill="#a8c4d4"/>
+            <circle cx="23" cy="76" r="8" fill="#555"/>
+            <circle cx="23" cy="76" r="4" fill="#bbb"/>
+            <circle cx="67" cy="76" r="8" fill="#555"/>
+            <circle cx="67" cy="76" r="4" fill="#bbb"/>
+            <rect x="10" y="62" width="75" height="9" fill="#d0d8e4"/>
+            <!-- Cross symbol -->
+            <rect x="48" y="45" width="18" height="6" rx="2" fill="#e53935"/>
+            <rect x="53" y="40" width="6" height="16" rx="2" fill="#e53935"/>
+            <!-- Red stripe -->
+            <rect x="32" y="47" width="53" height="4" fill="#e53935" opacity=".4"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-name">Medins</span>
+            <span class="badge badge-basic">Basic</span>
+          </div>
+          <div class="card-price">14,60 EUR <span>/god</span></div>
+          <div class="card-foot">
+            <button class="link-more" type="button">Više o paketu</button>
+            <button class="btn-select unselected" type="button">Odaberi</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /cards-current -->
+
+    <!-- Additional packages -->
+    <p class="section-label">Odaberite neki od dodatnih paketa:</p>
+    <div class="cards-extra">
+
+      <!-- Pomoć na cesti Plus -->
+      <div class="card" data-id="pnc-plus" data-name="Pomoć na cesti" data-price="10,82">
+        <div class="card-img">
+          <svg viewBox="0 0 120 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="12" y="38" width="68" height="32" rx="4" fill="#e8edf2"/>
+            <rect x="12" y="38" width="22" height="32" rx="3" fill="#d0d8e4"/>
+            <rect x="15" y="42" width="14" height="11" rx="2" fill="#a8c4d4"/>
+            <circle cx="22" cy="73" r="7" fill="#555"/>
+            <circle cx="22" cy="73" r="3.5" fill="#bbb"/>
+            <circle cx="61" cy="73" r="7" fill="#555"/>
+            <circle cx="61" cy="73" r="3.5" fill="#bbb"/>
+            <rect x="12" y="60" width="68" height="8" fill="#d0d8e4"/>
+            <rect x="12" y="47" width="68" height="4" fill="#e53935"/>
+            <!-- Road -->
+            <rect x="0" y="80" width="120" height="10" fill="#ccc"/>
+            <rect x="52" y="83" width="16" height="3" fill="#fff"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-name">Pomoć na cesti</span>
+            <span class="badge badge-plus">Plus</span>
+          </div>
+          <div class="card-price">10,82 EUR <span>/god</span></div>
+          <div class="card-foot">
+            <button class="link-more" type="button">Više o paketu</button>
+            <button class="btn-select unselected" type="button">Odaberi</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pomoć u kući -->
+      <div class="card" data-id="puk" data-name="Pomoć u kući" data-price="11,95">
+        <div class="card-img">
+          <svg viewBox="0 0 120 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- House -->
+            <polygon points="60,12 100,42 20,42" fill="#d0d8e4"/>
+            <rect x="25" y="42" width="70" height="38" fill="#e8edf2"/>
+            <rect x="48" y="58" width="18" height="22" rx="2" fill="#a8c4d4"/>
+            <rect x="30" y="48" width="14" height="14" rx="2" fill="#a8c4d4"/>
+            <rect x="70" y="48" width="14" height="14" rx="2" fill="#a8c4d4"/>
+            <!-- Person -->
+            <circle cx="104" cy="52" r="6" fill="#f4c8a0"/>
+            <rect x="99" y="60" width="10" height="18" rx="2.5" fill="#e53935"/>
+            <rect x="97" y="62" width="4" height="12" rx="2" fill="#e53935"/>
+            <rect x="103" y="62" width="4" height="12" rx="2" fill="#e53935"/>
+            <rect x="99" y="76" width="4" height="10" rx="2" fill="#555"/>
+            <rect x="104" y="76" width="4" height="10" rx="2" fill="#555"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-name">Pomoć u kući</span>
+          </div>
+          <div class="card-price">11,95 EUR <span>/god</span></div>
+          <div class="card-foot">
+            <button class="link-more" type="button">Više o paketu</button>
+            <button class="btn-select unselected" type="button">Odaberi</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobiexpress -->
+      <div class="card" data-id="mobix" data-name="Mobiexpress" data-price="22,56">
+        <div class="card-img">
+          <svg viewBox="0 0 120 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Phone -->
+            <rect x="36" y="10" width="32" height="56" rx="6" fill="#d0d8e4"/>
+            <rect x="40" y="18" width="24" height="36" rx="2" fill="#a8c4d4"/>
+            <circle cx="52" cy="60" r="3" fill="#888"/>
+            <!-- Signal waves -->
+            <path d="M68 28 Q80 28 80 38 Q80 48 68 48" stroke="#e53935" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <path d="M68 22 Q88 22 88 38 Q88 54 68 54" stroke="#e53935" stroke-width="2" fill="none" stroke-linecap="round" opacity=".5"/>
+            <!-- Person beneath -->
+            <circle cx="52" cy="78" r="5" fill="#f4c8a0"/>
+            <rect x="47" y="85" width="10" height="0" rx="2" fill="#888"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-name">Mobiexpress</span>
+          </div>
+          <div class="card-price">22,56 EUR <span>/god</span></div>
+          <div class="card-foot">
+            <button class="link-more" type="button">Više o paketu</button>
+            <button class="btn-select unselected" type="button">Odaberi</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Autopass -->
+      <div class="card" data-id="autopass" data-name="Autopass" data-price="11,95">
+        <div class="card-img">
+          <svg viewBox="0 0 120 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Car -->
+            <rect x="15" y="45" width="70" height="28" rx="4" fill="#e8edf2"/>
+            <path d="M25 45 L35 28 L75 28 L85 45Z" fill="#d0d8e4"/>
+            <rect x="37" y="31" width="34" height="14" rx="2" fill="#a8c4d4"/>
+            <circle cx="28" cy="76" r="8" fill="#555"/>
+            <circle cx="28" cy="76" r="4" fill="#bbb"/>
+            <circle cx="72" cy="76" r="8" fill="#555"/>
+            <circle cx="72" cy="76" r="4" fill="#bbb"/>
+            <!-- Barrier/pass gate -->
+            <rect x="94" y="25" width="4" height="50" fill="#888"/>
+            <rect x="94" y="28" width="22" height="5" rx="2" fill="#e53935"/>
+            <rect x="97" y="25" width="3" height="8" fill="#e53935" opacity=".3"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-name">Autopass</span>
+          </div>
+          <div class="card-price">11,95 EUR <span>/god</span></div>
+          <div class="card-foot">
+            <button class="link-more" type="button">Više o paketu</button>
+            <button class="btn-select unselected" type="button">Odaberi</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Drugi Auto -->
+      <div class="card" data-id="drugi-auto" data-name="Drugi Auto" data-price="11,69">
+        <div class="card-img">
+          <svg viewBox="0 0 120 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Two cars stacked/overlapping -->
+            <rect x="5" y="48" width="62" height="24" rx="3" fill="#e8edf2" opacity=".7"/>
+            <path d="M12 48 L20 34 L57 34 L65 48Z" fill="#d0d8e4" opacity=".7"/>
+            <!-- Front car -->
+            <rect x="18" y="52" width="68" height="26" rx="4" fill="#e8edf2"/>
+            <path d="M26 52 L36 37 L76 37 L86 52Z" fill="#d0d8e4"/>
+            <rect x="38" y="40" width="36" height="12" rx="2" fill="#a8c4d4"/>
+            <circle cx="30" cy="80" r="7" fill="#555"/>
+            <circle cx="30" cy="80" r="3.5" fill="#bbb"/>
+            <circle cx="76" cy="80" r="7" fill="#555"/>
+            <circle cx="76" cy="80" r="3.5" fill="#bbb"/>
+            <!-- Key icon -->
+            <circle cx="104" cy="30" r="8" fill="none" stroke="#888" stroke-width="2.5"/>
+            <circle cx="104" cy="30" r="3.5" fill="none" stroke="#888" stroke-width="2.5"/>
+            <rect x="111" y="28" width="10" height="3" rx="1" fill="#888"/>
+            <rect x="118" y="31" width="3" height="5" rx="1" fill="#888"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-name">Drugi Auto</span>
+          </div>
+          <div class="card-price">11,69 EUR <span>/god</span></div>
+          <div class="card-foot">
+            <button class="link-more" type="button">Više o paketu</button>
+            <button class="btn-select unselected" type="button">Odaberi</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Medins 3 paketa -->
+      <div class="card" data-id="medins-3" data-name="Medins – 3 paketa" data-price="23,23">
+        <div class="card-img">
+          <svg viewBox="0 0 120 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8" y="36" width="75" height="34" rx="4" fill="#e8edf2"/>
+            <rect x="8" y="36" width="22" height="34" rx="3" fill="#d0d8e4"/>
+            <rect x="11" y="40" width="14" height="12" rx="2" fill="#a8c4d4"/>
+            <circle cx="21" cy="73" r="8" fill="#555"/>
+            <circle cx="21" cy="73" r="4" fill="#bbb"/>
+            <circle cx="65" cy="73" r="8" fill="#555"/>
+            <circle cx="65" cy="73" r="4" fill="#bbb"/>
+            <rect x="8" y="60" width="75" height="9" fill="#d0d8e4"/>
+            <rect x="42" y="42" width="18" height="6" rx="2" fill="#e53935"/>
+            <rect x="47" y="37" width="6" height="16" rx="2" fill="#e53935"/>
+            <!-- 3 dots for "3 paketa" -->
+            <circle cx="92" cy="36" r="4" fill="#7e22ce" opacity=".6"/>
+            <circle cx="104" cy="36" r="4" fill="#7e22ce" opacity=".6"/>
+            <circle cx="116" cy="36" r="4" fill="#7e22ce" opacity=".6"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-name">Medins</span>
+            <span class="badge badge-multi">3 paketa</span>
+          </div>
+          <div class="card-price">23,23 EUR <span>/god</span></div>
+          <div class="card-foot">
+            <button class="link-more" type="button">Više o paketu</button>
+            <button class="btn-select unselected" type="button">Odaberi</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Medins Premium -->
+      <div class="card" data-id="medins-prem" data-name="Medins – Premium" data-price="33,59">
+        <div class="card-img">
+          <svg viewBox="0 0 120 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8" y="34" width="78" height="36" rx="4" fill="#e8edf2"/>
+            <rect x="8" y="34" width="24" height="36" rx="3" fill="#d0d8e4"/>
+            <rect x="11" y="38" width="16" height="13" rx="2" fill="#a8c4d4"/>
+            <circle cx="23" cy="74" r="8" fill="#555"/>
+            <circle cx="23" cy="74" r="4" fill="#bbb"/>
+            <circle cx="68" cy="74" r="8" fill="#555"/>
+            <circle cx="68" cy="74" r="4" fill="#bbb"/>
+            <rect x="8" y="60" width="78" height="10" fill="#d0d8e4"/>
+            <rect x="44" y="40" width="18" height="6" rx="2" fill="#e53935"/>
+            <rect x="49" y="35" width="6" height="16" rx="2" fill="#e53935"/>
+            <rect x="8" y="49" width="78" height="4" fill="#e53935" opacity=".35"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-name">Medins</span>
+            <span class="badge badge-premium">Premium</span>
+          </div>
+          <div class="card-price">33,59 EUR <span>/god</span></div>
+          <div class="card-foot">
+            <button class="link-more" type="button">Više o paketu</button>
+            <button class="btn-select unselected" type="button">Odaberi</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /cards-extra -->
+
+    <!-- Action button -->
+    <div class="actions-bar">
+      <button class="btn-next" id="btnNext" type="button">
+        Nastavite na plaćanje
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+    </div>
+
+  </div><!-- /container -->
+</div><!-- /step1 -->
+
+
+<!-- ══════════ STEP 2: Checkout ══════════ -->
+<div id="step2">
+  <div class="container">
+
+    <div class="checkout-wrap">
+
+      <!-- Left: Order summary -->
+      <div class="checkout-card">
+        <h2>Odabrane usluge</h2>
+        <div class="summary-items" id="summaryItems">
+          <!-- populated by JS -->
+        </div>
+        <div class="summary-total-row">
+          <span class="summary-total-label">Ukupno:</span>
+          <span class="summary-total-price" id="summaryTotal">0,00 EUR/GOD</span>
+        </div>
+
+        <!-- Payment logos small -->
+        <div style="margin-top:20px; padding-top:16px; border-top:1px solid #f0f0f0;">
+          <div class="payment-badges">
+            <div class="pay-badge pay-visa">VISA</div>
+            <div class="pay-badge pay-mc">MC</div>
+            <div class="pay-badge pay-maestro">Maestro</div>
+            <div class="pay-badge pay-amex">AMEX</div>
+            <div class="pay-badge pay-diners">Diners</div>
+            <div class="pay-badge pay-secure">Verified</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Personal info form -->
+      <div class="checkout-card">
+        <h2>Osnovne informacije</h2>
+
+        <div class="form-fields">
+          <div class="form-row">
+            <div class="fl-group">
+              <input class="fl-input" id="imePrezime" type="text" placeholder=" " value="Katarina Milaković">
+              <span class="fl-label">Ime i prezime</span>
+            </div>
+          </div>
+
+          <div class="form-row single">
+            <div class="fl-group fl-select-wrap">
+              <select class="fl-select" id="ulicaBroj">
+                <option>Vrh Visoke 1</option>
+                <option>Druga ulica 5</option>
+              </select>
+              <span class="fl-label">Ulica i broj</span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="fl-group">
+              <input class="fl-input" id="postBroj" type="text" placeholder=" " value="11111">
+              <span class="fl-label">Poštanski broj</span>
+            </div>
+            <div class="fl-group">
+              <input class="fl-input" id="grad" type="text" placeholder=" " value="Split">
+              <span class="fl-label">Grad</span>
+            </div>
+          </div>
+
+          <div class="form-row single">
+            <div class="fl-group">
+              <input class="fl-input" id="oib" type="text" placeholder=" " value="1234567890">
+              <span class="fl-label">OIB</span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="fl-group">
+              <input class="fl-input" id="telefon" type="tel" placeholder=" " value="+385977960178">
+              <span class="fl-label">Telefon</span>
+            </div>
+            <div class="fl-group">
+              <input class="fl-input" id="email" type="email" placeholder=" " value="katarina.milakovic01@gmail.com">
+              <span class="fl-label">Email</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="check-group">
+          <label class="check-row">
+            <input type="checkbox" id="chkR1">
+            <span class="check-label">Trebam R1 račun</span>
+          </label>
+          <label class="check-row">
+            <input type="checkbox" id="chkUvjeti">
+            <span class="check-label">
+              Potvrđujem da*:
+              <ul>
+                <li>sam upoznat/a sa Predugovornim obavijestima za učlanjenje u ORYX Asistenciju;</li>
+                <li>sam upoznat/a i prihvaćam Opće uvjete</li>
+              </ul>
+            </span>
+          </label>
+        </div>
+
+        <!-- Mini summary in form -->
+        <div style="margin-top:24px; padding-top:20px; border-top:1px solid #f0f0f0;">
+          <p class="section-label">Odabrane usluge</p>
+          <div id="summaryItemsMini"></div>
+          <div class="summary-total-row" style="padding-top:10px">
+            <span class="summary-total-label">Ukupno:</span>
+            <span class="summary-total-price" id="summaryTotalMini">0,00 EUR/GOD</span>
+          </div>
+        </div>
+
+        <div class="checkout-actions">
+          <button class="btn-back" id="btnBack" type="button">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            Natrag na usluge
+          </button>
+          <button class="btn-buy" id="btnBuy" type="button">
+            Kupi
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+      </div><!-- /checkout-card form -->
+
+    </div><!-- /checkout-wrap -->
+  </div><!-- /container -->
+</div><!-- /step2 -->
+
+</main>
+
+<!-- ─── FOOTER ─── -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-links">
+      <a href="#">Predugorvorne obavjesti</a>
+      <a href="#">Izjava o zaštiti privatnosti</a>
+      <a href="#">Izjava o korištenju Monri WSPay-a</a>
+      <span class="footer-copy">© ORYX Asistencija | Zubak grupa d.o.o.</span>
+    </div>
+    <div class="footer-right">
+      <div class="payment-badges">
+        <div class="pay-badge pay-amex" style="font-size:8px;letter-spacing:.02em">American<br>Express</div>
+        <div class="pay-badge" style="color:#005BAC;font-size:8px">WSPay</div>
+        <div class="pay-badge pay-visa">VISA</div>
+        <div class="pay-badge pay-mc">MC</div>
+        <div class="pay-badge pay-maestro">Maestro</div>
+        <div class="pay-badge pay-diners">Diners</div>
+        <div class="pay-badge pay-secure" style="font-size:8px">Verified<br>by Visa</div>
+        <div class="pay-badge pay-secure" style="color:#eb001b;font-size:8px">MC<br>SecureCode</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Toast -->
+<div class="toast" id="toast" role="alert">
+  <span class="toast-icon" id="toastIcon"></span>
+  <div class="toast-body">
+    <div class="toast-title" id="toastTitle"></div>
+    <div class="toast-desc"  id="toastDesc"></div>
+  </div>
+  <button class="toast-close" id="toastClose" type="button">&#x2715;</button>
+</div>
+
+<script>
+  /* ── State ── */
+  const selected = new Map(); // id → {name, price}
+
+  // Pre-select "Pomoć na cesti – Premium"
+  selected.set('pnc-premium', { name: 'Pomoć na cesti – Premium', price: 19.91 });
+
+  /* ── Card toggle ── */
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', e => {
+      if (e.target.closest('.link-more')) return; // ignore info link clicks
+      const id    = card.dataset.id;
+      const name  = card.dataset.name;
+      const price = parseFloat(card.dataset.price.replace(',', '.'));
+      const btn   = card.querySelector('.btn-select');
+
+      if (selected.has(id)) {
+        selected.delete(id);
+        card.classList.remove('selected');
+        btn.classList.replace('selected-btn', 'unselected');
+        btn.textContent = 'Odaberi';
+      } else {
+        selected.set(id, { name, price });
+        card.classList.add('selected');
+        btn.classList.replace('unselected', 'selected-btn');
+        btn.textContent = 'Odabrano';
+      }
+    });
+  });
+
+  /* ── Step navigation ── */
+  const step1   = document.getElementById('step1');
+  const step2   = document.getElementById('step2');
+  const btnNext = document.getElementById('btnNext');
+  const btnBack = document.getElementById('btnBack');
+
+  function renderSummary() {
+    const items = [...selected.values()];
+    const total = items.reduce((s, i) => s + i.price, 0);
+    const totalFmt = total.toFixed(2).replace('.', ',') + ' EUR/GOD';
+
+    const html = items.length === 0
+      ? '<p style="font-size:13px;color:#888;padding:8px 0">Nema odabranih usluga.</p>'
+      : items.map(i => `
+          <div class="summary-row">
+            <div>
+              <div class="summary-item-name">${i.name}</div>
+              <a class="summary-item-link" href="#">Opći uvjeti</a>
+            </div>
+            <div class="summary-item-price">${i.price.toFixed(2).replace('.', ',')} EUR/GOD</div>
+          </div>`).join('');
+
+    document.getElementById('summaryItems').innerHTML = html;
+    document.getElementById('summaryItemsMini').innerHTML = html;
+    document.getElementById('summaryTotal').textContent = totalFmt;
+    document.getElementById('summaryTotalMini').textContent = totalFmt;
+  }
+
+  btnNext.addEventListener('click', () => {
+    if (selected.size === 0) {
+      showToast('Odaberite uslugu', 'Molimo odaberite barem jedan paket za nastavak.', 'error');
+      return;
+    }
+    renderSummary();
+    step1.style.display = 'none';
+    step2.style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  btnBack.addEventListener('click', () => {
+    step2.style.display = 'none';
+    step1.style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  /* ── Buy ── */
+  document.getElementById('btnBuy').addEventListener('click', () => {
+    if (!document.getElementById('chkUvjeti').checked) {
+      showToast('Uvjeti nisu prihvaćeni', 'Molimo potvrdite da ste upoznati s uvjetima korištenja.', 'error');
+      return;
+    }
+    const requiredFields = ['imePrezime', 'postBroj', 'grad', 'oib', 'telefon', 'email'];
+    const empty = requiredFields.find(id => !document.getElementById(id).value.trim());
+    if (empty) {
+      showToast('Nepotpuni podaci', 'Molimo popunite sva obavezna polja.', 'error');
+      document.getElementById(empty).focus();
+      return;
+    }
+    const btn = document.getElementById('btnBuy');
+    btn.classList.add('loading');
+    setTimeout(() => {
+      btn.classList.remove('loading');
+      showToast('Kupnja uspješna!', 'Vaši paketi su aktivirani. Potvrda je poslana na email.', 'success');
+    }, 1000);
+  });
+
+  /* ── Toast ── */
+  const toast      = document.getElementById('toast');
+  const toastIcon  = document.getElementById('toastIcon');
+  const toastTitle = document.getElementById('toastTitle');
+  const toastDesc  = document.getElementById('toastDesc');
+  let toastTimer;
+
+  const ICON_OK  = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11.5 14.5 16 9.5"/></svg>`;
+  const ICON_ERR = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`;
+
+  function showToast(title, desc, type = 'success') {
+    clearTimeout(toastTimer);
+    toast.className = 'toast ' + type;
+    toastIcon.innerHTML  = type === 'success' ? ICON_OK : ICON_ERR;
+    toastTitle.textContent = title;
+    toastDesc.textContent  = desc;
+    toast.classList.add('show');
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 4500);
+  }
+  document.getElementById('toastClose').addEventListener('click', () => {
+    clearTimeout(toastTimer);
+    toast.classList.remove('show');
+  });
+
+  /* ── Info link ── */
+  document.querySelectorAll('.link-more').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      showToast('Više informacija', 'Detalji o paketu trenutno nisu dostupni.', 'error');
+    });
+  });
+</script>
+</body>
+</html>
